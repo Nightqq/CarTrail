@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/common_action_bar"></include>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:text="管理员"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:text="民警"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:text="驾驶员"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="车辆进入"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/carin_admin"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/carin_police"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/carin_driver"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="设备安装"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/equipinstall_admin"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/equipinstall_police"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/equipinstall_driver"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="到达锁车"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/lockcar_admin"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/lockcar_police"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/lockcar_driver"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="开锁拆除"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/openlock_admin"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/openlock_police"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/openlock_driver"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="交还设备"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/returnequip_admin"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/returnequip_police"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/returnequip_driver"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_ddd"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="刷卡类型"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:textSize="@dimen/setting_item_text"
+                android:text="ID" />
+
+            <RadioButton
+                android:textSize="@dimen/setting_item_text"
+                android:id="@+id/rb_ic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="IC" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_ddd"></View>
+</LinearLayout>

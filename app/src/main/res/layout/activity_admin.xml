@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/setting_background"
+    android:orientation="vertical"
+    tools:context="com.zxdz.car.main.view.setting.AdminActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/admin_toolbar"
+        style="@style/Base.Widget.AppCompat.SearchView.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_high"
+        android:background="@color/primary" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="终端机管理人员"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/toobar_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:text="添加"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_high"
+        android:layout_marginTop="5dp"
+        android:background="@color/setting_item_bg"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="终端机序号："
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/setting_item_text" />
+
+        <TextView
+            android:id="@+id/admin_terminal_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="终端机序号"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/setting_item_text" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_high"
+        android:background="@color/setting_item_bg"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="管理人员姓名"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/setting_item_text" />
+        <View
+            android:background="@color/setting_background"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="管理人员卡号"
+            android:textColor="@color/setting_text_color"
+            android:textSize="@dimen/setting_item_text" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/admin_rv"
+        android:background="@color/setting_item_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+</LinearLayout>

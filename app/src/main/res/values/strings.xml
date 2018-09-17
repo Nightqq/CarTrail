@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">监狱车辆管理系统</string>
+    <string name="base_cancel">取消</string>
+    <string name="base_ok">确定</string>
+    <string name="share_share">分享到:</string>
+    <string name="base_refresh_net">重试</string>
+    <string name="setting">系统设置</string>
+    <string name="admin_num">admin账户</string>
+    <string name="area_setting">区域设定</string>
+    <string name="swipe_setting">刷卡设定</string>
+    <string name="call_roll">点名信息</string>
+    <string name="setting_server_IP">设定服务器ip</string>
+    <string name="change_police">跟换带领干警</string>
+    <string name="gps_interval">GPS上传间隔时间(单位:秒)</string>
+    <string-array name="car_ways">
+        <item>行驶路线1</item>
+        <item>行驶路线2</item>
+        <item>行驶路线3</item>
+        <item>行驶路线4</item>
+        <item>行驶路线5</item>
+    </string-array>
+
+    <string name="card_name_text">卡号：</string>
+    <string name="no_card_info_text">暂无信息</string>
+    <string name="card_auth_state_text">状态：</string>
+    <string name="card_auth_success_text">成功</string>
+    <string name="card_auth_fail_text">失败</string>
+    <string name="title_activity_open_lock">OpenLockActivity</string>
+    <string name="alarm_text">警号：</string>
+    <string name="dept_text">部门：</string>
+</resources>

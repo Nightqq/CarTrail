@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="font_larger">20sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_big">16sp</dimen>
+    <dimen name="font_normal">15sp</dimen>
+    <dimen name="font_snormal">14sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_tiny">10sp</dimen>
+    <dimen name="font_stiny">8sp</dimen>
+    <dimen name="spacing_huge">40dp</dimen>
+    <dimen name="spacing_large">30dp</dimen>
+    <dimen name="spacing_big">20dp</dimen>
+    <dimen name="spacing_normal">10dp</dimen>
+    <dimen name="spacing_small">6dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="corner_radius">3dp</dimen>
+    <dimen name="line_width">1dp</dimen>
+    <dimen name="normal_height">40dp</dimen>
+    <dimen name="toolbar_padding_top">24dp</dimen>
+    <dimen name="toolbar_high">48dp</dimen>
+    <dimen name="setting_item_high">40dp</dimen>
+    <dimen name="setting_item_text">24sp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="group_distance_5">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zxdz.car.main.view.lock.AuthBlueLinkActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/Auth_blue_toolbar"
+        style="@style/Base.Widget.AppCompat.SearchView.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_high"
+        android:background="@color/primary">
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="蓝牙锁连接"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/Auth_blue_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:text="跳过(测试)"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <ExpandableListView
+        android:visibility="gone"
+        android:id="@+id/Auth_blue_explv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:padding="30dp"
+            android:id="@+id/Auth_blue_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/blue_btn_bg_color"
+            android:gravity="center"
+            android:text="蓝牙正在扫描中，请稍等"
+            android:textColor="@color/black"
+            android:textSize="@dimen/setting_item_text" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/Auth_blue_bluesaomiao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="开"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/Auth_blue_enquir"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="关"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+</LinearLayout>

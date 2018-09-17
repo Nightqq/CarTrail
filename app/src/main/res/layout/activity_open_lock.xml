@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/open_lock_toolbar"
+        style="@style/Base.Widget.AppCompat.SearchView.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_high"
+        android:background="@color/primary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开关锁"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:padding="30dp"
+            android:id="@+id/open_lock_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/blue_btn_bg_color"
+            android:gravity="center"
+            android:text="请民警锁车"
+            android:textColor="@color/black"
+            android:textSize="@dimen/setting_item_text" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/open_lock_bluesaomiao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="扫描设备链接"
+            android:textColor="@color/white" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/open_lock_enquir"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="查询"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/open_lock_conc1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="快速连接锁1"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/open_lock_conc2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="快速连接锁2"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:visibility="gone"
+            android:id="@+id/open_lock_worked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="工作完成"
+            android:textColor="@color/white" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/open_lock_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/setting_item_text"
+            android:layout_weight="1"
+            android:background="@color/main_button_color"
+            android:text="开锁"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
