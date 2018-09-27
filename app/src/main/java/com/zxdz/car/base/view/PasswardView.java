@@ -23,7 +23,7 @@ public class PasswardView extends RelativeLayout {
     Context context;
 
     private String strPassword;     //输入的密码
-    private String correctPassword = "135790";
+    private String correctPassword = "123123";
     private TextView[] tvList;      //用数组保存6个TextView，为什么用数组？
     //因为就6个输入框不会变了，用数组内存申请固定空间，比List省空间（自己认为）
 

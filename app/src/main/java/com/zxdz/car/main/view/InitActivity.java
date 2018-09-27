@@ -1,16 +1,10 @@
 package com.zxdz.car.main.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-import android.util.Log;
+import android.os.Bundle;
 import android.widget.Button;
 
-import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -34,13 +28,14 @@ import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.model.domain.SettingInfo;
 import com.zxdz.car.main.model.domain.TerminalInfo;
 import com.zxdz.car.main.presenter.SettingInfoPresenter;
-import com.zxdz.car.main.utils.UploadInfoUtil;
-import com.zxdz.car.main.utils.WifiUtils;
+import com.zxdz.car.main.view.setting.PasswordValidataActivity;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.functions.Action1;
 
@@ -81,10 +76,11 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
                 } else {
                     initEquInfo();
                 }
+
+
             }
         });
     }
-
 
 
     /**
@@ -219,7 +215,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
                 PoliceInfoAllHelper.deleteAllPoliceInfoAllList();
                 List<PoliceInfoAll> dlgj = settingInfo.getDlgj();
                 if (dlgj != null) {//保存民警卡号到本地
-                    LogUtils.a("民警数量" + dlgj.size()+"卡号："+dlgj.get(0).getDLGJ_KH());
+                    LogUtils.a("民警数量" + dlgj.size() + "卡号：" + dlgj.get(0).getDLGJ_KH());
                     PoliceInfoAllHelper.savePoliceInfoAllListToDB(dlgj);
                 }
             }
@@ -261,5 +257,9 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         finish();
     }
 
-
+    @OnClick(R.id.init_setting)
+    public void onViewClicked() {
+        Intent intent = new Intent(this, PasswordValidataActivity.class);
+        startActivity(intent);
+    }
 }
