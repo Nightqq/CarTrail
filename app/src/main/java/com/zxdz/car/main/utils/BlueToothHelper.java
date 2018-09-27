@@ -62,7 +62,7 @@ public class BlueToothHelper extends BlueToothUtils {
     public void enquiriesState(EnquiriesStateListenter menquiriesState) {
         enquiriesStates(menquiriesState);
     }
- 
+
     //准备开锁
     public void openLock(OpenLockListenter mopenLock) {
         openLocks(mopenLock);
@@ -91,5 +91,10 @@ public class BlueToothHelper extends BlueToothUtils {
     //注销广播
     public void unRegister() {
         unregist();
+    }
+
+    //开启强拆报警
+    public void openCallPolices(openCallPoliceListener listener) {
+        openCallPolice(listener);
     }
 }

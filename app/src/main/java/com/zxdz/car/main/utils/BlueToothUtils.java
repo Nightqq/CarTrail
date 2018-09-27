@@ -305,7 +305,7 @@ public class BlueToothUtils {
             //String s = SwitchUtils.byte2HexStr(value);
             //LogUtils.a("返回的消息", s);
             if (stateCallPolice) {
-                Log.i("tagggg",value[1]+"");
+                Log.i("tagggg", value[1] + "");
                 if (value[1] == 0x46) {
                     isClosed = true;
                 } else if (value[1] == 0x43) {
@@ -367,25 +367,26 @@ public class BlueToothUtils {
                 }
                 break;
             case 0x43://刷卡返回
-                byte[] bytes = {bytes1[3], bytes1[4], bytes1[5], bytes1[6]};
-                final String s = SwitchUtils.byte2HexStr(bytes);
-                handler1.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        receivecardid.receiveCardID(s);
+                if (bytes1[1] == 0x43) {
+                    byte[] bytes = {bytes1[3], bytes1[4], bytes1[5], bytes1[6]};
+                    final String s = SwitchUtils.byte2HexStr(bytes);
+                    handler1.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            receivecardid.receiveCardID(s);
+                        }
+                    });
+                    break;
+                } else {
+                    if (bytes1[1] == 0x45) {//强拆报警
+                        openCallPolice.openCallPolice();
                     }
-                });
-                // LogUtils.a(tag, s.replaceAll(" ", ""));
-                break;
-            case 0x46://上锁成功
-                Log.i("tagggg",bytes1[1]+"");
-                if (bytes1[1] == 0x46) {
-                    closeLock.closedLock("上锁成功");
                 }
                 break;
-            case 0x45://锁被异常打开
-                LogUtils.a(tag, "77");
-                if (bytes1[1] == 0x45) {
+            case 0x46://上锁成功
+                Log.i("tagggg", bytes1[1] + "");
+                if (bytes1[1] == 0x46) {
+                    closeLock.closedLock("上锁成功");
                 }
                 break;
         }
@@ -551,5 +552,16 @@ public class BlueToothUtils {
 
     public interface receiveCardIDListener {
         void receiveCardID(String str);
+    }
+
+    public void openCallPolice(openCallPoliceListener openCallPolice) {
+        this.openCallPolice = openCallPolice;
+    }
+
+    //开启强拆报警
+    private openCallPoliceListener openCallPolice;
+
+    public interface openCallPoliceListener {
+        void openCallPolice();
     }
 }

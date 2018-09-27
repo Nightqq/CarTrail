@@ -122,6 +122,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     };
 
     private int step;
+    private boolean statecallpolice = false;
 
     @Override
     public int getLayoutId() {
@@ -139,7 +140,26 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
                 @Override
                 public void receiveCardID(String str) {
+                    if (statecallpolice) {//刷完卡解除报警
+                        audioPlayUtils.stop();
+                        statecallpolice = false;
+                        callPolice(2);
+//                        if (dialog != null) {
+//                            dialog.dismiss();
+//                        }
+                    }
                     showCardNumber(str);
+                }
+            });
+            //开启强拆报警监测
+            BlueToothHelper.getBlueHelp().openCallPolices(new BlueToothUtils.openCallPoliceListener() {
+                @Override
+                public void openCallPolice() {
+                    statecallpolice = true;
+                    //policeingunclick();
+                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
+                    audioPlayUtils.play(true);
+                    callPolice(1);
                 }
             });
         }
@@ -254,7 +274,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             CarTravelHelper.carTravelRecord.setDLGJ_KSSJ(new Date());
             CarTravelHelper.carTravelRecord.setDLGJ_KSKH(cardNum);
             CarTravelHelper.carTravelRecord.setZT(50);
-            CarTravelHelper.saveCarTravelRecordToDB( CarTravelHelper.carTravelRecord);
+            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
             App.SWIPE_STEP = 6;
             //上传主信息记录
             App.UPLOAD_STEP = 5;
@@ -286,7 +306,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             startService(intentService);
         } else if (i == 2) {//取消报警
             LogUtils.a("开始储存取消报警数据");
-            UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(),false);
+            UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
             warnInfoListByID.setFlag(true);
             UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
             startService(intentService);
