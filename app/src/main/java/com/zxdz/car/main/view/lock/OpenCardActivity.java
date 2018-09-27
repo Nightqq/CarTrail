@@ -147,6 +147,8 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 //                        if (dialog != null) {
 //                            dialog.dismiss();
 //                        }
+
+
                     }
                     showCardNumber(str);
                 }
