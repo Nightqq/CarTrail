@@ -147,8 +147,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 //                        if (dialog != null) {
 //                            dialog.dismiss();
 //                        }
-
-
                     }
                     showCardNumber(str);
                 }
@@ -157,11 +155,13 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             BlueToothHelper.getBlueHelp().openCallPolices(new BlueToothUtils.openCallPoliceListener() {
                 @Override
                 public void openCallPolice() {
-                    statecallpolice = true;
-                    //policeingunclick();
-                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
-                    audioPlayUtils.play(true);
-                    callPolice(1);
+                    if (!statecallpolice){
+                        statecallpolice = true;
+                        //policeingunclick();
+                        audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
+                        audioPlayUtils.play(true);
+                        callPolice(1);
+                    }
                 }
             });
         }
