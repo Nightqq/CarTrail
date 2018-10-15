@@ -78,13 +78,13 @@ public class ReadCardActivity extends BaseActivity {
     public void init() {
         mToolBar.setTitle("ID卡刷卡测试");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+        /*mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
         mToneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM, 100);
         RxView.clicks(mDeleteButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

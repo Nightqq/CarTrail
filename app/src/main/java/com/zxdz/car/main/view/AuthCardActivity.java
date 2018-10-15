@@ -121,13 +121,13 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         mPresenter = new PersionInfoPresenter(getApplicationContext(), this);
         intentService = new Intent(getApplicationContext(), UploadDataService.class);
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+       /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         registerSwipeCard();
         //值班人员刷管理员卡成功，下一步
         RxView.clicks(mSuccessButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

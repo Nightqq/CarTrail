@@ -68,13 +68,13 @@ public class RemoveEquipmentActivity extends BaseActivity {
 
         mToolBar.setTitle("等待拆除设备");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+      /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
         registerHeadsetPlugReceiver();
         audoManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);

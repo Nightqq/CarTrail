@@ -79,13 +79,13 @@ public class ReturnRefreshCardActivity extends BaseActivity {
         audioPlayUtils.play();
         mToolBar.setTitle("确认行程结束");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+       /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(String str) {

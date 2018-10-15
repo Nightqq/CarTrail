@@ -91,13 +91,13 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
         App.SWIPE_STEP = 2;
         mToolBar.setTitle("带车民警刷卡");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+     /*   mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         mToolBar.setOnMenuItemClickListener(onMenuItemClick);
 
         mPresenter = new PersionInfoPresenter(this, this);

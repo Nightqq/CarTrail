@@ -132,7 +132,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     @Override
     public void init() {
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+      /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);*/
         step = getIntent().getIntExtra("blue_step", 0);
         if (step == 0) {
             audioPlayUtils = new AudioPlayUtils(this, R.raw.zpscwc_qdcmjcxazsb);

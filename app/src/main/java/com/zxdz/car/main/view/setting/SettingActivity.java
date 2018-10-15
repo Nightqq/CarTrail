@@ -35,12 +35,12 @@ public class SettingActivity extends BaseActivity {
         mToolBar.setTitle("系统设置");
         setSupportActionBar(mToolBar);
         mToolBar.setNavigationIcon(R.mipmap.back_icon);
-       /* mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });*/
+        });
     }
 
     public static int i=0;

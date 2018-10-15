@@ -126,13 +126,13 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             mToolBar.setTitle("带车民警确认交还设备");
         }
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+       /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         mPresenter = new PersionInfoPresenter(this, this);
         intentService = new Intent(this, UploadDataService.class);
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {

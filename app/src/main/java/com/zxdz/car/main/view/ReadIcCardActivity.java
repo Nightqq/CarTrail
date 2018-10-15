@@ -57,13 +57,13 @@ public class ReadIcCardActivity extends BaseActivity {
     public void init() {
         mToolBar.setTitle("IC卡刷卡测试");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+        /*mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         mToneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM, 100);
     }
 

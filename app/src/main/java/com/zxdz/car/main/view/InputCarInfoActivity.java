@@ -44,13 +44,13 @@ public class InputCarInfoActivity extends BaseActivity {
     public void init() {
         mToolBar.setTitle("车辆信息录入");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+        /*mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
         mCarNumberEditText.setText("苏A12345");
         if (CarTravelHelper.carTravelRecord == null) {
             CarTravelHelper.carTravelRecord.setSJJHBZ(10);

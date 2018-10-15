@@ -100,13 +100,13 @@ public class DriverSwipeCardActivity extends BaseActivity<PersionInfoPresenter> 
         audioPlayUtils.play();
         mToolBar.setTitle("驾驶员刷卡");
         setSupportActionBar(mToolBar);
-        mToolBar.setNavigationIcon(R.mipmap.back_icon);
+       /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
         mPresenter = new PersionInfoPresenter(this, this);
         intentService = new Intent(this, UploadDataService.class);
