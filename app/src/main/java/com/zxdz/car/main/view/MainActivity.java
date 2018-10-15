@@ -35,6 +35,7 @@ import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.UploadInfoContract;
 import com.zxdz.car.main.model.domain.AreaInfo;
 import com.zxdz.car.main.model.domain.Constant;
+import com.zxdz.car.main.model.domain.QrCodeToMAC;
 import com.zxdz.car.main.model.domain.TerminalInfo;
 import com.zxdz.car.main.model.domain.URLConfig;
 import com.zxdz.car.main.presenter.UploadInfoPresenter;
@@ -210,7 +211,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         registerReceiver(updateInfoBroadcastReceiver, filter);
     }
 
-    String mac = "54:6C:0E:BD:7E:EE";
+    String mac = "";
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
@@ -222,6 +223,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                     case RESULT_OK:
                         String stringExtra = data.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT);
                         LogUtils.a(stringExtra);
+                        mac= QrCodeToMAC.getMAC(stringExtra);
                         checkOpenLock("连接中");
                         BlueToothHelper.getBlueHelp().closeAll();
                         handler.postDelayed(new Runnable() {

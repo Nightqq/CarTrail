@@ -255,6 +255,9 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         Intent intent = new Intent(InitActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+
+
+
     }
 
     @OnClick(R.id.init_setting)
