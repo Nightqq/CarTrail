@@ -34,6 +34,7 @@ import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.UploadInfoContract;
 import com.zxdz.car.main.model.domain.AreaInfo;
+import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.QrCodeToMAC;
 import com.zxdz.car.main.model.domain.TerminalInfo;
@@ -47,6 +48,7 @@ import com.zxdz.car.main.view.lock.BlueToothActivity;
 import com.zxdz.car.main.view.setting.PasswordValidataActivity;
 import com.zxdz.car.main.view.setting.SettingActivity;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -170,7 +172,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                             public void onClick(SweetAlertDialog sDialog) {
                                 sDialog.dismissWithAnimation();
                                 //数据上传
-                                uploadDataInfo();
+                                //uploadDataInfo();
                             }
                         })
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -258,6 +260,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     @Override
     protected void onStart() {
         super.onStart();
+        App.IsNewLS=false;
         uploadDataInfo();
         App.LSID = 0L;
     }
@@ -380,6 +383,10 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                             sweetAlertDialog.dismissWithAnimation();
                             //此处不让用户取消，智能继续上一次的任务
+
+                            //删除部分未上传，未获取流水id的数据
+                            //List<CarTravelRecord> carTravelRecordListFromDB = CarTravelHelper.getCarTravelRecordListFromDB();
+
                         }
                     })
                     .show();

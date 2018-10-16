@@ -101,6 +101,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
     @Override
     public void init() {
+        App.IsNewLS=true;
         swipecardhelp = SwipingCardUtils.swipecardhelp(getApplicationContext());
         if (swipecardhelp.getArray(0, 0) == 1) {
             App.SWIPE_STEP = 1;
@@ -350,6 +351,11 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
      */
     public void saveAdminCard(String cardNumber, int step) {
         if (CarTravelHelper.carTravelRecord == null) {
+
+
+
+
+
             CarTravelHelper.carTravelRecord = new CarTravelRecord();
             CarTravelHelper.carTravelRecord.setLS_ID(App.LSID.intValue());
             CarTravelHelper.carTravelRecord.setId(System.currentTimeMillis());

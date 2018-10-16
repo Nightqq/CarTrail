@@ -39,6 +39,8 @@ public class App extends Application {
 
     public static Long LSID = 0L;//流水ID
 
+    public static boolean IsNewLS=false;
+
 
     /**
      * 根据所刷卡的步骤，来决定上传那些数据

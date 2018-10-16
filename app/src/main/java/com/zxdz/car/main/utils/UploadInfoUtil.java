@@ -82,9 +82,14 @@ public class UploadInfoUtil {
                     }
 
                     @Override
-                    public void resultInfoOk() {
+                    public void resultInfoOk() {//上传成功
                         if (resultInfo != null && resultInfo.data != null) {
                             LogUtils.e("主信息上传完成--->" + JSON.toJSONString(resultInfo.data));
+                            //删除之前的流水数据
+                            if (CarTravelHelper.carTravelRecord!=null&&carTravelRecord != CarTravelHelper.carTravelRecord) {
+                                CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);
+                                LogUtils.a("删除之前的流水数据",carTravelRecord.toString());
+                            }
                             if (carTravelRecord.getLS_ID() == 0L) {
                                 carTravelRecord.setLS_ID(resultInfo.data.getLS_ID());
                                 CarTravelHelper.saveCarTravelRecordToDB(carTravelRecord);
@@ -102,6 +107,7 @@ public class UploadInfoUtil {
                                 App.LSID = new Long(resultInfo.data.getLS_ID());
                             }
                             //上传轨迹
+                            LogUtils.a("准备上传轨迹",App.UPLOAD_STEP);
                             if (App.UPLOAD_STEP > 3) {
                                 LogUtils.a("==================准备上传轨迹=============================");
                                 TrailPointInfoWrapper trailPointInfoWrapper = new TrailPointInfoWrapper();
