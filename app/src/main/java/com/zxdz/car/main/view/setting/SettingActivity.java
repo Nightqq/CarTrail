@@ -1,18 +1,12 @@
 package com.zxdz.car.main.view.setting;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 
 import com.zxdz.car.R;
 import com.zxdz.car.base.view.BaseActivity;
-import com.zxdz.car.base.view.PasswardView;
 import com.zxdz.car.main.service.UploadDataService;
-import com.zxdz.car.main.utils.UploadInfoUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +57,7 @@ public class SettingActivity extends BaseActivity {
                 startact(this, ServerIPActivity.class);
                 break;
             case R.id.setting_change:
-                startact(this, ChangeActivity.class);
+                startact(this, StartSettingActivity.class);
                 break;
             case R.id.layout_gps_upload_interval:
                 //TODO 待完成

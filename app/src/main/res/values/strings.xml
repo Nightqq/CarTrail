@@ -10,7 +10,7 @@
     <string name="swipe_setting">刷卡设定</string>
     <string name="call_roll">点名信息</string>
     <string name="setting_server_IP">设定服务器ip</string>
-    <string name="change_police">跟换带领干警</string>
+    <string name="change_police">自启动设定</string>
     <string name="gps_interval">GPS上传间隔时间(单位:秒)</string>
     <string-array name="car_ways">
         <item>行驶路线1</item>
