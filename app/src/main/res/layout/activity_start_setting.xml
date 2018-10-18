@@ -29,6 +29,7 @@
             android:layout_weight="5"></LinearLayout>
 
         <com.suke.widget.SwitchButton
+            android:id="@+id/start_set_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
@@ -67,6 +68,7 @@
             android:layout_weight="5"></LinearLayout>
 
         <com.suke.widget.SwitchButton
+            android:id="@+id/start_set_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
@@ -105,6 +107,7 @@
             android:layout_weight="5"></LinearLayout>
 
         <com.suke.widget.SwitchButton
+            android:id="@+id/start_set_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
