@@ -40,15 +40,18 @@ public class StartSettingActivity extends BaseActivity {
         });
 
         sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
+        boolean startself = sp.getBoolean("startself", true);
         boolean start_set_2 = sp.getBoolean("start_set_2", true);
         LogUtils.a("qweqq获取", start_set_2);
-        startSet1.setChecked(true);
+        startSet1.setChecked(startself);
         startSet2.setChecked(start_set_2);
         startSet3.setChecked(true);
         startSet1.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-
+                SharedPreferences.Editor edit = sp.edit();
+                edit.putBoolean("startself",isChecked);
+                edit.commit();
             }
         });
         startSet2.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
