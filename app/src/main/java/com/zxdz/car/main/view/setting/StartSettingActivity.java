@@ -38,6 +38,7 @@ public class StartSettingActivity extends BaseActivity {
                 finish();
             }
         });
+
         sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
         boolean start_set_2 = sp.getBoolean("start_set_2", true);
         LogUtils.a("qweqq获取", start_set_2);
@@ -54,6 +55,7 @@ public class StartSettingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 LogUtils.a("qweqq设置", isChecked);
+
                 SharedPreferences.Editor edit = sp.edit();
                 edit.putBoolean("start_set_2", isChecked);
                 edit.commit();
