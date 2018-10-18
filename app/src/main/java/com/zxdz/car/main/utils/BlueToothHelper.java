@@ -33,6 +33,7 @@ public class BlueToothHelper extends BlueToothUtils {
 //        scanning();
 //    }
 
+    //通过扫描获取到的蓝牙设备
     public void getDevices(GetblueToothListenter getblue) {
         getDevice(getblue);
     }

@@ -13,12 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -31,6 +33,8 @@ import com.zxdz.car.main.view.lock.OpenLockActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Administrator on 2018/5/4.
@@ -48,15 +52,13 @@ public class BlueToothUtils {
     private BluetoothDevice selectDevice;
     private List<byte[]> arrayLists;
     private byte[] flagbyte = new byte[1];
-    private byte[] flagbyte1 = new byte[1];
-    private String tag = "BlueToothUtils";
     private String mAddress;
     private final SharedPreferences sp;
     private boolean flag12 = true;
     private int flag = 1;
-    private SharedPreferences.Editor edit;
     private boolean isClosed = false;
     private boolean stateCallPolice = false;
+    private SweetAlertDialog initDialog;
 
     BlueToothUtils() {
         mContext = Utils.getContext();
@@ -219,6 +221,7 @@ public class BlueToothUtils {
     private Runnable runnable2 = new Runnable() {
         @Override
         public void run() {
+            checkOpenLock("设备连接断开，重新连接中。。。");
             ConnectedDevice(mAddress, new ConnectedDevicesListenter() {
                 @Override
                 public void connectenDevice(int i) {
@@ -237,15 +240,19 @@ public class BlueToothUtils {
                     mBluetoothAdapter.cancelDiscovery();
                 }
                 handler.removeCallbacks(runnable1);
+                handler1.removeCallbacks(runnable2);
                 LogUtils.a("连接成功");
+                if (null !=initDialog && initDialog.isShowing()){
+                    initDialog.dismiss();
+                }
                 connectedDevicesListenter.connectenDevice(1);
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {  //断开连接
                 connectedDevicesListenter.connectenDevice(0);
                 LogUtils.a("连接断开");
                 OpenLockActivity.iscon = false;
                 gatt.close();
-                if (handler != null) {
-                    handler.postDelayed(runnable2, 1000);
+                if (handler1 != null) {
+                    handler1.postDelayed(runnable2, 3000);
                 }
 
             }
@@ -563,5 +570,18 @@ public class BlueToothUtils {
 
     public interface openCallPoliceListener {
         void openCallPolice();
+    }
+    public void checkOpenLock(String msg) {
+        if (null == initDialog){
+            initDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
+            initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            initDialog.setTitleText(msg);
+            initDialog.setCancelable(false);
+            initDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+            initDialog.setCanceledOnTouchOutside(true);
+        }
+        if (!initDialog.isShowing()){
+            initDialog.show();
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -18,10 +19,8 @@ public class StartselfBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SharedPreferences qq = context.getSharedPreferences("qq",Context.MODE_PRIVATE);
         boolean startself = qq.getBoolean("startself", true);
-
-        Log.i("11111111","222222222222222222222");
+        Toast.makeText(context,"is:"+startself,Toast.LENGTH_LONG).show();
         if (startself && intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            ToastUtils.showShort("开始启动程序。。。");
             PackageManager pm = context.getPackageManager();    //包管理者
             //意图
             Intent it = pm.getLaunchIntentForPackage("com.zxdz.car");   //值为应用的包名
