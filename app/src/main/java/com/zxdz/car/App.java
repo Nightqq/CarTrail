@@ -1,7 +1,9 @@
 package com.zxdz.car;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -95,7 +97,11 @@ public class App extends Application {
     @Override // 程序在内存清理的时候执行
     public void onTrimMemory(int level) {
         packageName = getPackageName();
-        AppCloseLister.startoneself(Utils.getContext());
+        SharedPreferences qq = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
+        boolean startself = qq.getBoolean("start_set_2", true);
+        if (startself){
+            AppCloseLister.startoneself(Utils.getContext());
+        }
         LogUtils.a("onTrimMemory");
         super.onTrimMemory(level);
     }

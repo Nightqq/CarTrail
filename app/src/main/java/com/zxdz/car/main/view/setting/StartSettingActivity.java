@@ -1,5 +1,7 @@
 package com.zxdz.car.main.view.setting;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -46,7 +48,8 @@ public class StartSettingActivity extends BaseActivity {
         startSet2.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-
+                SharedPreferences qq = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
+                qq.edit().putBoolean("start_set_2", isChecked).commit();
             }
         });
         startSet3.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {

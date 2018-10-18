@@ -16,7 +16,7 @@ public class StartselfBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         SharedPreferences qq = context.getSharedPreferences("qq",Context.MODE_PRIVATE);
-        boolean startself = qq.getBoolean("startself", false);
+        boolean startself = qq.getBoolean("startself", true);
         if (startself) {
             ToastUtils.showShort("开始启动程序。。。");
             PackageManager pm = context.getPackageManager();    //包管理者
