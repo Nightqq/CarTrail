@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.suke.widget.SwitchButton;
 import com.zxdz.car.R;
 import com.zxdz.car.base.view.BaseActivity;
@@ -23,6 +24,7 @@ public class StartSettingActivity extends BaseActivity {
     SwitchButton startSet2;
     @BindView(R.id.start_set_3)
     SwitchButton startSet3;
+    private SharedPreferences sp;
 
     @Override
     public void init() {
@@ -36,8 +38,11 @@ public class StartSettingActivity extends BaseActivity {
                 finish();
             }
         });
+        sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
+        boolean start_set_2 = sp.getBoolean("start_set_2", true);
+        LogUtils.a("qweqq获取", start_set_2);
         startSet1.setChecked(true);
-        startSet2.setChecked(true);
+        startSet2.setChecked(start_set_2);
         startSet3.setChecked(true);
         startSet1.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
@@ -48,8 +53,10 @@ public class StartSettingActivity extends BaseActivity {
         startSet2.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SharedPreferences qq = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
-                qq.edit().putBoolean("start_set_2", isChecked).commit();
+                LogUtils.a("qweqq设置", isChecked);
+                SharedPreferences.Editor edit = sp.edit();
+                edit.putBoolean("start_set_2", isChecked);
+                edit.commit();
             }
         });
         startSet3.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
