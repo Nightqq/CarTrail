@@ -1,23 +1,29 @@
 package com.zxdz.car.base.view;
 
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.ToneGenerator;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -81,17 +87,18 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     private Intent bjintent;
     private Dialog dialog;
     private ToastUtil toastUtil;
+    public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代码
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            // Activity was brought to front and not created,
-            // Thus finishing this will get us to the last viewed activity
             finish();
             return;
         }
+        registerReceiver(mHomeKeyEventReceiver, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         ScreenUtils.setPortrait(this);
         RxBus.get().register(this);
         setContentView(getLayoutId());
@@ -128,12 +135,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             gravityT.start();
         }
     }
-   /* public void GravityTClose(){
-        if (gravityT!=null){
-            gravityT =null;
-        }
-    }*/
-
 
     public class GravityT extends Thread {
         public void run() {
@@ -271,9 +272,62 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
+            LogUtils.a("屏蔽返回键");
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_MENU) {//MENU键
+            //监控/拦截菜单键
+            LogUtils.a("拦截菜单键");
+            return true;
+        } else if (keyCode == event.KEYCODE_HOME) {
+            LogUtils.a("拦截home");
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    private BroadcastReceiver mHomeKeyEventReceiver = new BroadcastReceiver() {
+        String SYSTEM_REASON = "reason";
+        String SYSTEM_HOME_KEY = "homekey";
+        String SYSTEM_HOME_KEY_LONG = "recentapps";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) { // 监听home键
+                String reason = intent.getStringExtra(SYSTEM_REASON);
+                LogUtils.a("home");
+                // handler.postDelayed(runnable,2000);
+                // 表示按了home键,程序到了后台
+
+            }
+        }
+    };
+
+
+    private Handler handler = new Handler() {
+    };
+
+    @Override
     protected void onStop() {
         super.onStop();
+        //程序不可见判断程序是否处于前台
+        if (!isAppOnForeground()) {
+            handler.postDelayed(runnable, 2000);
+        }
     }
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            LogUtils.a("定时将后台应用跳转前台");
+            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            am.moveTaskToFront(getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+        }
+    };
+
 
     @Override
     protected void onPause() {
@@ -288,6 +342,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         LogUtils.a("关闭服务");
         Intent intent = new Intent(Utils.getContext(), AppCloseLister.class);
         stopService(intent);
+        handler.removeCallbacks(runnable);
     }
 
     @Override
@@ -298,6 +353,24 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
         RxBus.get().unregister(this);
         flag = false;
+    }
+
+    //判断程序是否在前台运行
+    public boolean isAppOnForeground() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = getApplicationContext().getPackageName();
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null)
+            return false;
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            // The name of the process that this object is associated with.
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

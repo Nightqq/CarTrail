@@ -115,7 +115,14 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             App.readCardType = SPUtils.getInstance().getInt(Constant.READ_CARD_TYPE, Constant.NOT_SELECT_TYPE_ID);
         }
     }
-
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        LogUtils.a("init_home");
+        Intent intent = new Intent(this,InitActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+    }
 
     /**
      * 初始化系统参数信息

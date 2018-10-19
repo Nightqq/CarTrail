@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 import com.blankj.utilcode.util.LogUtils;
 import com.suke.widget.SwitchButton;
 import com.zxdz.car.R;
 import com.zxdz.car.base.view.BaseActivity;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class StartSettingActivity extends BaseActivity {
 
@@ -58,7 +55,6 @@ public class StartSettingActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 LogUtils.a("qweqq设置", isChecked);
-
                 SharedPreferences.Editor edit = sp.edit();
                 edit.putBoolean("start_set_2", isChecked);
                 edit.commit();
@@ -67,7 +63,7 @@ public class StartSettingActivity extends BaseActivity {
         startSet3.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-
+                
             }
         });
     }

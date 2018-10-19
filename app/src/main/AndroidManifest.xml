@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:categoryandroid="http://schemas.android.com/apk/res-auto"
     package="com.zxdz.car">
 
     <uses-sdk
@@ -13,6 +14,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -35,13 +37,14 @@
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--开机自启动权限-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!--允许修改 WIFI 状态的权限。-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--允许访问 WIFI 状态的权限-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:name=".App"
@@ -63,8 +66,7 @@
         <activity
             android:name=".main.view.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".main.view.AudioActivity"
             android:theme="@style/AppTheme" />
@@ -127,12 +129,14 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
         <activity android:name=".main.view.lock.BlueToothActivity" />
         <activity android:name=".main.view.lock.OpenCardActivity" />
         <activity android:name=".main.view.lock.CardConversionActivity" />
 
         <service android:name=".main.service.UploadDataService" />
         <service android:name=".main.service.AppCloseLister" />
+
         <activity android:name=".main.view.lock.OpenLockActivity" />
         <activity android:name=".main.view.lock.CameraActivity" />
         <activity android:name=".main.view.lock.BlueInteractionActivity" />
@@ -142,13 +146,13 @@
         <activity android:name=".main.view.setting.PasswordValidataActivity" />
         <activity android:name=".main.view.setting.StartSettingActivity"></activity>
         <!--开机自启动广播-->
-        <receiver android:name=".main.service.StartselfBroadcastReceiver"
+        <receiver
+            android:name=".main.service.StartselfBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
-        <intent-filter android:priority="1000">
-            <action android:name="android.intent.action.BOOT_COMPLETED">
-            </action>
-        </intent-filter>
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
         </receiver>
     </application>
 
