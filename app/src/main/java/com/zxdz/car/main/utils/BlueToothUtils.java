@@ -245,7 +245,6 @@ public class BlueToothUtils {
                 if (null !=initDialog && initDialog.isShowing()){
                     initDialog.dismiss();
                 }
-                connectedDevicesListenter.connectenDevice(1);
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {  //断开连接
                 connectedDevicesListenter.connectenDevice(0);
                 LogUtils.a("连接断开");
@@ -280,6 +279,7 @@ public class BlueToothUtils {
                     LogUtils.a("设置notify");
                     setCharacteristicNotification(read_characteristic, true);
                 }
+                connectedDevicesListenter.connectenDevice(1);
             } else {
                 LogUtils.a("服务读失败");
             }
