@@ -108,7 +108,7 @@ public class BlueToothUtils {
 
         connectedDevicesListenter = devicesListenter;
         handler.removeCallbacks(runnable1);
-        handler.postDelayed(runnable1, 3000);
+        handler.postDelayed(runnable1, 6000);
         try {
             if (!mBluetoothAdapter.isEnabled()) {
                 mBluetoothAdapter.enable();
@@ -274,7 +274,6 @@ public class BlueToothUtils {
                             writer_characteristic = gattCharacteristic;
                         }
                         connectedDevicesListenter.connectenDevice(1);
-
                     }
                 }
                 if (read_characteristic != null) {
