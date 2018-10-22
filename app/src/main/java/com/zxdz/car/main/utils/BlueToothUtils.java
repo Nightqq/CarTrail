@@ -274,6 +274,7 @@ public class BlueToothUtils {
                             writer_characteristic = gattCharacteristic;
                         }
                         connectedDevicesListenter.connectenDevice(1);
+
                     }
                 }
                 if (read_characteristic != null) {
