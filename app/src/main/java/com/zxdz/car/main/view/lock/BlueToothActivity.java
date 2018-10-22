@@ -115,7 +115,9 @@ public class BlueToothActivity extends BaseActivity {
             closelock();
         }else if (step == 2){
             police_num = intent.getStringExtra("police_card");
+            LogUtils.a("准备开锁");
             openlock();
+
         }
      /*   if (step == 2) {
             num = intent.getStringExtra("car_trail");
@@ -262,7 +264,9 @@ public class BlueToothActivity extends BaseActivity {
 
     public void checkOpenLock(String msg) {
         try {
+            LogUtils.a("准备开锁弹窗");
             if (!initDialog.isShowing()){
+                LogUtils.a("准备开锁弹窗开启");
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
             initDialog.setTitleText(msg);
@@ -271,7 +275,7 @@ public class BlueToothActivity extends BaseActivity {
             initDialog.show();
             }
         }catch (Exception e){
-
+            LogUtils.a(""+e.getMessage().toString());
         }
     }
 

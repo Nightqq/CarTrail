@@ -321,7 +321,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtils.a("关闭服务");
         Intent intent = new Intent(Utils.getContext(), AppCloseLister.class);
         stopService(intent);
         handler.removeCallbacks(runnable);

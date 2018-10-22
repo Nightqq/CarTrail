@@ -12,7 +12,7 @@
         android:layout_height="@dimen/toolbar_high"
         android:background="@color/primary">
 
-        <RelativeLayout
+       <!-- <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
@@ -23,7 +23,7 @@
                 android:text="开关锁"
                 android:textColor="#fff"
                 android:textSize="20sp" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
     </android.support.v7.widget.Toolbar>
 

@@ -84,13 +84,13 @@ public class App extends Application {
         Utils.init(App.this);
         CardDBUtil.init(App.this);
         locationService = new LocationService(getApplicationContext());
-        WifiUtils.getWifiUtils().openBroadcast();
+       // WifiUtils.getWifiUtils().openBroadcast();
     }
 
     @Override// 程序终止的时候执行
     public void onTerminate() {
         LogUtils.a("onTerminate");
-        WifiUtils.getWifiUtils().unRegistBroadcast();
+       // WifiUtils.getWifiUtils().unRegistBroadcast();
         super.onTerminate();
     }
 
