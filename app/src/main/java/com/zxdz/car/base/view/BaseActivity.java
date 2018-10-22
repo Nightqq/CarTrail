@@ -2,6 +2,7 @@ package com.zxdz.car.base.view;
 
 import android.app.ActivityManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +56,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView, IDialog {
 
     private static final String TAG = "BaseActivity";
@@ -98,7 +99,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             finish();
             return;
         }
-        registerReceiver(mHomeKeyEventReceiver, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        //registerReceiver(mHomeKeyEventReceiver, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         ScreenUtils.setPortrait(this);
         RxBus.get().register(this);
         setContentView(getLayoutId());
@@ -271,60 +272,41 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public void onBackPressed() {
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
-            LogUtils.a("屏蔽返回键");
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_MENU) {//MENU键
-            //监控/拦截菜单键
-            LogUtils.a("拦截菜单键");
-            return true;
-        } else if (keyCode == event.KEYCODE_HOME) {
-            LogUtils.a("拦截home");
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    private Handler handler = new Handler() {};
 
-
-    private BroadcastReceiver mHomeKeyEventReceiver = new BroadcastReceiver() {
-        String SYSTEM_REASON = "reason";
-        String SYSTEM_HOME_KEY = "homekey";
-        String SYSTEM_HOME_KEY_LONG = "recentapps";
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) { // 监听home键
-                String reason = intent.getStringExtra(SYSTEM_REASON);
-                LogUtils.a("home");
-                // handler.postDelayed(runnable,2000);
-                // 表示按了home键,程序到了后台
-
-            }
-        }
-    };
-
-
-    private Handler handler = new Handler() {
-    };
-
+    //给拍照页面使用的标记，关闭后台自启动功能
+    public static boolean start_flag=true;
     @Override
     protected void onStop() {
         super.onStop();
         //程序不可见判断程序是否处于前台
-        if (!isAppOnForeground()) {
-            handler.postDelayed(runnable, 2000);
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
+        boolean start_set_3 = sp.getBoolean("start_set_3", true);
+        if (start_flag&&start_set_3&&!isAppOnForeground()) {
+            handler.postDelayed(runnable, 500);
         }
     }
-
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
             LogUtils.a("定时将后台应用跳转前台");
-            ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-            am.moveTaskToFront(getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+            //次方法启动activity，按下home键无法启动
+            /*ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            am.moveTaskToFront(getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);*/
+            //按下home后startActivity启动有5秒延迟！！！次方法不行
+           /* Intent intent = new Intent(BaseActivity.this,BaseActivity.this.getClass());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            BaseActivity.this.startActivity(intent);*/
+
+            Intent intent = new Intent(BaseActivity.this, BaseActivity.this.getClass());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(BaseActivity.this, 0, intent, 0);
+            try {
+                pendingIntent.send();
+            } catch (PendingIntent.CanceledException e) {
+                e.printStackTrace();
+            }
         }
     };
 

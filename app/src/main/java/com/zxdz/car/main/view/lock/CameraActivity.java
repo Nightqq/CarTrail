@@ -58,10 +58,12 @@ public class CameraActivity extends BaseActivity {
         basetoobar(toolbar, "拍照上传");
         App.GravityListener_type = 0;//关闭手持机移动报警
         BlueToothActivity.flag2 = true;
+        start_flag=false;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+
                 audioPlayUtils = new AudioPlayUtils(CameraActivity.this, R.raw.scwc_qdcmjqxsbpz);
                 audioPlayUtils.play();
             }
@@ -82,6 +84,7 @@ public class CameraActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             flag = true;
+            start_flag=true;
             Bundle bundle = data.getExtras();
             mBitmap = (Bitmap) bundle.get("data");
             cameraImg.setImageBitmap(mBitmap);
@@ -103,6 +106,7 @@ public class CameraActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.camera_again:
+                start_flag=false;
                 Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(mIntent, 1);
                 break;

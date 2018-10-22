@@ -127,7 +127,7 @@ public class BlueToothActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        boolean created = BlueToothHelper.getBlueHelp().isCreated();
+       // boolean created = BlueToothHelper.getBlueHelp().isCreated();
        /* if (created) {
             openLockTvTitle.setText("已经连接过设备");
             openLockBluesaomiao.setVisibility(View.GONE);
