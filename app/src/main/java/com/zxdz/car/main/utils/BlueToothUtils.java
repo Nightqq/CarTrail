@@ -273,13 +273,13 @@ public class BlueToothUtils {
                         if (gattCharacteristic.getUuid().toString().equalsIgnoreCase(LockInfo.Write_UUID.toString())) {
                             writer_characteristic = gattCharacteristic;
                         }
+                        connectedDevicesListenter.connectenDevice(1);
                     }
                 }
                 if (read_characteristic != null) {
                     LogUtils.a("设置notify");
                     setCharacteristicNotification(read_characteristic, true);
                 }
-                connectedDevicesListenter.connectenDevice(1);
             } else {
                 LogUtils.a("服务读失败");
             }
