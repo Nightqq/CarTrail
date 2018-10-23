@@ -50,7 +50,6 @@ public class BlueToothUtils {
     private boolean statue;
     public static byte key = -1;
     private BluetoothDevice selectDevice;
-    private List<byte[]> arrayLists;
     private byte[] flagbyte = new byte[1];
     private String mAddress;
     private final SharedPreferences sp;
@@ -105,10 +104,9 @@ public class BlueToothUtils {
         } else {
             mAddress = sp.getString("macaddress", "111");
         }
-
         connectedDevicesListenter = devicesListenter;
         handler.removeCallbacks(runnable1);
-        handler.postDelayed(runnable1, 3000);
+        handler.postDelayed(runnable1, 6000);
         try {
             if (!mBluetoothAdapter.isEnabled()) {
                 mBluetoothAdapter.enable();
@@ -129,7 +127,6 @@ public class BlueToothUtils {
     public void enquiriesStates(EnquiriesStateListenter menquiriesState) {
         enquiriesState = menquiriesState;
         if (mBluetoothAdapter != null && bluetoothGatt != null) {
-            //byte[] bytes = SwitchUtils.enquiriesLock(key);
             byte[] bytes = SwitchUtils.enquiriesLock();
             flagbyte[0] = 0x52;
             writer_characteristic.setValue(bytes);
@@ -150,10 +147,7 @@ public class BlueToothUtils {
             statue = bluetoothGatt.writeCharacteristic(writer_characteristic);
             return;
         } else {
-            //openLock.openLock("请连接设备");
-            LogUtils.a("异常");
-//            SharedPreferences sp = mContext.getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
-//            String My_address = sp.getString("My_address", "");
+            checkOpenLock("蓝牙连接中断或未打开，自动重连中...");
             ConnectedDevice(mAddress, new ConnectedDevicesListenter() {
                 @Override
                 public void connectenDevice(int i) {
@@ -242,7 +236,7 @@ public class BlueToothUtils {
                 handler.removeCallbacks(runnable1);
                 handler1.removeCallbacks(runnable2);
                 LogUtils.a("连接成功");
-                if (null !=initDialog && initDialog.isShowing()){
+                if (null != initDialog && initDialog.isShowing()) {
                     initDialog.dismiss();
                 }
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {  //断开连接
@@ -280,7 +274,6 @@ public class BlueToothUtils {
                     LogUtils.a("设置notify");
                     setCharacteristicNotification(read_characteristic, true);
                 }
-
             } else {
                 LogUtils.a("服务读失败");
             }
@@ -400,21 +393,6 @@ public class BlueToothUtils {
         }
     }
 
-    private boolean byteCollection(byte[] mBytes) {
-        if (arrayLists == null) {
-            arrayLists = new ArrayList<>();
-            arrayLists.add(mBytes);
-            return false;
-        }
-        for (byte[] arrayList : arrayLists) {
-            if (Arrays.equals(arrayList, mBytes)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
 
     private void openBluetooth() {
         if (mBluetoothAdapter == null) {
@@ -431,16 +409,6 @@ public class BlueToothUtils {
         }
     }
 
-    private void regist() {
-        if (flag == 1) {
-            IntentFilter mFilter = new IntentFilter();
-            mFilter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙查询,可以在reciever中接受查询到的蓝牙设备
-            mFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); // 注册搜索完时的receiver
-            mFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//蓝牙连接状态发生改变时,接收状态
-            mContext.registerReceiver(mReceiver, mFilter);
-            flag = 2;
-        }
-    }
 
     public void unregist() {
         if (mReceiver != null && flag == 2 && mContext != null) {
@@ -473,19 +441,6 @@ public class BlueToothUtils {
         }
     };
 
-//    public void scanning() {
-//        handler.removeCallbacks(runnable);
-//        handler.postDelayed(runnable, 5000);
-//        if (mBluetoothAdapter.isEnabled()) { //通过适配器对象调用isEnabled()方法，判断蓝牙是否打开了
-//            if (mBluetoothAdapter.isDiscovering()) {
-//                mBluetoothAdapter.cancelDiscovery();
-//            }
-//            Toast.makeText(mContext, "开始扫描", Toast.LENGTH_SHORT).show();
-//            mBluetoothAdapter.startDiscovery();
-//        } else {
-//            openBluetooth();
-//        }
-//    }
 
     //蓝牙没成功打开时调用
     private Handler handler = new Handler() {
@@ -493,12 +448,6 @@ public class BlueToothUtils {
     private Handler handler1 = new Handler(Looper.getMainLooper()) {
     };
 
-//    private Runnable runnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            scanning();
-//        }
-//    };
 
     //close
     public void closeAlls() {
@@ -552,10 +501,6 @@ public class BlueToothUtils {
         void setParameter(String str);
     }
 
-    public void removeListener() {
-        receivecardid = null;
-    }
-
     private receiveCardIDListener receivecardid;
 
     public interface receiveCardIDListener {
@@ -572,8 +517,9 @@ public class BlueToothUtils {
     public interface openCallPoliceListener {
         void openCallPolice();
     }
+
     public void checkOpenLock(String msg) {
-        if (null == initDialog){
+        if (null == initDialog) {
             initDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
             initDialog.setTitleText(msg);
@@ -581,8 +527,39 @@ public class BlueToothUtils {
             initDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             initDialog.setCanceledOnTouchOutside(true);
         }
-        if (!initDialog.isShowing()){
+        if (!initDialog.isShowing()) {
             initDialog.show();
         }
     }
+
+    private void regist() {
+        if (flag == 1) {
+            IntentFilter mFilter = new IntentFilter();
+            mFilter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙查询,可以在reciever中接受查询到的蓝牙设备
+            mFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); // 注册搜索完时的receiver
+            mFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//蓝牙连接状态发生改变时,接收状态
+            mContext.registerReceiver(mReceiver, mFilter);
+            flag = 2;
+        }
+    }
+    //    private Runnable runnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            scanning();
+//        }
+//    };
+
+    //    public void scanning() {
+//        handler.removeCallbacks(runnable);
+//        handler.postDelayed(runnable, 5000);
+//        if (mBluetoothAdapter.isEnabled()) { //通过适配器对象调用isEnabled()方法，判断蓝牙是否打开了
+//            if (mBluetoothAdapter.isDiscovering()) {
+//                mBluetoothAdapter.cancelDiscovery();
+//            }
+//            Toast.makeText(mContext, "开始扫描", Toast.LENGTH_SHORT).show();
+//            mBluetoothAdapter.startDiscovery();
+//        } else {
+//            openBluetooth();
+//        }
+//    }
 }

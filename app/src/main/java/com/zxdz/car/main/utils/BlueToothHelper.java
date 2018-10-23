@@ -25,11 +25,8 @@ public class BlueToothHelper extends BlueToothUtils {
         return bluetoothLock;
     }
 
-//    public void scanagain() {
-//        scanning();
-//    }
-
-//    public void startScan() {
+    //扫描蓝牙
+//    public void scannings() {
 //        scanning();
 //    }
 
@@ -83,10 +80,6 @@ public class BlueToothHelper extends BlueToothUtils {
     //关闭蓝牙
     public void closeAll() {
         closeAlls();
-    }
-
-    public void removeListeners() {
-        removeListener();
     }
 
     //注销广播
