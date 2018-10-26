@@ -58,6 +58,7 @@ public class BlueToothUtils {
     private boolean isClosed = false;
     private boolean stateCallPolice = false;
     private SweetAlertDialog initDialog;
+    private boolean isLoop = true;//是否在循环连接中
 
     BlueToothUtils() {
         mContext = Utils.getContext();
@@ -96,6 +97,7 @@ public class BlueToothUtils {
 
     //连接设备
     public void ConnectedDevice(String address, ConnectedDevicesListenter devicesListenter, boolean isScaning) {
+        isLoop = true;
         if (isScaning) {
             mAddress = address;
             SharedPreferences.Editor edit = sp.edit();
@@ -235,19 +237,21 @@ public class BlueToothUtils {
                 }
                 handler.removeCallbacks(runnable1);
                 handler1.removeCallbacks(runnable2);
+                isLoop = false;//循环成功不再循环
                 LogUtils.a("连接成功");
                 if (null != initDialog && initDialog.isShowing()) {
                     initDialog.dismiss();
                 }
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {  //断开连接
+                gatt.close();
+                bluetoothGatt = null;
+                OpenLockActivity.iscon = false;
                 connectedDevicesListenter.connectenDevice(0);
                 LogUtils.a("连接断开");
-                OpenLockActivity.iscon = false;
-                gatt.close();
-                if (handler1 != null) {
+                if (handler1 != null && !isLoop) {
+                    LogUtils.a("自动重连中。。。");
                     handler1.postDelayed(runnable2, 3000);
                 }
-
             }
         }
 
@@ -297,7 +301,7 @@ public class BlueToothUtils {
         @Override//设备发出通知时会调用到该接口
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             if (mBluetoothAdapter == null || bluetoothGatt == null) {
-                Log.i("BlueToothUtils", "设备连接断开");
+                LogUtils.a("BlueToothUtils", "设备连接断开");
                 return;
             }
             LogUtils.a("收到通知");
@@ -306,7 +310,7 @@ public class BlueToothUtils {
             //String s = SwitchUtils.byte2HexStr(value);
             //LogUtils.a("返回的消息", s);
             if (stateCallPolice) {
-                Log.i("tagggg", value[1] + "");
+                LogUtils.a("tagggg", value[1] + "");
                 if (value[1] == 0x46) {
                     isClosed = true;
                 } else if (value[1] == 0x43) {
@@ -452,6 +456,7 @@ public class BlueToothUtils {
     //close
     public void closeAlls() {
         if (bluetoothGatt != null) {
+            isLoop = true;
             LogUtils.a("开始断开");
             bluetoothGatt.disconnect();
         }
