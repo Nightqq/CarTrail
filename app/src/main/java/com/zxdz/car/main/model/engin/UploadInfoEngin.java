@@ -32,7 +32,6 @@ import rx.Observable;
 public class UploadInfoEngin extends BaseEngin {
 
     private Context mContext;
-
     public UploadInfoEngin(Context context) {
         super(context);
         mContext = context;

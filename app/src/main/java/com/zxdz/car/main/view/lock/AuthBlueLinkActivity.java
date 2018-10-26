@@ -2,29 +2,28 @@ package com.zxdz.car.main.view.lock;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Message;
+
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.R;
-import com.zxdz.car.base.helper.CarTravelHelper;
+
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.adapter.ExpandAdapter;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
-import com.zxdz.car.main.view.AuthCardActivity;
-import com.zxdz.car.main.view.MainActivity;
+
 import com.zxdz.car.main.view.PoliceCardActivity;
 
 import butterknife.BindView;

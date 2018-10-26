@@ -351,16 +351,10 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
      */
     public void saveAdminCard(String cardNumber, int step) {
         if (CarTravelHelper.carTravelRecord == null) {
-
-
-
-
-
             CarTravelHelper.carTravelRecord = new CarTravelRecord();
-            CarTravelHelper.carTravelRecord.setLS_ID(App.LSID.intValue());
+            CarTravelHelper.carTravelRecord.setLS_ID(0);
             CarTravelHelper.carTravelRecord.setId(System.currentTimeMillis());
             CarTravelHelper.carTravelRecord.setZDJ_ID(App.ZDJID);
-            CarTravelHelper.carTravelRecord.setId(App.LSID);
         }
         if (step == 1) {
             CarTravelHelper.carTravelRecord.setGLRY(cardNumber);

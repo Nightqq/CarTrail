@@ -37,13 +37,9 @@ public class UploadDataService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-
-                LogUtils.e("service onStartCommand--->");
-                if (App.LSID != 0L) {
-                    otherInfo();//上传当前流水的附信息
-                }
-                uploadInfo();//上传主信息
-
+            LogUtils.e("service onStartCommand--->");
+            otherInfo();//上传当前流水的附信息
+            uploadInfo();//上传主信息
         } catch (NullPointerException e) {
 
         }
@@ -54,16 +50,17 @@ public class UploadDataService extends Service {
      * 上传主数据
      */
     public void uploadInfo() {
+        LogUtils.a("上传数据—准备上传主信息");
         List<CarTravelRecord> carTravelRecordListFromDB = CarTravelHelper.getCarTravelRecordListFromDB();
         LogUtils.a("未上传的流水个数" + carTravelRecordListFromDB.size());
         if (carTravelRecordListFromDB != null && carTravelRecordListFromDB.size() > 0) {
             for (CarTravelRecord carTravelRecord : carTravelRecordListFromDB) {
                 if (carTravelRecord != null) {
-                    //初始状态时，设置值LS_ID为0
+                    /*//初始状态时，设置值LS_ID为0
                     if (carTravelRecord.getZT() == 0 || carTravelRecord.getZT() == 10) {
                         carTravelRecord.setLS_ID(0);
                         CarTravelHelper.saveCarTravelRecordToDB(carTravelRecord);
-                    }
+                    }*/
                     uploadInfoUtil.uploadCarRecord(carTravelRecord);
                 } else {
                     ToastUtils.showLong("未检测到流水信息，请完善操作");
@@ -79,9 +76,18 @@ public class UploadDataService extends Service {
      * 照片数据
      */
     public void otherInfo() {
-        uploadInfoUtil.uploadWarnInfo(CarTravelHelper.carTravelRecord.getId(),CarTravelHelper.carTravelRecord.getLS_ID());
+        long id = 0L;
+        int lsid = 0;
+        if (CarTravelHelper.carTravelRecord != null) {
+            id = CarTravelHelper.carTravelRecord.getId();
+            lsid = CarTravelHelper.carTravelRecord.getLS_ID();
+        }
+        LogUtils.a("上传数据—准备上传附信息");
+        uploadInfoUtil.uploadWarnInfo(id, lsid);
         uploadInfoUtil.uploadUnWarnInfo();
-        uploadInfoUtil.uploadPicture(CarTravelHelper.carTravelRecord.getId(),CarTravelHelper.carTravelRecord.getLS_ID());
+        uploadInfoUtil.uploadPicture(id, lsid);
+
+
     }
 
     @Override

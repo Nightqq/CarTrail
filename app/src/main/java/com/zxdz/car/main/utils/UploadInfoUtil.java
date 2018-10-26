@@ -2,6 +2,7 @@ package com.zxdz.car.main.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.LogUtils;
@@ -60,14 +61,16 @@ public class UploadInfoUtil {
     }
 
     public void uploadCarRecord(final CarTravelRecord carTravelRecord) {
+        LogUtils.a("上传数据—上传主信息开始");
         Subscription subscribe = mEngin.uploadCarRecord(carTravelRecord).subscribe(new Subscriber<ResultInfo<CarTravelRecord>>() {
             @Override
             public void onCompleted() {
-                LogUtils.e(TAG, "主信息上传完成--->");
+                LogUtils.a("上传数据—上传主信息onCompleted");
             }
 
             @Override
             public void onError(Throwable e) {
+                LogUtils.a("上传数据—上传主信息error" + e.getMessage().toString());
             }
 
             @Override
@@ -75,39 +78,42 @@ public class UploadInfoUtil {
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
+                        LogUtils.a("上传数据-resultInfoEmpty");
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
+                        LogUtils.a("上传数据-resultInfoNotOk");
                     }
 
                     @Override
                     public void resultInfoOk() {//上传成功
                         if (resultInfo != null && resultInfo.data != null) {
-                            LogUtils.e("主信息上传完成--->" + JSON.toJSONString(resultInfo.data));
+                            LogUtils.a("上传数据—主信息上传完成" + JSON.toJSONString(resultInfo.data));
                             //删除之前的流水数据
-                            if (CarTravelHelper.carTravelRecord!=null&&carTravelRecord != CarTravelHelper.carTravelRecord) {
+                            if (CarTravelHelper.carTravelRecord != null && carTravelRecord != CarTravelHelper.carTravelRecord) {
                                 CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);
-                                LogUtils.a("删除之前的流水数据",carTravelRecord.toString());
+                                LogUtils.a("删除之前的流水数据", carTravelRecord.toString());
+                            } else {
+                                App.LSID = new Long(resultInfo.data.getLS_ID());
                             }
                             if (carTravelRecord.getLS_ID() == 0L) {
                                 carTravelRecord.setLS_ID(resultInfo.data.getLS_ID());
                                 CarTravelHelper.saveCarTravelRecordToDB(carTravelRecord);
                                 //上传因断网未上传的，照片、报警、取消报警等数据
+                                LogUtils.a("上传数据-主信息上传完成后上传附属信息");
                                 uploadPicture(carTravelRecord.getId(), resultInfo.data.getLS_ID());
                                 uploadWarnInfo(carTravelRecord.getId(), resultInfo.data.getLS_ID());
                                 uploadUnWarnInfo();
                             }
                             //信息所有状态上传完成，则删除记录
-                            if (carTravelRecord.getZT() == 70) {
+                            if (carTravelRecord.getZT() == 70 && carTravelRecord == CarTravelHelper.carTravelRecord) {
                                 CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);//上传完成删除该条流水
                                 App.UPLOAD_STEP = 1;
                                 isFinish = true;
-                            } else {
-                                App.LSID = new Long(resultInfo.data.getLS_ID());
                             }
                             //上传轨迹
-                            LogUtils.a("准备上传轨迹",App.UPLOAD_STEP);
+                            LogUtils.a("准备上传轨迹", App.UPLOAD_STEP);
                             if (App.UPLOAD_STEP > 3) {
                                 LogUtils.a("==================准备上传轨迹=============================");
                                 TrailPointInfoWrapper trailPointInfoWrapper = new TrailPointInfoWrapper();
@@ -139,28 +145,46 @@ public class UploadInfoUtil {
 
     //上传照片
     public void uploadPicture(Long id, int lsid) {
-        final PictureInfo pictureInfo = TakePictureHelper.getWarnInfoListFromDB(id);
-        if (pictureInfo != null) {
-            pictureInfo.setLsId(lsid);
-            LogUtils.a("准备上传照片");
-            Subscription subscribe = mEngin.uploadPicture(pictureInfo).subscribe(new Subscriber<ResultInfo>() {
-                @Override
-                public void onCompleted() {
-                    LogUtils.a("准备上传照片失败");
-                }
+        if (id != 0L) {
+            final PictureInfo pictureInfo = TakePictureHelper.getWarnInfoListFromDB(id);
+            if (pictureInfo != null) {
+                pictureInfo.setLsId(lsid);
+                TakePictureHelper.saveWarnInfoToDB(pictureInfo);
+            }
+        }
+        List<PictureInfo> pictureInfos = TakePictureHelper.getpictureInfoListHaveLSID();
+        if (pictureInfos != null && pictureInfos.size() > 0) {//上传所有有流水id是数据
+            LogUtils.a("上传数据-未上传照片个数" + pictureInfos.size());
+            for (final PictureInfo pictureInfo1 : pictureInfos) {
+                LogUtils.a("上传数据—准备上传照片");
+                Subscription subscribe = mEngin.uploadPicture(pictureInfo1).subscribe(new Subscriber<ResultInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtils.a("上传数据onCompleted");
+                    }
 
-                @Override
-                public void onError(Throwable e) {
-                    LogUtils.a("准备上传照片失败", e.getMessage());
-                }
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.a("上传数据-准备上传照片失败", e.getMessage());
+                    }
 
-                @Override
-                public void onNext(ResultInfo pictureInfos) {
-                    TakePictureHelper.deleteWarnInfoInDB(pictureInfo);
-                    LogUtils.a(pictureInfos.message);
-                }
-            });
-            mSubscriptions.add(subscribe);
+                    @Override
+                    public void onNext(ResultInfo resultInfo) {
+                        if (resultInfo != null && resultInfo.message.equals("拍照成功")) {
+                            LogUtils.a("上传数据-照片成功");
+                            TakePictureHelper.deleteWarnInfoInDB(pictureInfo1);
+                            List<PictureInfo> pictureInfoii = TakePictureHelper.getpictureInfoListHaveLSID();
+                            if (pictureInfoii != null && pictureInfoii.size() > 0) {
+                                LogUtils.a("上传数据-照片上传完成未上传照片个数" + pictureInfoii.size());
+                            }
+                        } else {
+                            LogUtils.a("上传数据-照片" + resultInfo.message);
+                        }
+                        // LogUtils.a(pictureInfos.message);
+                    }
+                });
+                mSubscriptions.add(subscribe);
+            }
         }
     }
 
@@ -216,7 +240,7 @@ public class UploadInfoUtil {
                     @Override
                     public void onNext(final ResultInfo<WarnInfo> resultInfo) {
                         WarnInfoHelper.deleteWarnInfoInDB(warnInfo);
-                        LogUtils.a("报警信息上传完成--->");
+                        LogUtils.a("报警信息上传完成--->" + resultInfo.message);
                         LogUtils.a(resultInfo.message);
                         UnWarnInfo unWarnInfo = new UnWarnInfo();
                         unWarnInfo.setId(warnInfo.getId());
@@ -250,7 +274,7 @@ public class UploadInfoUtil {
 
                     @Override
                     public void onNext(final ResultInfo resultInfo) {
-                        LogUtils.a("取消报警信息上传完成--->");
+                        LogUtils.a("取消报警信息上传完成--->" + resultInfo.message);
                         LogUtils.a(resultInfo.message);
                         UnWarnInfoHelper.deleteWarnInfoInDB(warnInfos);
                     }
@@ -273,11 +297,9 @@ public class UploadInfoUtil {
             @Override
             public void onNext(final ResultInfo resultInfo) {
                 if (resultInfo.code == HttpConfig.STATUS_OK) {
-
                     if (ChangePoliceInfoHelper.getChangePoliceInfoListFromDB() != null) {
                         ChangePoliceInfoHelper.deleteAllChangePoliceInfoList();
                     }
-
                     LogUtils.e(TAG, "更换带领干警信息上传完成--->");
                 }
             }

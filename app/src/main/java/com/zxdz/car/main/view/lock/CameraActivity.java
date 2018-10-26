@@ -165,6 +165,8 @@ public class CameraActivity extends BaseActivity {
         pictureInfo.setPicture(imageinfos);
         TakePictureHelper.saveWarnInfoToDB(pictureInfo);
         startService(intentService);
-
+        //后期添加状态值45，照片上传后更改
+        CarTravelHelper.carTravelRecord.setZT(45);
+        CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
     }
 }

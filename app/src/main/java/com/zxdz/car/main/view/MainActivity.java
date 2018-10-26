@@ -25,7 +25,6 @@ import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.zxdz.car.App;
-
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.AreaHelper;
 import com.zxdz.car.base.helper.CarTravelHelper;
@@ -34,29 +33,24 @@ import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.UploadInfoContract;
 import com.zxdz.car.main.model.domain.AreaInfo;
-import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.QrCodeToMAC;
 import com.zxdz.car.main.model.domain.TerminalInfo;
-import com.zxdz.car.main.model.domain.URLConfig;
 import com.zxdz.car.main.presenter.UploadInfoPresenter;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.view.lock.AuthBlueLinkActivity;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
+import com.zxdz.car.main.view.lock.OpenCardActivity;
 import com.zxdz.car.main.view.setting.PasswordValidataActivity;
-import com.zxdz.car.main.view.setting.SettingActivity;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.functions.Action1;
-
-import static com.blankj.utilcode.util.ClipboardUtils.getIntent;
 
 /**
  * Created by super on 2017/10/16.
@@ -238,7 +232,6 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                           if (initDialog!=null&&initDialog.isShowing()){
                                               initDialog.dismiss();
                                           }
-                                          CarTravelHelper.carTravelRecord = null;
                                           startActivity(new Intent(MainActivity.this, AuthCardActivity.class));
                                       }
                                   }
@@ -263,6 +256,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         App.IsNewLS=false;
         uploadDataInfo();
         App.LSID = 0L;
+        CarTravelHelper.carTravelRecord = null;
     }
 
     @Override
@@ -285,14 +279,11 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         App.POLICE_SWIPE = 0;
         App.DRIVER_SWIPE = 0;
     }
-
     /**
      * 进入主界面，首先判断是否有未完成的记录
      */
     public void setLastStep() {
-
         if (CarTravelHelper.getCarTravelRecord() != null) {
-            //给操作记录赋值
             CarTravelHelper.carTravelRecord = CarTravelHelper.getCarTravelRecord();
             App.LSID=new Long(CarTravelHelper.carTravelRecord.getLS_ID());
             new SweetAlertDialog(MainActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
@@ -338,6 +329,11 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                     App.SWIPE_STEP = 5;
                                     intent = new Intent(MainActivity.this, BlueToothActivity.class);
                                     intent.putExtra("blue_step", 1);
+                                    break;
+                                case 45:
+                                    App.UPLOAD_STEP = 5;
+                                    App.SWIPE_STEP = 5;
+                                    intent = new Intent(MainActivity.this, OpenCardActivity.class);
                                     break;
                                 case 50:
                                     App.UPLOAD_STEP = 5;

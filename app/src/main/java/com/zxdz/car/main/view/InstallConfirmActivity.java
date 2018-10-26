@@ -309,22 +309,28 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 CarTravelHelper.carTravelRecord.setDLGJ_AZXM(persionInfo.getDLGJ_XM());
                 CarTravelHelper.carTravelRecord.setDLGJ_AZJH(persionInfo.getDLGJ_JH());
                 CarTravelHelper.carTravelRecord.setDLGJ_AZBM(persionInfo.getDLGJ_BMMC());
+                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+                //上传主信息记录
+                startService(intentService);
             }
             if (step == 2) {
                 CarTravelHelper.carTravelRecord.setDLGJ_SCXM(persionInfo.getDLGJ_XM());
                 CarTravelHelper.carTravelRecord.setDLGJ_KSJH(persionInfo.getDLGJ_JH());
                 CarTravelHelper.carTravelRecord.setDLGJ_KSBM(persionInfo.getDLGJ_BMMC());
+                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+                //上传主信息记录
+                startService(intentService);
             }
             if (step == 3) {
                 LogUtils.a("开始存储归还信息本地");
                 CarTravelHelper.carTravelRecord.setDLGJ_JHXM(persionInfo.getDLGJ_XM());
                 CarTravelHelper.carTravelRecord.setDLGJ_JHJH(persionInfo.getDLGJ_JH());
                 CarTravelHelper.carTravelRecord.setDLGJ_JHBM(persionInfo.getDLGJ_BMMC());
+                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
             }
-            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+
         }
-        //上传主信息记录
-        startService(intentService);
+
         if (App.DRIVER_SWIPE == 0) {
             /*if (flag) {
                 handler.postDelayed(new Runnable() {

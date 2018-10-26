@@ -118,7 +118,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         SharedPreferences.Editor edit = sp.edit();
         edit.putString("name", name);
         edit.commit();*/
-        GravityTOpen();//开启移动报警
+       // GravityTOpen();//开启移动报警
         bjintent = new Intent(this, UploadDataService.class);
     }
 

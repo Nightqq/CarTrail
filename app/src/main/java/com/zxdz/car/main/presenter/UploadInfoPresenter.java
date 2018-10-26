@@ -66,7 +66,8 @@ public class UploadInfoPresenter extends BasePresenter<UploadInfoEngin, UploadIn
                     @Override
                     public void resultInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
-                            App.LSID = new Long(resultInfo.data.getLS_ID());
+                            LogUtils.a("上传数据上面时候调用？？？？？？？");
+                            /*//App.LSID = new Long(resultInfo.data.getLS_ID());
                             //设置
                             List<CarTravelRecord> carTravelRecordListFromDB = CarTravelHelper.getCarTravelRecordListFromDB();
                             if (carTravelRecordListFromDB != null && carTravelRecordListFromDB.size() > 0) {
@@ -85,7 +86,7 @@ public class UploadInfoPresenter extends BasePresenter<UploadInfoEngin, UploadIn
                             }
 
                             //上传轨迹
-                            uploadTrailPoint(trailPointInfoWrapper);
+                            uploadTrailPoint(trailPointInfoWrapper);*/
                         } else {
                             mView.showNoNet();
                         }

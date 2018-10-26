@@ -27,6 +27,14 @@ public class TakePictureHelper {
         }
         return null;
     }
+    public static List<PictureInfo> getpictureInfoListHaveLSID() {
+        QueryBuilder queryBuilder = pictureInfoDao.queryBuilder();
+        queryBuilder.where(PictureInfoDao.Properties.LsId.notEq(0L));
+        if (queryBuilder.list() != null && queryBuilder.list().size() > 0) {
+            return  (ArrayList<PictureInfo>)queryBuilder.list();
+        }
+        return null;
+    }
 
     public static void saveWarnInfoToDB(PictureInfo pictureInfo) {
         if (pictureInfo != null) {

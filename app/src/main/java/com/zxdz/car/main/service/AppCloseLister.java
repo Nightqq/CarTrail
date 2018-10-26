@@ -48,7 +48,7 @@ public class AppCloseLister extends Service {
                 List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = am.getRunningAppProcesses();
                 for (ActivityManager.RunningAppProcessInfo runningAppProcess : runningAppProcesses) {
                     if (runningAppProcess.processName.equals(App.packageName)) {
-                        LogUtils.a("找到自己return");
+                        //LogUtils.a("找到自己return");
                         return;
                     }
                 }

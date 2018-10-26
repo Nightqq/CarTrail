@@ -23,7 +23,7 @@ public class URLConfig {
             ServerIP server_IP = areaInfoListFromDB.get(0);
             return "http://" + server_IP.getIp() + "/AreaMonitor/services/handler.ashx?";
         } else {
-            return "http://192.168.0.124/AreaMonitor/services/handler.ashx?";
+            return "http://192.168.0.10/AreaMonitor/services/handler.ashx?";
         }
     }
 

@@ -168,8 +168,8 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         mPresenter = new PersionInfoPresenter(this, this);
         intentService = new Intent(this, UploadDataService.class);
         //上传主信息记录
-        App.UPLOAD_STEP = 5;
-        startService(intentService);
+        //App.UPLOAD_STEP = 5;
+        //startService(intentService);
         RxView.clicks(btnNextSuccess).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
