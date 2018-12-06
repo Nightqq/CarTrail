@@ -118,6 +118,15 @@ public class SwitchUtils {
         }
         return stringBuffer.toString();
     }
+    //异或运算
+    public static byte[] xor(byte[] old){
+        byte temp = 0;
+        for (int i = 0; i <old.length ; i++) {
+            temp ^= old[i];
+        }
+        old[old.length-1] = temp;
+        return old;
+    }
 
 
     //加密
@@ -191,31 +200,34 @@ public class SwitchUtils {
     //开锁新
     public static byte[] openLock() {
         byte[] bytes = {0X00, 0x55, 0x00, 0x00};
-        return bytes;
+        byte[] xor = xor(bytes);
+        return xor;
     }
 
     //准备上锁
     public static byte[] closeLock() {
         byte[] bytes = {0X00, 0x4c, 0x00, 0x00};
-        return bytes;
+        byte[] xor = xor(bytes);
+        return xor;
     }
 
     //查询锁数据新
     public static byte[] enquiriesLock() {
         byte[] bytes = {0X00, 0x52, 0x00, 0x00};
-        return bytes;
+        byte[] xor = xor(bytes);
+        return xor;
     }
 
     //设置设备参数
     public static byte[] setParameters(int i) {
         byte[] bytes = new byte[6];
         if (i == 1){//id卡
-            bytes = new byte[]{0X00, 0x50, 0x02, 0x00, 0x00, 0x00};
+            bytes = new byte[]{0X00, 0x50, 0x02, 0x00, 0x00,0x00};
         }else if (i == 2){
-            bytes = new byte[]{0X00, 0x50, 0x02, 0x01, (byte) 0xFF, 0x00};
+            bytes = new byte[]{0X00, 0x50, 0x02, 0x01, (byte) 0xFF,0x00};
         }
-
-        return bytes;
+        byte[] xor = xor(bytes);
+        return xor;
     }
 
     //查询锁状态
