@@ -25,7 +25,12 @@ public class UnWarnInfoHelper {
     public static UnWarnInfo getWarnInfoListByID(long id,Boolean flag) {
         QueryBuilder queryBuilder = unwarnInfoDao.queryBuilder();
         queryBuilder.where(UnWarnInfoDao.Properties.Id.eq(id),UnWarnInfoDao.Properties.Flag.eq(flag));
-        return (UnWarnInfo)queryBuilder.list().get(queryBuilder.list().size()-1);
+        List list = queryBuilder.list();
+        if (list!=null&&list.size()>0){
+            return (UnWarnInfo)list.get(queryBuilder.list().size()-1);
+        }else{
+            return null;
+        }
     }
 
     public static void saveWarnInfoToDB(UnWarnInfo WarnInfo) {

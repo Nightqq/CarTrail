@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
@@ -26,7 +24,6 @@ import com.zxdz.car.main.model.domain.PictureInfo;
 import com.zxdz.car.main.service.UploadDataService;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;

@@ -30,8 +30,6 @@ import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.LockInfo;
 import com.zxdz.car.main.view.lock.OpenLockActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -167,9 +165,9 @@ public class BlueToothUtils {
             flagbyte[0] = 0x4C;
             writer_characteristic.setValue(bytes);
             statue = bluetoothGatt.writeCharacteristic(writer_characteristic);
-            if (statue) {
-                closeLock.closeable("关锁命令发送成功");
-            }
+//            if (statue) {
+//                closeLock.closeable("关锁命令发送成功");
+//            }
         } else {
             closeLock.closeable("请连接设备");
         }
@@ -304,11 +302,7 @@ public class BlueToothUtils {
                 LogUtils.a("BlueToothUtils", "设备连接断开");
                 return;
             }
-            LogUtils.a("收到通知");
             byte[] value = characteristic.getValue();
-
-            //String s = SwitchUtils.byte2HexStr(value);
-            //LogUtils.a("返回的消息", s);
             if (stateCallPolice) {
                 LogUtils.a("tagggg", value[1] + "");
                 if (value[1] == 0x46) {
@@ -319,6 +313,7 @@ public class BlueToothUtils {
                 return;
             }
             if (value != null) {
+                LogUtils.a("收到通知",flagbyte[0]+" q "+value[1]);
                 parse(value);
             }
         }
@@ -334,7 +329,7 @@ public class BlueToothUtils {
     private synchronized void parse(final byte[] bytes1) {
         switch (flagbyte[0]) {
             case 0x4C://准备上锁
-                if (bytes1[1] == 0x00) {
+                if (bytes1[1] == 0x43) {
                     closeLock.closeable("可以上锁");
                     flagbyte[0] = 0x46;
                 } else if (bytes1[1] == 0x03) {

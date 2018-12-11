@@ -239,10 +239,14 @@ public class UploadInfoUtil {
 
                     @Override
                     public void onNext(final ResultInfo<WarnInfo> resultInfo) {
-                        WarnInfoHelper.deleteWarnInfoInDB(warnInfo);
-                        LogUtils.a("报警信息上传完成--->" + resultInfo.message);
-                        LogUtils.a(resultInfo.message);
-                        UnWarnInfo unWarnInfo = new UnWarnInfo();
+                        if (resultInfo.message.equals("插入成功")) {
+                            WarnInfoHelper.deleteWarnInfoInDB(warnInfo);
+                            LogUtils.a("报警信息上传完成--->" + resultInfo.message);
+                        }
+                        UnWarnInfo unWarnInfo = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
+                        if (unWarnInfo == null) {
+                            unWarnInfo = new UnWarnInfo();
+                        }
                         unWarnInfo.setId(warnInfo.getId());
                         unWarnInfo.setWid(resultInfo.data.getWid());
                         unWarnInfo.setFlag(false);//不可上传
@@ -275,8 +279,10 @@ public class UploadInfoUtil {
                     @Override
                     public void onNext(final ResultInfo resultInfo) {
                         LogUtils.a("取消报警信息上传完成--->" + resultInfo.message);
-                        LogUtils.a(resultInfo.message);
-                        UnWarnInfoHelper.deleteWarnInfoInDB(warnInfos);
+                        if (resultInfo!=null&&resultInfo.message.equals("更新成功")){
+                            LogUtils.a(resultInfo.message);
+                            UnWarnInfoHelper.deleteWarnInfoInDB(warnInfos);
+                        }
                     }
                 });
                 mSubscriptions.add(subscribe);

@@ -65,8 +65,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     LinearLayout layoutNext;
     @BindView(R.id.open_working)
     TextView openWorking;
-    @BindView(R.id.police_change)
-    TextView policeChange;
     private String cardNum = "无";
     private SweetAlertDialog initDialog;
     private boolean flag = true;
@@ -133,6 +131,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     public void init() {
         setSupportActionBar(mToolBar);
       /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);*/
+        mToolBar.setTitle("开锁拆除");
         step = getIntent().getIntExtra("blue_step", 0);
         if (step == 0) {
             audioPlayUtils = new AudioPlayUtils(this, R.raw.zpscwc_qdcmjcxazsb);
@@ -180,7 +179,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 OpenCardActivity.this.finish();
             }
         });
-        policeChange.setVisibility(View.GONE);
+
         //模拟测试步骤，后期删除
         // layoutNext.setVisibility(View.VISIBLE);
     }
@@ -235,16 +234,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     };
 
 
-    @OnClick({R.id.police_change, R.id.btn_next_success})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.police_change:
-                break;
-            case R.id.btn_next_success:
-                openlock(2);
-                break;
-        }
-    }
 
     public void checkOpenLock(String msg) {
         try {
@@ -309,9 +298,11 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         } else if (i == 2) {//取消报警
             LogUtils.a("开始储存取消报警数据");
             UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
-            warnInfoListByID.setFlag(true);
-            UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
-            startService(intentService);
+            if (warnInfoListByID!=null){
+                warnInfoListByID.setFlag(true);
+                UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
+                startService(intentService);
+            }
         }
     }
 

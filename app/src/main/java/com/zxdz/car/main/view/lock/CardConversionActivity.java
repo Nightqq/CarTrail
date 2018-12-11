@@ -1,35 +1,16 @@
 package com.zxdz.car.main.view.lock;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.text.ICUCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
-import com.jakewharton.rxbinding.view.RxView;
-import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.utils.SwitchUtils;
 import com.zxdz.car.base.view.BaseActivity;
-import com.zxdz.car.main.model.domain.Constant;
-
-import java.io.UnsupportedEncodingException;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import rx.functions.Action1;
-
-import static com.blankj.utilcode.util.ConvertUtils.hexString2Bytes;
 
 public class CardConversionActivity extends BaseActivity {
 

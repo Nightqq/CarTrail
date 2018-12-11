@@ -51,6 +51,7 @@ public class AppCloseLister extends Service {
                         //LogUtils.a("找到自己return");
                         return;
                     }
+
                 }
                 PackageManager packageManager = AppCloseLister.this.getPackageManager();
                 Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage("com.zxdz.car");

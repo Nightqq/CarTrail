@@ -16,19 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.zxdz.car.App;
 import com.zxdz.car.R;
-import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.adapter.ExpandAdapter;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
-import com.zxdz.car.main.view.CarTrailActivity;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -265,7 +259,7 @@ public class BlueToothActivity extends BaseActivity {
     public void checkOpenLock(String msg) {
         try {
             LogUtils.a("准备开锁弹窗");
-            if (!initDialog.isShowing()){
+            if (initDialog!=null&&!initDialog.isShowing()){
                 LogUtils.a("准备开锁弹窗开启");
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));

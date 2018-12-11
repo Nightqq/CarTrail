@@ -13,25 +13,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.media.MediaBrowserCompat;
-import android.view.View;
 import android.widget.Toast;
 
-import com.acker.simplezxing.activity.CaptureActivity;
 import com.blankj.utilcode.util.LogUtils;
-import com.zxdz.car.R;
-import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.utils.SwitchUtils;
 import com.zxdz.car.main.model.domain.LockInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Lenovo on 2017/11/10.

@@ -102,6 +102,8 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     @Override
     public void init() {
         App.IsNewLS=true;
+        App.LSID = 0L;
+        CarTravelHelper.carTravelRecord = null;
         swipecardhelp = SwipingCardUtils.swipecardhelp(getApplicationContext());
         if (swipecardhelp.getArray(0, 0) == 1) {
             App.SWIPE_STEP = 1;

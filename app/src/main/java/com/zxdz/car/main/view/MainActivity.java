@@ -255,8 +255,6 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         super.onStart();
         App.IsNewLS=false;
         uploadDataInfo();
-        App.LSID = 0L;
-        CarTravelHelper.carTravelRecord = null;
     }
 
     @Override

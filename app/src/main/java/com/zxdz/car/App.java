@@ -41,7 +41,7 @@ public class App extends Application {
 
     public static Long LSID = 0L;//流水ID
 
-    public static boolean IsNewLS=false;
+    public static boolean IsNewLS = false;
 
 
     /**
@@ -84,13 +84,13 @@ public class App extends Application {
         Utils.init(App.this);
         CardDBUtil.init(App.this);
         locationService = new LocationService(getApplicationContext());
-       // WifiUtils.getWifiUtils().openBroadcast();
+        WifiUtils.getWifiUtils().openBroadcast();
     }
 
     @Override// 程序终止的时候执行
     public void onTerminate() {
         LogUtils.a("onTerminate");
-       // WifiUtils.getWifiUtils().unRegistBroadcast();
+        // WifiUtils.getWifiUtils().unRegistBroadcast();
         super.onTerminate();
     }
 
@@ -99,7 +99,7 @@ public class App extends Application {
         packageName = getPackageName();
         SharedPreferences qq = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
         boolean startself = qq.getBoolean("start_set_2", true);
-        if (startself){
+        if (startself) {
             AppCloseLister.startoneself(Utils.getContext());
         }
         LogUtils.a("onTrimMemory");

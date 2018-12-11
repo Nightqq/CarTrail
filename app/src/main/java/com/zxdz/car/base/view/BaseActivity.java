@@ -118,7 +118,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         SharedPreferences.Editor edit = sp.edit();
         edit.putString("name", name);
         edit.commit();*/
-       // GravityTOpen();//开启移动报警
+        GravityTOpen();//开启移动报警
         bjintent = new Intent(this, UploadDataService.class);
     }
 
@@ -272,24 +272,28 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public void onBackPressed() {
     }
 
-    private Handler handler = new Handler() {};
+    private Handler handler = new Handler() {
+    };
 
     //给拍照页面使用的标记，关闭后台自启动功能
-    public static boolean start_flag=true;
+    public static boolean start_flag = true;
+
     @Override
     protected void onStop() {
         super.onStop();
         //程序不可见判断程序是否处于前台
         SharedPreferences sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
         boolean start_set_3 = sp.getBoolean("start_set_3", true);
-        if (start_flag&&start_set_3&&!isAppOnForeground()) {
+        if (start_flag && start_set_3 && !isAppOnForeground()) {
             handler.postDelayed(runnable, 500);
         }
     }
+
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
             LogUtils.a("定时将后台应用跳转前台");
+
             //次方法启动activity，按下home键无法启动
             /*ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
             am.moveTaskToFront(getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);*/
@@ -299,7 +303,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             BaseActivity.this.startActivity(intent);*/
 
             Intent intent = new Intent(BaseActivity.this, BaseActivity.this.getClass());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent =
                     PendingIntent.getActivity(BaseActivity.this, 0, intent, 0);
             try {

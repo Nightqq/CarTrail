@@ -1,17 +1,11 @@
 package com.zxdz.car.base.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.renderscript.Int3;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Created by Lenovo on 2017/10/26.
@@ -108,7 +102,7 @@ public class SwitchUtils {
         String stmp = Integer.toHexString(b & 0xFF);
         return stmp.toUpperCase().trim();
     }
-   //16进制字符串转10进制字符串
+    //16进制字符串转10进制字符串
     public static String string2Hexstr(String s){
         s = s.replaceAll(" ","");
         StringBuilder stringBuffer = new StringBuilder();

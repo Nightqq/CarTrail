@@ -3,23 +3,12 @@ package com.zxdz.car.main.utils;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattService;
-import android.bluetooth.BluetoothProfile;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.zxdz.car.base.utils.SwitchUtils;
-import com.zxdz.car.main.model.domain.LockInfo;
 import com.zxdz.car.main.view.lock.BluetoothLock;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2018\1\17 0017.
