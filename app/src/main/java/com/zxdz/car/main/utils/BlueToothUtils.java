@@ -165,9 +165,9 @@ public class BlueToothUtils {
             flagbyte[0] = 0x4C;
             writer_characteristic.setValue(bytes);
             statue = bluetoothGatt.writeCharacteristic(writer_characteristic);
-//            if (statue) {
-//                closeLock.closeable("关锁命令发送成功");
-//            }
+            if (statue) {
+                closeLock.closeable("关锁命令发送成功");
+            }
         } else {
             closeLock.closeable("请连接设备");
         }
@@ -329,7 +329,7 @@ public class BlueToothUtils {
     private synchronized void parse(final byte[] bytes1) {
         switch (flagbyte[0]) {
             case 0x4C://准备上锁
-                if (bytes1[1] == 0x43) {
+                if (bytes1[1] == 0x00) {
                     closeLock.closeable("可以上锁");
                     flagbyte[0] = 0x46;
                 } else if (bytes1[1] == 0x03) {

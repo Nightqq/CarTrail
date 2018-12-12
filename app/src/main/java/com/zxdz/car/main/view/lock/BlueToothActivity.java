@@ -33,6 +33,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class BlueToothActivity extends BaseActivity {
 
 
+
     @BindView(R.id.open_lock_toolbar)
     Toolbar openLockToolbar;
     @BindView(R.id.open_lock_tv_title)
@@ -123,7 +124,7 @@ public class BlueToothActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-       // boolean created = BlueToothHelper.getBlueHelp().isCreated();
+        // boolean created = BlueToothHelper.getBlueHelp().isCreated();
        /* if (created) {
             openLockTvTitle.setText("已经连接过设备");
             openLockBluesaomiao.setVisibility(View.GONE);
@@ -149,7 +150,7 @@ public class BlueToothActivity extends BaseActivity {
                 //checkOpenLock("查询中");
                 BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
                     @Override
-                         public void enquiriesState(String str) {
+                    public void enquiriesState(String str) {
                         Message message = new Message();
                         message.obj = str;
                         mHandler.sendMessage(message);
@@ -172,7 +173,7 @@ public class BlueToothActivity extends BaseActivity {
                 break;
         }
     }
-//手动再次发送开锁命令
+    //手动再次发送开锁命令
     private void openlock(final int i) {
         checkOpenLock("开锁中");
 //        BluetoothLock.getBlueHelp(BlueToothActivity.this).openLock(new BluetoothLock.OpenLockListenter() {
@@ -211,7 +212,7 @@ public class BlueToothActivity extends BaseActivity {
             public void closedLock(String str) {
                 LogUtils.a(str);
                 Message message = new Message();
-                 message.obj = str;
+                message.obj = str;
                 message.what = 1;
                 Log.e("kscg....","291------");
                 mHandler.sendMessage(message);
@@ -221,7 +222,7 @@ public class BlueToothActivity extends BaseActivity {
             }
         });
     }
-    private void openlock(){ 
+    private void openlock(){
         checkOpenLock("开锁中");
         mHandler.postDelayed(runnable2, 8000);
         BlueToothHelper.getBlueHelp().openLock(new BlueToothUtils.OpenLockListenter() {
@@ -259,14 +260,14 @@ public class BlueToothActivity extends BaseActivity {
     public void checkOpenLock(String msg) {
         try {
             LogUtils.a("准备开锁弹窗");
-            if (initDialog!=null&&!initDialog.isShowing()){
+            if (!initDialog.isShowing()){
                 LogUtils.a("准备开锁弹窗开启");
-            initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-            initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            initDialog.setTitleText(msg);
-            initDialog.setCancelable(false);
-            initDialog.setCanceledOnTouchOutside(true);
-            initDialog.show();
+                initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                initDialog.setTitleText(msg);
+                initDialog.setCancelable(false);
+                initDialog.setCanceledOnTouchOutside(true);
+                initDialog.show();
             }
         }catch (Exception e){
             LogUtils.a(""+e.getMessage().toString());
