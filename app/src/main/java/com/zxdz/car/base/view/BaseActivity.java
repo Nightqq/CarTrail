@@ -112,12 +112,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
         // mToneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM, 100);
         init();
-      /*  //使用sp保存当前activity的名称
-        String name = this.getClass().getName();
-        sp = getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putString("name", name);
-        edit.commit();*/
         GravityTOpen();//开启移动报警
         bjintent = new Intent(this, UploadDataService.class);
     }
@@ -179,9 +173,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     private void unPolice() {
         if (audioPlayUtils != null) {
-            if (dialog != null) {
+           /* if (dialog != null) {
                 dialog.dismiss();
-            }
+            }*/
             LogUtils.a("停止报警语音");
             callPolice(2);
             audioPlayUtils.stop();
@@ -201,6 +195,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         SharedPreferences sp = getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
         String policeNum = sp.getString("policeNum", "111111");
         if (i == 1) {//报警
+            App.baojing_type=1;
             LogUtils.a("开始储存报警数据");
             // TODO: 2018\1\17 0017 强拆锁报警
             WarnInfo warnInfo = new WarnInfo();
@@ -215,6 +210,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             WarnInfoHelper.saveWarnInfoToDB(warnInfo);
             startService(bjintent);
         } else if (i == 2) {//取消报警
+            App.baojing_type=0;
             LogUtils.a("开始储存取消报警数据");
             UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
             warnInfoListByID.setFlag(true);
@@ -225,7 +221,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     //屏幕不可点击
     private void policeingunclick() {
-        dialog = new android.app.AlertDialog.Builder(getApplicationContext())
+       /* dialog = new android.app.AlertDialog.Builder(getApplicationContext())
                 .create();
         dialog.setContentView(R.layout.dialog_police_unclick);
         Window window = dialog.getWindow();
@@ -237,7 +233,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         window.setAttributes(params);
         window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ERROR);
         dialog.setCancelable(false);
-        dialog.show();
+        dialog.show();*/
         //报警吐司
         toastUtil = new ToastUtil(this, R.layout.activity_toast, "设备移动报警中，请将设备放回原处(民警刷卡可重置安装位置)");
         toastUtil.show(100000000);

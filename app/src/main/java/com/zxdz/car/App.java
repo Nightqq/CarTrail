@@ -76,6 +76,12 @@ public class App extends Application {
      */
     public static int GravityListener_type = 0;
     public static String packageName;
+    /**
+     * 报警
+     * 0：非报警中
+     * 1：报警中
+     */
+    public static int baojing_type=0;
 
     @Override // 程序创建的时候执行
     public void onCreate() {

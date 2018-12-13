@@ -123,6 +123,9 @@ public class CarTrailActivity extends BaseActivity {
     }
 
     public void closeLock() {
+        if (App.baojing_type==1){
+            return;
+        }
         /*new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setTitleText("到达目的地，是否关锁?")
                 .setContentText("确认达到后请关闭蓝牙锁")
@@ -175,6 +178,9 @@ public class CarTrailActivity extends BaseActivity {
     }
 
     public void outDoor() {
+        if (App.baojing_type==1){
+            return;
+        }
         Intent intent = new Intent(CarTrailActivity.this, RemoveEquipmentActivity.class);
         startActivity(intent);
         finish();
