@@ -34,8 +34,8 @@ public class BlueToothActivity extends BaseActivity {
 
 
 
-    @BindView(R.id.open_lock_toolbar)
-    Toolbar openLockToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolBar;
     @BindView(R.id.open_lock_tv_title)
     TextView openLockTvTitle;
     @BindView(R.id.open_lock_bluesaomiao)
@@ -98,7 +98,8 @@ public class BlueToothActivity extends BaseActivity {
     @Override
     public void init() {
         ButterKnife.bind(this);
-        basetoobar(openLockToolbar, "蓝牙锁");
+        mToolBar.setTitle("蓝牙锁");
+        setSupportActionBar(mToolBar);
         intentService = new Intent(this, UploadDataService.class);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

@@ -5,12 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/open_lock_toolbar"
-        style="@style/Base.Widget.AppCompat.SearchView.ActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_high"
-        android:background="@color/primary">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/common_action_bar"></include>
 
        <!-- <RelativeLayout
             android:layout_width="match_parent"
@@ -25,7 +22,7 @@
                 android:textSize="20sp" />
         </RelativeLayout>-->
 
-    </android.support.v7.widget.Toolbar>
+
 
 
 
