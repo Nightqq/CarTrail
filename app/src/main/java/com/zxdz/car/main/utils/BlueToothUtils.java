@@ -165,9 +165,9 @@ public class BlueToothUtils {
             flagbyte[0] = 0x4C;
             writer_characteristic.setValue(bytes);
             statue = bluetoothGatt.writeCharacteristic(writer_characteristic);
-            if (statue) {
-                closeLock.closeable("关锁命令发送成功");
-            }
+//            if (statue) {
+//                closeLock.closeable("关锁命令发送成功");
+//            }
         } else {
             closeLock.closeable("请连接设备");
         }
@@ -271,6 +271,11 @@ public class BlueToothUtils {
                         }
                     }
                 }
+                //民警拿到锁后自动把锁设置为打开状态
+                byte[] bytes = SwitchUtils.openLock();
+                writer_characteristic.setValue(bytes);
+                bluetoothGatt.writeCharacteristic(writer_characteristic);
+
                 connectedDevicesListenter.connectenDevice(1);
                 if (read_characteristic != null) {
                     LogUtils.a("设置notify");
@@ -348,11 +353,12 @@ public class BlueToothUtils {
                 }
                 break;
             case 0x52://查询锁状态返回
-                String s1 = SwitchUtils.byte2HexStr1(bytes1[3]);
-                if (bytes1[3] == 0x00) {
+                byte[] s1 = SwitchUtils.getBooleanArray(bytes1[3]);
+                //LogUtils.a("查询锁",Arrays.toString(s1));
+                if (s1[7] == 1) {
                     enquiriesState.enquiriesState("锁状态：开");
                 }
-                if (bytes1[3] == 0x01) {
+                if (s1[7] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
                 break;

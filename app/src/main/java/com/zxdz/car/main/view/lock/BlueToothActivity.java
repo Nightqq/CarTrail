@@ -107,13 +107,12 @@ public class BlueToothActivity extends BaseActivity {
             step = bundle.getInt("blue_step");
         }
         if (step == 1) {
-            police_num = intent.getStringExtra("police_card");
+            //police_num = intent.getStringExtra("police_card");
             closelock();
         }else if (step == 2){
-            police_num = intent.getStringExtra("police_card");
-            LogUtils.a("准备开锁");
+            //police_num = intent.getStringExtra("police_card");
+            //LogUtils.a("准备开锁");
             openlock();
-
         }
      /*   if (step == 2) {
             num = intent.getStringExtra("car_trail");
