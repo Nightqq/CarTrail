@@ -42,6 +42,7 @@ import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.view.lock.AuthBlueLinkActivity;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
+import com.zxdz.car.main.view.lock.CameraActivity;
 import com.zxdz.car.main.view.lock.OpenCardActivity;
 import com.zxdz.car.main.view.setting.PasswordValidataActivity;
 
@@ -311,11 +312,13 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 11:
                                     App.UPLOAD_STEP = 2;
                                     App.SWIPE_STEP = 3;
+                                    App.GravityListener_type=0;//关闭手持机移动报警
                                     intent = new Intent(MainActivity.this, InstallWaitActivity.class);
                                     break;
                                 case 20:
                                     App.UPLOAD_STEP = 3;
                                     App.SWIPE_STEP = 4;
+                                    App.GravityListener_type=1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 1);
                                     break;
@@ -325,17 +328,26 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 40:
                                     App.UPLOAD_STEP = 4;
                                     App.SWIPE_STEP = 5;
+                                    App.GravityListener_type=1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, BlueToothActivity.class);
                                     intent.putExtra("blue_step", 1);
+                                    break;
+                                case 43:
+                                    App.UPLOAD_STEP = 4;
+                                    App.SWIPE_STEP = 5;
+                                    App.GravityListener_type=0;//关闭手持机移动报警
+                                    intent = new Intent(MainActivity.this, CameraActivity.class);
                                     break;
                                 case 45:
                                     App.UPLOAD_STEP = 5;
                                     App.SWIPE_STEP = 5;
+                                    App.GravityListener_type=1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, OpenCardActivity.class);
                                     break;
                                 case 50:
                                     App.UPLOAD_STEP = 5;
                                     App.SWIPE_STEP = 6;
+                                    App.GravityListener_type=1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 2);
                                     break;

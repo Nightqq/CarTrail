@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.R;
+import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.adapter.ExpandAdapter;
@@ -71,8 +72,9 @@ public class BlueToothActivity extends BaseActivity {
                     flag = false;
                     //savedate(1);
                     startact(BlueToothActivity.this,CameraActivity.class);
-                    //LogUtils.a(App.GravityListener_type);
-                    //startActivityForResult(new Intent(BlueToothActivity.this, OpenCardActivity.class), 1);
+                    //后期添加：状态值43，锁车完成后更改
+                    CarTravelHelper.carTravelRecord.setZT(45);
+                    CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
                     finish();
                 }
             } else if (obj.equals("开锁成功")) {
