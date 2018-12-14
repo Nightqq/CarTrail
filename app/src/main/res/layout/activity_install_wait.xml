@@ -26,12 +26,12 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/install_waiting_icon"/>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="[可以插入耳机模拟安装硬件]"
                 android:textColor="@color/black_333"
-                android:textSize="14sp"/>
+                android:textSize="14sp"/>-->
         </LinearLayout>
 
         <LinearLayout

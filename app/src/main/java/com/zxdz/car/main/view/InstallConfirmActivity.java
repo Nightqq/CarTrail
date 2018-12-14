@@ -205,7 +205,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             mCardNumberTextView.setText(carNumber);
             mReadWaitLayout.setVisibility(View.GONE);
             mCardInfoLayout.setVisibility(View.VISIBLE);
-            mNextLayout.setVisibility(View.VISIBLE);
+            //mNextLayout.setVisibility(View.VISIBLE);
             if (step == 1) {
                 saveAdminCard(carNumber);  //存储卡号到本地数据库0
                 //ToastUtils.showLong("认证成功,开始记录轨迹");

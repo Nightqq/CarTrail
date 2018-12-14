@@ -222,7 +222,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 mReadWaitLayout.setVisibility(View.GONE);
                 mCardInfoLayout.setVisibility(View.VISIBLE);
                 tvName.setText(adminName);
-                mNextLayout.setVisibility(View.VISIBLE);
+                //mNextLayout.setVisibility(View.VISIBLE);
                 mCardStateTextView.setText(getResources().getText(R.string.card_auth_success_text));
                 saveAdminCard(carNumber, 1);
                 if (swipecardhelp.getArray(0, 1) == 1) {
@@ -246,7 +246,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
             mReadWaitLayout.setVisibility(View.GONE);
             mCardInfoLayout.setVisibility(View.VISIBLE);
-            mNextLayout.setVisibility(View.VISIBLE);
+            //mNextLayout.setVisibility(View.VISIBLE);
             mCardNumberTextView.setText(carNumber);
             App.POLICE_SWIPE = 1;//干警刷完卡就不可以刷了
             saveAdminCard(carNumber, 2);//在管理员不刷时step要变动
@@ -270,7 +270,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
             mReadWaitLayout.setVisibility(View.GONE);
             mCardInfoLayout.setVisibility(View.VISIBLE);
-            mNextLayout.setVisibility(View.VISIBLE);
+            //mNextLayout.setVisibility(View.VISIBLE);
             mCardNumberTextView.setText(carNumber);
             App.DRIVER_SWIPE = 1;
             saveAdminCard(carNumber, 3);
@@ -426,7 +426,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             tvDept.setText(persionInfo.getDepName());
             tvReason.setText(persionInfo.getRemark());
             startService(intentService);
-        } else if (persionInfo == null) {
+        } else  {
             startService(intentService);
         }
     }

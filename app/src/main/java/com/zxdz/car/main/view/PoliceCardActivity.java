@@ -217,7 +217,7 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
 //            edit.commit();
 
             mCardInfoLayout.setVisibility(View.VISIBLE);
-            mNextLayout.setVisibility(View.VISIBLE);
+            //mNextLayout.setVisibility(View.VISIBLE);
 
             //----TODO 临时代码
             /*String path =  Environment.getExternalStorageDirectory().getPath();

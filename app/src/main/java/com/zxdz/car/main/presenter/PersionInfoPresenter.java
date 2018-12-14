@@ -48,7 +48,7 @@ public class PersionInfoPresenter extends BasePresenter<PersionInfoEngin, Persio
             mView.showPoliceInfoAll(warnInfoListByLSID.get(0));
         }else {
                 getDriverInfo( cardNumber);
-                Toast.makeText(Utils.getContext(),"本地没有此卡数据",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Utils.getContext(),"本地没有此卡数据",Toast.LENGTH_SHORT).show();
                 // TODO: 2018/8/22 暂时修改
         }
        /* Subscription subscribe = mEngin.getPersionInfo(cardNumber).subscribe(new Subscriber<ResultInfo<PersionInfo>>() {
