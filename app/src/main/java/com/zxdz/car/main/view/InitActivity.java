@@ -214,7 +214,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             public void run() {
                 PoliceInfoAllHelper.deleteAllPoliceInfoAllList();
                 List<PoliceInfoAll> dlgj = settingInfo.getDlgj();
-                if (dlgj != null) {//保存民警卡号到本地
+                if (dlgj != null && dlgj.size()>0) {//保存民警卡号到本地
                     LogUtils.a("民警数量" + dlgj.size() + "卡号：" + dlgj.get(0).getDLGJ_KH());
                     PoliceInfoAllHelper.savePoliceInfoAllListToDB(dlgj);
                 }

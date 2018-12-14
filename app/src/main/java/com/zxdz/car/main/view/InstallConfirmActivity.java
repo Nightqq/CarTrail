@@ -22,6 +22,7 @@ import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
+import com.zxdz.car.base.utils.SwipingCardUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
@@ -106,9 +107,10 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             App.SWIPE_STEP = 4;
             App.UPLOAD_STEP = 3;
             LogUtils.a(App.UPLOAD_STEP);
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.sbazwbhqdcmjsk);
+            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazsbazwchqqrsk);
+
             audioPlayUtils.play();
-            mToolBar.setTitle("带车民警确认安装完成");
+            mToolBar.setTitle("带车民警确认安装完成刷卡");
             notMove.setVisibility(View.VISIBLE);
         }
         if (step == 2) {

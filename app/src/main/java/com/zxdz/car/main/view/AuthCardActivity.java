@@ -151,7 +151,19 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                         mToolBar.setTitle("驾驶员刷卡");
                         return;
                     } else {
-                        Intent intent = new Intent(AuthCardActivity.this, InstallWaitActivity.class);
+                        Intent intent = null;
+                        //判断是否刷确认安装步骤
+                        if (SwipingCardUtils.swipecardhelp(AuthCardActivity.this).getArray(1, 1) == 1) {
+                            intent = new Intent(AuthCardActivity.this, InstallConfirmActivity.class);
+                            intent.putExtra("confirm_step", 1);
+                        } else {
+                            intent = new Intent(AuthCardActivity.this, CarTrailActivity.class);
+                            App.GravityListener_type = 1;
+                            App.SWIPE_STEP = 4;
+                            App.UPLOAD_STEP = 3;
+                            App.GravityListener_type = 1;
+                            intent.putExtra("car_trail", 1);//进入时记录路线
+                        }
                         startActivity(intent);
                         finish();
                     }

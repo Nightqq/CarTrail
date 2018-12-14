@@ -143,7 +143,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/refresh_card_icon" />
+                android:src="@mipmap/install_waiting_icon" />
         </LinearLayout>
 
     </FrameLayout>

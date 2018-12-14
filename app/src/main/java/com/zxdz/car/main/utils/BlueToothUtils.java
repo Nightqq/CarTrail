@@ -244,7 +244,6 @@ public class BlueToothUtils {
                 gatt.close();
                 bluetoothGatt = null;
                 OpenLockActivity.iscon = false;
-                connectedDevicesListenter.connectenDevice(0);
                 LogUtils.a("连接断开");
                 if (handler1 != null && !isLoop) {
                     LogUtils.a("自动重连中。。。");
