@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,7 +23,6 @@ import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
-import com.zxdz.car.base.utils.SwipingCardUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
@@ -76,6 +76,10 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
     public String flag = "000000";
     @BindView(R.id.not_move)
     TextView notMove;
+    @BindView(R.id.install_wait)
+    ImageView installWait;
+    @BindView(R.id.refresh_card)
+    ImageView refreshCard;
     private int step = 1;//判断是从哪个界面跳转到确认界面
     private String mCarNumber;
     private Intent intentService;
@@ -119,6 +123,8 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             audioPlayUtils = new AudioPlayUtils(this, R.raw.clddzxqqdcmjqrsk);
             audioPlayUtils.play();
             mToolBar.setTitle("带车民警确认到达刷卡");
+            installWait.setVisibility(View.GONE);
+            refreshCard.setVisibility(View.VISIBLE);
         }
         if (step == 3) {
             App.SWIPE_STEP = 7;
@@ -126,6 +132,8 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjqrsbjhsk);
             audioPlayUtils.play();
             mToolBar.setTitle("带车民警确认交还设备");
+            installWait.setVisibility(View.GONE);
+            refreshCard.setVisibility(View.VISIBLE);
         }
         setSupportActionBar(mToolBar);
        /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
