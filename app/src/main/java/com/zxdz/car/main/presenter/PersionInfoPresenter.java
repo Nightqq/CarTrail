@@ -142,6 +142,8 @@ public class PersionInfoPresenter extends BasePresenter<PersionInfoEngin, Persio
 
 
 
+
+
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
 

@@ -129,7 +129,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="26sp"
-            android:text="带领民警确认安装完成后请勿移动手持机"
+            android:text="带领民警确认安装完成后请刷卡"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

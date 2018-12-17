@@ -27,6 +27,7 @@ import com.zxdz.car.base.helper.WarnInfoHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
+import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.model.domain.UnWarnInfo;
 import com.zxdz.car.main.model.domain.WarnInfo;
@@ -331,4 +332,23 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         startService(intentService);
         finish();
     }
+    @Override
+    public void showPersionInfo(PersionInfo persionInfo) {
+        if (persionInfo != null && persionInfo.getType() == 1) {//type = 0结果暂时添加
+            tvCarName.setText(persionInfo.getName());
+            tvCarNumber.setText(persionInfo.getAlarm());
+            if (CarTravelHelper.carTravelRecord != null) {
+                CarTravelHelper.carTravelRecord.setDLGJ_LYXM(persionInfo.getName());
+                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+            }
+            startService(intentService);
+        } else if (persionInfo != null && persionInfo.getType() == 2) {
+            tvCarName.setText(persionInfo.getName());
+            tvCarNumber.setText(persionInfo.getAlarm());
+            startService(intentService);
+        } else  {
+            startService(intentService);
+        }
+    }
+
 }

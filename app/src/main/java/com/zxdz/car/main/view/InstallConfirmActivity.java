@@ -25,6 +25,7 @@ import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
+import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
 import com.zxdz.car.main.service.UploadDataService;
@@ -338,19 +339,26 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 CarTravelHelper.carTravelRecord.setDLGJ_JHBM(persionInfo.getDLGJ_BMMC());
                 CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
             }
-
         }
+    }
 
-        if (App.DRIVER_SWIPE == 0) {
-            /*if (flag) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mNextButton.callOnClick();
-                        flag = false;
-                    }
-                }, 2000);
-            }*/
+    @Override
+    public void showPersionInfo(PersionInfo persionInfo) {
+        if (persionInfo != null && persionInfo.getType() == 1) {//type = 0结果暂时添加
+            tvCarNameTextView.setText(persionInfo.getName());
+            tvAlarmTextView.setText(persionInfo.getAlarm());
+            tvDeptTextView.setText(persionInfo.getDepName());
+            if (CarTravelHelper.carTravelRecord != null) {
+                CarTravelHelper.carTravelRecord.setDLGJ_LYXM(persionInfo.getName());
+                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+            }
+            startService(intentService);
+        } else if (persionInfo != null && persionInfo.getType() == 2) {
+            tvCarNameTextView.setText(persionInfo.getName());
+            tvDeptTextView.setText(persionInfo.getDepName());
+            startService(intentService);
+        } else  {
+            startService(intentService);
         }
     }
 
