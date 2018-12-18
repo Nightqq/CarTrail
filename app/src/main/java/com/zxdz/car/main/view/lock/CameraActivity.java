@@ -52,7 +52,8 @@ public class CameraActivity extends BaseActivity {
     @Override
     public void init() {
         ButterKnife.bind(this);
-        basetoobar(toolbar, "拍照上传");
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("拍照上传");
         App.GravityListener_type = 0;//关闭手持机移动报警
         BlueToothActivity.flag2 = true;
         start_flag=false;
