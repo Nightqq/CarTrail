@@ -93,8 +93,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        i=0;
         this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代码
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
@@ -112,8 +112,20 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
         // mToneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM, 100);
         init();
+        setbright();
         GravityTOpen();//开启移动报警
         bjintent = new Intent(this, UploadDataService.class);
+    }
+
+    /*
+    * i=0常亮
+    * */
+    public static int i;
+    public void setbright() {
+        if (i == 0) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
+            //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     private static float x0;
@@ -195,7 +207,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         SharedPreferences sp = getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
         String policeNum = sp.getString("policeNum", "111111");
         if (i == 1) {//报警
-            App.baojing_type=1;
+            App.baojing_type = 1;
             LogUtils.a("开始储存报警数据");
             // TODO: 2018\1\17 0017 强拆锁报警
             WarnInfo warnInfo = new WarnInfo();
@@ -210,12 +222,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             WarnInfoHelper.saveWarnInfoToDB(warnInfo);
             startService(bjintent);
         } else if (i == 2) {//取消报警
-            App.baojing_type=0;
+            App.baojing_type = 0;
             LogUtils.a("开始储存取消报警数据");
             UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
-            warnInfoListByID.setFlag(true);
-            UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
-            startService(bjintent);
+            if (warnInfoListByID != null) {
+                warnInfoListByID.setFlag(true);
+                UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
+                startService(bjintent);
+            }
         }
     }
 

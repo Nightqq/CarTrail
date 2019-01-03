@@ -106,13 +106,13 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
             audioPlayUtils = new AudioPlayUtils(this, R.raw.gclcjs);
             audioPlayUtils.play();
         }
+        i=1;//屏幕常亮取消
         Glide.with(this).load(R.mipmap.upload_loading).into(mUploadLoadingImageView);
         mPresenter = new UploadInfoPresenter(this, this);
         intentService = new Intent(MainActivity.this, UploadDataService.class);
 
         //设置是否继续任务
         setLastStep();
-
         setCardType();
         String androidID = DeviceUtils.getAndroidID();
         Log.e("串口号", androidID);

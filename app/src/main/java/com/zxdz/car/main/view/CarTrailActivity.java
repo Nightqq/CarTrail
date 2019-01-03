@@ -58,6 +58,7 @@ public class CarTrailActivity extends BaseActivity {
     private int carTrail = 1;//车辆轨迹记录类型(工作进入，工作出门)
     private LocationService locationService;
     private AudioPlayUtils audioPlayUtils;
+    private String resultadress;
 
     @Override
     public int getLayoutId() {
@@ -69,7 +70,7 @@ public class CarTrailActivity extends BaseActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        App.GravityListener_type=1;//开启手持机移动报警
+        App.GravityListener_type = 1;//开启手持机移动报警
         if (bundle != null) {
             carTrail = bundle.getInt("car_trail");
             if (carTrail == 1) {
@@ -106,15 +107,15 @@ public class CarTrailActivity extends BaseActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (carTrail == 1){
+                if (carTrail == 1) {
                     audioPlayUtils = new AudioPlayUtils(CarTrailActivity.this, R.raw.sbazwc_qwydsb_kyxs);
                     audioPlayUtils.play();
-                }else {
+                } else {
                     audioPlayUtils = new AudioPlayUtils(CarTrailActivity.this, R.raw.syk_kyslzyq);
                     audioPlayUtils.play();
                 }
             }
-        },600);
+        }, 600);
     }
 
     @Override
@@ -123,7 +124,7 @@ public class CarTrailActivity extends BaseActivity {
     }
 
     public void closeLock() {
-        if (App.baojing_type==1){
+        if (App.baojing_type == 1) {
             return;
         }
         /*new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
@@ -178,7 +179,7 @@ public class CarTrailActivity extends BaseActivity {
     }
 
     public void outDoor() {
-        if (App.baojing_type==1){
+        if (App.baojing_type == 1) {
             return;
         }
         Intent intent = new Intent(CarTrailActivity.this, RemoveEquipmentActivity.class);
@@ -240,6 +241,7 @@ public class CarTrailActivity extends BaseActivity {
      *
      */
     private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+
 
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -323,16 +325,14 @@ public class CarTrailActivity extends BaseActivity {
                     sb.append("\ndescribe : ");
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
                 }
-
-
-
-                String result = "经度" + location.getLongitude() + "纬度" + location.getLatitude() + "速度" + location.getSpeed();
-
+                resultadress = "经度" + location.getLongitude() +
+                        "纬度" + location.getLatitude() +
+                        "速度" + location.getSpeed();
                 TrailPointInfo trailPointInfo = new TrailPointInfo();
                 trailPointInfo.setGJZBWD(location.getLatitude());
                 trailPointInfo.setGJZBJD(location.getLongitude());
                 trailPointInfo.setGJSJ(new Date());
-                trailPointInfo.setResult(result);
+                trailPointInfo.setResult("");
                 RxBus.get().post(Constant.UPDATE_LOCATION, trailPointInfo);
             }
         }
@@ -353,9 +353,7 @@ public class CarTrailActivity extends BaseActivity {
         if (mAddressTextView != null) {
             ToastUtils.showLong("轨迹记录中：" + TimeUtils.getNowString());
             if (trailPointInfo != null) {
-                if (!StringUtils.isEmpty(trailPointInfo.getResult())) {
-                    mAddressTextView.setText(Html.fromHtml(trailPointInfo.getResult()));
-                }
+                mAddressTextView.setText(resultadress);
                 TrailPointHelper.saveTrailPointInfoToDB(trailPointInfo);
             }
         }

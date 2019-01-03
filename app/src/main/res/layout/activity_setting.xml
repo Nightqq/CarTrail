@@ -13,6 +13,7 @@
         layout="@layout/common_action_bar"></include>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/setting_admin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_high"
@@ -47,6 +48,7 @@
         android:layout_height="1dp"/>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/setting_area"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_high"
@@ -115,6 +117,7 @@
         android:layout_height="1dp"/>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_high"
         android:background="#ffffff"
@@ -216,6 +219,7 @@
         android:layout_height="1dp"/>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/layout_gps_upload_interval"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_high"

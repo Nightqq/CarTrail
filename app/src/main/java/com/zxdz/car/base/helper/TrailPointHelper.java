@@ -20,6 +20,13 @@ public class TrailPointHelper {
 
     public static void saveTrailPointInfoToDB(TrailPointInfo TrailPointInfo) {
         if (TrailPointInfo != null) {
+            if (getTrailPointInfoListFromDB()!=null&&getTrailPointInfoListFromDB().size()>2){
+                com.zxdz.car.main.model.domain.TrailPointInfo trailPointInfo = getTrailPointInfoListFromDB().get(getTrailPointInfoListFromDB().size() - 1);
+                if (trailPointInfo.getGJZBJD()!=TrailPointInfo.getGJZBJD()&&trailPointInfo.getGJZBWD()!=TrailPointInfo.getGJZBWD()){
+                    trailPointInfoDao.insertOrReplace(TrailPointInfo);
+                }
+                return;
+            }
             trailPointInfoDao.insertOrReplace(TrailPointInfo);
         }
     }
@@ -35,6 +42,7 @@ public class TrailPointHelper {
     public static void deleteTrailPointInfoInDB(TrailPointInfo TrailPointInfo) {
         trailPointInfoDao.delete(TrailPointInfo);
     }
+
     public static void deleteTrailPointInfoInDBlist(List<TrailPointInfo> list) {
         for (TrailPointInfo trailPointInfo : list) {
             trailPointInfoDao.delete(trailPointInfo);

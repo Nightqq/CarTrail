@@ -112,7 +112,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             App.SWIPE_STEP = 4;
             App.UPLOAD_STEP = 3;
             LogUtils.a(App.UPLOAD_STEP);
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazsbazwchqqrsk);
+            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazsb);
 
             audioPlayUtils.play();
             mToolBar.setTitle("带车民警确认安装完成刷卡");

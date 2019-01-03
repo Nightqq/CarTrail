@@ -66,6 +66,7 @@ public class UploadInfoEngin extends BaseEngin {
         Map<String, String> params = new HashMap<>();
         if (trailPointInfoWrapper != null) {
             params.put("cljclsgj", JSON.toJSONString(trailPointInfoWrapper));
+            LogUtils.a("cljclsgj",JSON.toJSONString(trailPointInfoWrapper));
         }
         return HttpCoreEngin.get(mContext).rxpost(URLConfig.getinstance().getUPDATE_TRAIL_POINT_URL(), new TypeReference<ResultInfo>() {
                 }.getType(), params,
