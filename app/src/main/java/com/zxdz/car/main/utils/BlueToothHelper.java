@@ -45,6 +45,10 @@ public class BlueToothHelper extends BlueToothUtils {
     public void setReceiverMode(receiveCardIDListener receivecardid) {
         setReceiverMode1(receivecardid);
     }
+    //设置flagbyte
+    public void setFlagbyte(){
+        setflagbyte();
+    }
 
     //报警状态取消接受上锁消息,恢复接受上锁消息
     public void giveupCloseMessage(CloseCallPolice closeCall, boolean b) {

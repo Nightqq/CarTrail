@@ -30,6 +30,7 @@ import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.LockInfo;
 import com.zxdz.car.main.view.lock.OpenLockActivity;
 
+import java.util.Arrays;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -82,6 +83,9 @@ public class BlueToothUtils {
         receivecardid = r;
         flagbyte[0] = 0x43;
     }
+    public void setflagbyte(){
+        flagbyte[0] = 0x46;
+    };
 
     //报警模式不接受锁消息
     public void giveupCardID(CloseCallPolice closeCall, boolean state) {
@@ -353,11 +357,11 @@ public class BlueToothUtils {
                 break;
             case 0x52://查询锁状态返回
                 byte[] s1 = SwitchUtils.getBooleanArray(bytes1[3]);
-                //LogUtils.a("查询锁",Arrays.toString(s1));
-                if (s1[7] == 1) {
+                LogUtils.a("车锁状态", Arrays.toString(s1));
+                if (s1[5] == 1) {//车锁按钮弹不起来时，则会判断失误
                     enquiriesState.enquiriesState("锁状态：开");
                 }
-                if (s1[7] == 0) {
+                if (s1[5] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
                 break;
@@ -389,7 +393,7 @@ public class BlueToothUtils {
                 }
                 break;
             case 0x46://上锁成功
-                Log.i("tagggg", bytes1[1] + "");
+                //LogUtils.a("tagggg", bytes1[1] + "");
                 if (bytes1[1] == 0x46) {
                     closeLock.closedLock("上锁成功");
                 }
@@ -428,7 +432,7 @@ public class BlueToothUtils {
             if (action.equals(BluetoothDevice.ACTION_FOUND)) {
                 device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//通过此方法获取搜索到的蓝牙设备
                 if (device == null) {
-                    Log.i("BlueToothUtils", "没有扫描到设备");
+                    LogUtils.a("BlueToothUtils", "没有扫描到设备");
                     return;
                 }
                 String name = device.getName();

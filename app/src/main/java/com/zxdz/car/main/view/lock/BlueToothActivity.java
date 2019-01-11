@@ -207,6 +207,23 @@ public class BlueToothActivity extends BaseActivity {
                     flag3 = false;
                     audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qdcmjsc);
                     audioPlayUtils.play();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
+                                @Override
+                                public void enquiriesState(String str) {
+                                    if (str.equals("锁状态：关")){
+                                        Message message = new Message();
+                                        message.obj = "上锁成功";
+                                        mHandler.sendMessage(message);
+                                    }else {
+                                        BlueToothHelper.getBlueHelp().setFlagbyte();
+                                    }
+                                }
+                            });
+                        }
+                    },500);
                 }
             }
 
@@ -216,7 +233,6 @@ public class BlueToothActivity extends BaseActivity {
                 Message message = new Message();
                 message.obj = str;
                 message.what = 1;
-                Log.e("kscg....","291------");
                 mHandler.sendMessage(message);
                 if (initDialog != null){
                     initDialog.dismissWithAnimation();
