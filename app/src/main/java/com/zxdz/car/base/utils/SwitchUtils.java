@@ -7,6 +7,8 @@ import android.renderscript.Int3;
 import android.util.Base64;
 import android.util.Log;
 
+import org.greenrobot.greendao.annotation.Convert;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 

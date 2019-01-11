@@ -67,7 +67,6 @@ public class CarTrailActivity extends BaseActivity {
 
     @Override
     public void init() {
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         App.GravityListener_type = 1;//开启手持机移动报警

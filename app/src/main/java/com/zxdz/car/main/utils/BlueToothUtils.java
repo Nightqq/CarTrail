@@ -373,7 +373,7 @@ public class BlueToothUtils {
                 break;
             case 0x43://刷卡返回
                 if (bytes1[1] == 0x43) {
-                    byte[] bytes = {bytes1[3], bytes1[4], bytes1[5], bytes1[6]};
+                    byte[] bytes = {(byte)(bytes1[3]^0xFF),(byte)(bytes1[4]^0xFF), (byte)(bytes1[5]^0xFF)};
                     final String s = SwitchUtils.byte2HexStr(bytes);
                     handler1.post(new Runnable() {
                         @Override
