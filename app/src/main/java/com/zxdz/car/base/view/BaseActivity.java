@@ -469,6 +469,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             @Override
             public void inputFinish() {
                 alertDialog.dismiss();
+                App.GravityListener_type = 0;
+                App.baojing_type = 0;
                 Intent intent = new Intent(Utils.getContext(), MainActivity.class);
                 BlueToothHelper.getBlueHelp().closeAll();
                 startActivity(intent);
