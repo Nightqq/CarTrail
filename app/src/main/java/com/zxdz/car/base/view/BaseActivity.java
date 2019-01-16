@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -487,8 +488,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             }
         });
         alertDialog.show();
-        passwardView.postDelayed(runnable,100);
+        passwardView.postDelayed(runnable1,100);
     }
+
+    private InputMethodManager inputMethodManager;
+    private Runnable runnable1 = new Runnable() {
+        @Override
+        public void run() {
+            inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+        }
+    };
 
     /*
         private void playTone() {
