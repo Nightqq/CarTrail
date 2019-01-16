@@ -3,6 +3,7 @@ package com.zxdz.car.main.view.setting;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import com.blankj.utilcode.util.LogUtils;
 import com.suke.widget.SwitchButton;
@@ -74,5 +75,8 @@ public class StartSettingActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_start_setting;
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

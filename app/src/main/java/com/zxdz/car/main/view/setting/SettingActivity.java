@@ -2,6 +2,7 @@ package com.zxdz.car.main.view.setting;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 
 import com.zxdz.car.R;
@@ -38,7 +39,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     public static int i=0;
-    @OnClick({R.id.setting_admin, R.id.setting_area, R.id.setting_swipe_card, R.id.setting_server_ip, R.id.setting_change, R.id.layout_gps_upload_interval})
+    @OnClick({R.id.setting_information,R.id.setting_admin, R.id.setting_area, R.id.setting_swipe_card, R.id.setting_server_ip, R.id.setting_change, R.id.layout_gps_upload_interval})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_admin:
@@ -63,9 +64,16 @@ public class SettingActivity extends BaseActivity {
                 //TODO 待完成
                 //默认5秒
                 break;
+
+            case R.id.setting_information:
+                startact(this, InformationActivity.class);
+                break;
             default:
                 break;
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 
 }

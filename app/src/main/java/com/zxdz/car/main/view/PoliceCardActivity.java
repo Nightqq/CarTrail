@@ -140,7 +140,7 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
         public boolean onMenuItemClick(MenuItem menuItem) {
             String msg = "";
             switch (menuItem.getItemId()) {
-                case R.id.action_change:
+              /*  case R.id.action_change:
                     new SweetAlertDialog(PoliceCardActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                             .setTitleText("是否更换带车民警?")
                             .setContentText("更换带车民警，请先刷管理员卡")
@@ -151,8 +151,8 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
                                 @Override
                                 public void onClick(SweetAlertDialog sDialog) {
                                     sDialog.dismissWithAnimation();
-                                    /*Intent intent = new Intent(CarAdminActivity.this, DriverSwipeCardActivity.class);
-                                    startActivity(intent);*/
+                                    *//*Intent intent = new Intent(CarAdminActivity.this, DriverSwipeCardActivity.class);
+                                    startActivity(intent);*//*
                                     ToastUtils.showLong("与前面刷卡刷卡类似，待完善");
                                 }
                             })
@@ -163,7 +163,7 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
                                 }
                             })
                             .show();
-                    break;
+                    break;*/
             }
             return true;
         }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".main.view.setting.InformationActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/information_toolbar"
+        style="@style/Base.Widget.AppCompat.SearchView.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_high"
+        android:background="@color/primary" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_high"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:padding="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ZDJID"
+            android:textColor="#000000"
+            android:textSize="@dimen/setting_item_text" />
+
+        <TextView
+            android:id="@+id/infor_zdjid"
+            android:layout_marginRight="10dp"
+            android:padding="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="000000000"
+            android:textColor="#000000"
+            android:textSize="@dimen/setting_item_text" />
+
+    </RelativeLayout>
+
+</LinearLayout>

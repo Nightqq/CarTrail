@@ -70,7 +70,7 @@ public class PasswordValidataActivity extends BaseActivity{
             }
         });
         alertDialog.show();
-        passwardView.postDelayed(runnable,100);
+        //passwardView.postDelayed(runnable,100);
 
     }
     private Runnable runnable = new Runnable() {

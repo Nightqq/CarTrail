@@ -1,10 +1,12 @@
 package com.zxdz.car.base.view;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -21,9 +23,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.EmptyUtils;
@@ -50,6 +56,9 @@ import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.utils.ToastUtil;
+import com.zxdz.car.main.view.MainActivity;
+import com.zxdz.car.main.view.setting.PasswordValidataActivity;
+import com.zxdz.car.main.view.setting.SettingActivity;
 
 import java.util.Date;
 import java.util.List;
@@ -278,6 +287,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
     }
 
+
+
+
+
     @Override
     public void onBackPressed() {
     }
@@ -412,12 +425,69 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     //Toolbar返回键设置
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
+        switch (item.getItemId()){
+            case R.id.action_restart:
+                passwardValidata();
+                break;
+            case android.R.id.home:
+                this.finish();
+                break;
         }
         return true;
+    }
+
+    private PasswardView passwardView;
+
+    //密码验证对话框
+    private void passwardValidata(){
+        final android.app.AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        View view = View.inflate(this,R.layout.activity_card_set_passwardvalidata, null);
+        alertDialog.setView(view);
+        TextView title = (TextView)view.findViewById(R.id.mm_title);
+        title.setText("重启系统");
+        passwardView = (PasswardView)view.findViewById(R.id.pwd_view);
+        Button btnCancel = (Button) view.findViewById(R.id.server_btn_cancel);
+        Button btnClipbord = (Button)view.findViewById(R.id.server_btn_clipboard);
+        btnClipbord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                passwardView.inPutAgain();
+            }
+        });
+        passwardView.setOnFinishInput(new PasswardView.OnPasswordInputFinish() {
+            @Override
+            public void inputFinish() {
+                alertDialog.dismiss();
+                Intent intent = new Intent(Utils.getContext(), MainActivity.class);
+                BlueToothHelper.getBlueHelp().closeAll();
+                startActivity(intent);
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+        passwardView.postDelayed(runnable,100);
     }
 
     /*

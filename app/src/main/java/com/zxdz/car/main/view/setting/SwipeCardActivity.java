@@ -3,6 +3,7 @@ package com.zxdz.car.main.view.setting;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -60,5 +61,8 @@ public class SwipeCardActivity extends BaseActivity {
                 Log.e("设置读卡2",App.readCardType+"");
                 break;
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

@@ -301,7 +301,7 @@ public class CarTrailActivity extends BaseActivity {
                     sb.append(location.getGpsAccuracyStatus());// *****gps质量判断*****
                     sb.append("\ndescribe : ");
                     sb.append("gps定位成功");
-                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                }/* else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
                     // 运营商信息
                     if (location.hasAltitude()) {// *****如果有海拔高度*****
                         sb.append("\nheight : ");
@@ -323,7 +323,7 @@ public class CarTrailActivity extends BaseActivity {
                 } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
                     sb.append("\ndescribe : ");
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
-                }
+                }*/
                 resultadress = "经度" + location.getLongitude() +
                         "纬度" + location.getLatitude() +
                         "速度" + location.getSpeed();

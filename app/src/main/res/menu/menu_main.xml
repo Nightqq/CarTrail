@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_change"
+        android:id="@+id/action_restart"
         android:icon="@mipmap/change_police_icon"
         android:orderInCategory="90"
-        android:title="更换带领干警"
+        android:title="重启"
         app:showAsAction="ifRoom" />
 </menu>
