@@ -428,11 +428,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     //Toolbar返回键设置
 
 
-    @Override
+    /*@Override//toolbar右上角Menu
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

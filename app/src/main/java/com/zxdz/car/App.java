@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.Utils;
 import com.zxdz.car.base.helper.CardDBUtil;
 import com.zxdz.car.base.utils.LocationService;
 import com.zxdz.car.main.service.AppCloseLister;
+import com.zxdz.car.main.service.ElectricityListener;
 import com.zxdz.car.main.utils.WifiUtils;
 
 /**
@@ -90,7 +91,8 @@ public class App extends Application {
         Utils.init(App.this);
         CardDBUtil.init(App.this);
         locationService = new LocationService(getApplicationContext());
-        WifiUtils.getWifiUtils().openBroadcast();
+        WifiUtils.getWifiUtils().openBroadcast();//wifi关闭自动开启
+        ElectricityListener.getElectricityListener(getApplicationContext()).openElectricityListener();//充电广播
     }
 
     @Override// 程序终止的时候执行

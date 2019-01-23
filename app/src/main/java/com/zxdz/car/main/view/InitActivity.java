@@ -76,8 +76,6 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
                 } else {
                     initEquInfo();
                 }
-
-
             }
         });
     }
