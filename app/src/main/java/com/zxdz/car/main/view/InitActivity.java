@@ -82,6 +82,13 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isInitEquSuccess){
+            mInitSettingButton.callOnClick();
+        }
+    }
 
     /**
      * 初始化设备信息(理论上新设备只需要执行一次)
@@ -113,6 +120,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             isInitEquSuccess = true;
             ToastUtils.showLong("设备初始化完成");
             App.readCardType = SPUtils.getInstance().getInt(Constant.READ_CARD_TYPE, Constant.NOT_SELECT_TYPE_ID);
+
         }
     }
 
