@@ -335,7 +335,6 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 break;
             case 5:
                 intent.setClass(this, OpenCardActivity.class);
-                //intent.putExtra("police_card", policeNum);
                 intent.putExtra("blue_step", 1);
                 startActivity(intent);
                 this.finish();

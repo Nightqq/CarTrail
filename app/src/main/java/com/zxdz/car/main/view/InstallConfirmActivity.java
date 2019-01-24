@@ -167,7 +167,6 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 if (step == 2) {
                     //ToastUtils.showLong("认证成功,请关闭蓝牙锁");
                     Intent intent = new Intent(InstallConfirmActivity.this, BlueToothActivity.class);
-                    intent.putExtra("police_card", mCarNumber);
                     intent.putExtra("blue_step", 1);
                     startActivity(intent);
                     finish();
@@ -231,7 +230,6 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 //ToastUtils.showLong("认证成功,请关闭蓝牙锁");
                 //在关闭锁界面，要处理上传主流水记录的操作
                 Intent intent = new Intent(InstallConfirmActivity.this, BlueToothActivity.class);
-                intent.putExtra("police_card", carNumber);
                 intent.putExtra("blue_step", 1);
                 startActivity(intent);
                 finish();

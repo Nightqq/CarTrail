@@ -30,6 +30,7 @@ import com.zxdz.car.base.utils.LocationService;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.TrailPointInfo;
+import com.zxdz.car.main.view.lock.BlueToothActivity;
 import com.zxdz.car.main.view.lock.BluetoothLock;
 
 import java.util.Date;
@@ -74,12 +75,11 @@ public class CarTrailActivity extends BaseActivity {
             carTrail = bundle.getInt("car_trail");
             if (carTrail == 1) {
                 mToolBar.setTitle("车辆进入轨迹");
-                mArriveButton.setText("到达目的地");
+                mArriveButton.setText("到达装卸区");
             } else {
                 //BluetoothLock.getBlueHelp(this).closeAll();
                 mToolBar.setTitle("车辆出门轨迹");
-                mArriveButton.setText("出门");
-
+                mArriveButton.setText("到达滞留区");
             }
         }
 
@@ -181,7 +181,9 @@ public class CarTrailActivity extends BaseActivity {
         if (App.baojing_type == 1) {
             return;
         }
-        Intent intent = new Intent(CarTrailActivity.this, RemoveEquipmentActivity.class);
+
+        Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
+        intent.putExtra("blue_step", 2);
         startActivity(intent);
         finish();
       /*  new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)

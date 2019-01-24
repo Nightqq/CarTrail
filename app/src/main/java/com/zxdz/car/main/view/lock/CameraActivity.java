@@ -43,9 +43,9 @@ public class CameraActivity extends BaseActivity {
     ImageView cameraImg;
     private Bitmap mBitmap;
     private boolean flag = false;
-    private boolean flag1 = true;
     private AudioPlayUtils audioPlayUtils;
     private Intent intentService;
+    private int step;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -57,11 +57,15 @@ public class CameraActivity extends BaseActivity {
         App.GravityListener_type = 0;//关闭手持机移动报警
         BlueToothActivity.flag2 = true;
         start_flag=false;
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            step = bundle.getInt("blue_step");
+        }
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
                 audioPlayUtils = new AudioPlayUtils(CameraActivity.this, R.raw.scwc_qdcmjqxsbpz);
                 audioPlayUtils.play();
             }
@@ -100,7 +104,9 @@ public class CameraActivity extends BaseActivity {
                 }
                 alarm(2);
                 App.UPLOAD_STEP = 5;
-                startact(this, OpenCardActivity.class);
+                Intent intent = new Intent(this, OpenCardActivity.class);
+                intent.putExtra("blue_step", step);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.camera_again:

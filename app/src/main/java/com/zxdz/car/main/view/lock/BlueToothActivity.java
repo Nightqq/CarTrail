@@ -33,8 +33,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class BlueToothActivity extends BaseActivity {
 
-
-
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
     @BindView(R.id.open_lock_tv_title)
@@ -56,7 +54,7 @@ public class BlueToothActivity extends BaseActivity {
     private SweetAlertDialog initDialog;
     private int step = 1;//判断是从哪个界面跳转到确认界面
     private boolean flag = true;
-    public static boolean  flag2 = false;
+    public static boolean flag2 = false;
     private boolean flag3 = true;
     public static Context context;
     private Intent intentService;
@@ -71,7 +69,9 @@ public class BlueToothActivity extends BaseActivity {
                 if (flag) {
                     flag = false;
                     //savedate(1);
-                    startact(BlueToothActivity.this,CameraActivity.class);
+                    Intent intent = new Intent(BlueToothActivity.this, CameraActivity.class);
+                    intent.putExtra("blue_step", step);
+                    startActivity(intent);
                     //后期添加：状态值43，锁车完成后更改
                     CarTravelHelper.carTravelRecord.setZT(45);
                     CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
@@ -108,19 +108,7 @@ public class BlueToothActivity extends BaseActivity {
         if (bundle != null) {
             step = bundle.getInt("blue_step");
         }
-        if (step == 1) {
-            //police_num = intent.getStringExtra("police_card");
-            closelock();
-        }else if (step == 2){
-            //police_num = intent.getStringExtra("police_card");
-            //LogUtils.a("准备开锁");
-            openlock();
-        }
-     /*   if (step == 2) {
-            num = intent.getStringExtra("car_trail");
-            num = num.replaceAll(" ", "");
-            openlock(2);
-        }*/
+        closelock();
     }
 
     @Override
@@ -143,7 +131,7 @@ public class BlueToothActivity extends BaseActivity {
     }
 
 
-    @OnClick({ R.id.open_lock_bluesaomiao, R.id.open_lock_enquir, R.id.open_lock_worked, R.id.open_lock_open, R.id.open_lock_conc1, R.id.open_lock_conc2})
+    @OnClick({R.id.open_lock_bluesaomiao, R.id.open_lock_enquir, R.id.open_lock_worked, R.id.open_lock_open, R.id.open_lock_conc1, R.id.open_lock_conc2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.open_lock_bluesaomiao:
@@ -175,6 +163,7 @@ public class BlueToothActivity extends BaseActivity {
                 break;
         }
     }
+
     //手动再次发送开锁命令
     private void openlock(final int i) {
         checkOpenLock("开锁中");
@@ -195,6 +184,7 @@ public class BlueToothActivity extends BaseActivity {
             }
         });
     }
+
     private void closelock() {
         mHandler.postDelayed(runnable2, 8000);
         BlueToothHelper.getBlueHelp().closeLock(new BlueToothUtils.CloseLockListener() {
@@ -213,17 +203,17 @@ public class BlueToothActivity extends BaseActivity {
                             BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
                                 @Override
                                 public void enquiriesState(String str) {
-                                    if (str.equals("锁状态：关")){
+                                    if (str.equals("锁状态：关")) {
                                         Message message = new Message();
                                         message.obj = "上锁成功";
                                         mHandler.sendMessage(message);
-                                    }else {
+                                    } else {
                                         BlueToothHelper.getBlueHelp().setFlagbyte();
                                     }
                                 }
                             });
                         }
-                    },500);
+                    }, 500);
                 }
             }
 
@@ -234,13 +224,14 @@ public class BlueToothActivity extends BaseActivity {
                 message.obj = str;
                 message.what = 1;
                 mHandler.sendMessage(message);
-                if (initDialog != null){
+                if (initDialog != null) {
                     initDialog.dismissWithAnimation();
                 }
             }
         });
     }
-    private void openlock(){
+
+    private void openlock() {
         checkOpenLock("开锁中");
         mHandler.postDelayed(runnable2, 8000);
         BlueToothHelper.getBlueHelp().openLock(new BlueToothUtils.OpenLockListenter() {
@@ -253,21 +244,21 @@ public class BlueToothActivity extends BaseActivity {
                 Message message = new Message();
                 message.obj = str;
                 message.what = 1;
-                Log.e("kscg....","291------");
+                Log.e("kscg....", "291------");
                 mHandler.sendMessage(message);
                 initDialog.dismissWithAnimation();
             }
         });
     }
 
-    Runnable runnable2=new Runnable() {
+    Runnable runnable2 = new Runnable() {
         @Override
         public void run() {
             LogUtils.a("定时重新开锁");
             openlock();
         }
     };
-    Runnable runnable3=new Runnable() {
+    Runnable runnable3 = new Runnable() {
         @Override
         public void run() {
             LogUtils.a("定时重新开锁");
@@ -278,7 +269,7 @@ public class BlueToothActivity extends BaseActivity {
     public void checkOpenLock(String msg) {
         try {
             LogUtils.a("准备开锁弹窗");
-            if (!initDialog.isShowing()){
+            if (!initDialog.isShowing()) {
                 LogUtils.a("准备开锁弹窗开启");
                 initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -287,8 +278,8 @@ public class BlueToothActivity extends BaseActivity {
                 initDialog.setCanceledOnTouchOutside(true);
                 initDialog.show();
             }
-        }catch (Exception e){
-            LogUtils.a(""+e.getMessage().toString());
+        } catch (Exception e) {
+            LogUtils.a("" + e.getMessage().toString());
         }
     }
 

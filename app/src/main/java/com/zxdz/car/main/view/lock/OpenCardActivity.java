@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
@@ -36,6 +37,7 @@ import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.view.CarTrailActivity;
+import com.zxdz.car.main.view.RemoveEquipmentActivity;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -83,19 +85,28 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             if (obj.equals("开锁成功")) {
                 if (msg.what == 2) {
                     mHandler.removeCallbacks(runnable3);
-                    App.GravityListener_type = 1;//开启手持机移动报警
-                    Intent intent2 = new Intent(OpenCardActivity.this, CarTrailActivity.class);
-                    intent2.putExtra("car_trail", 2);
-                    startActivity(intent2);
-                    //根据读取的卡号查询人员信息
-                    savedate(2);
-                    Log.e("requestinfo", "请求干警信息");
-                    mPresenter.getPersionInfo(cardNum);
-                    if (!TextUtils.equals(cardNum, null)) {
-                        mcarNumber = cardNum;
-                        // mHandler.postDelayed(mRunnable, 500);
+                    if (step == 1) {
+                        App.GravityListener_type = 1;//开启手持机移动报警
+                        Intent intent2 = new Intent(OpenCardActivity.this, CarTrailActivity.class);
+                        intent2.putExtra("car_trail", 2);
+                        startActivity(intent2);
+                        //根据读取的卡号查询人员信息
+                        savedate(2);
+                        Log.e("requestinfo", "请求干警信息");
+                        mPresenter.getPersionInfo(cardNum);
+                        if (!TextUtils.equals(cardNum, null)) {
+                            mcarNumber = cardNum;
+                            // mHandler.postDelayed(mRunnable, 500);
+                        }
+                        return;
+                    } else if (step == 2) {
+                        Intent intent = new Intent(OpenCardActivity.this, RemoveEquipmentActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return;
+                    } else {
+                        LogUtils.a("异常step=" + step);
                     }
-                    return;
                 }
                 if (flag) {
                     flag = false;
@@ -131,40 +142,39 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     @Override
     public void init() {
         setSupportActionBar(mToolBar);
-      /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);*/
         mToolBar.setTitle("开锁拆除");
-        step = getIntent().getIntExtra("blue_step", 0);
-        if (step == 0) {
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.zpscwc_qdcmjcxazsb);
-            audioPlayUtils.play();
-            BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
-                @Override
-                public void receiveCardID(String str) {
-                    if (statecallpolice) {//刷完卡解除报警
-                        audioPlayUtils.stop();
-                        statecallpolice = false;
-                        callPolice(2);
-//                        if (dialog != null) {
-//                            dialog.dismiss();
-//                        }
-                    }
-                    showCardNumber(str);
-                }
-            });
-            //开启强拆报警监测
-            BlueToothHelper.getBlueHelp().openCallPolices(new BlueToothUtils.openCallPoliceListener() {
-                @Override
-                public void openCallPolice() {
-                    if (!statecallpolice){
-                        statecallpolice = true;
-                        //policeingunclick();
-                        audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
-                        audioPlayUtils.play(true);
-                        callPolice(1);
-                    }
-                }
-            });
+        //step = getIntent().getIntExtra("blue_step", 0);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            step = bundle.getInt("blue_step");
         }
+        audioPlayUtils = new AudioPlayUtils(this, R.raw.zpscwc_qdcmjcxazsb);
+        audioPlayUtils.play();
+        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+            @Override
+            public void receiveCardID(String str) {
+                if (statecallpolice) {//刷完卡解除报警
+                    audioPlayUtils.stop();
+                    statecallpolice = false;
+                    callPolice(2);
+                }
+                showCardNumber(str);
+            }
+        });
+        //开启强拆报警监测
+        BlueToothHelper.getBlueHelp().openCallPolices(new BlueToothUtils.openCallPoliceListener() {
+            @Override
+            public void openCallPolice() {
+                if (!statecallpolice) {
+                    statecallpolice = true;
+                    //policeingunclick();
+                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
+                    audioPlayUtils.play(true);
+                    callPolice(1);
+                }
+            }
+        });
         mPresenter = new PersionInfoPresenter(this, this);
         intentService = new Intent(this, UploadDataService.class);
         //上传主信息记录
@@ -203,7 +213,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         cardNum = carNumber;
         openlock(2);
         /*Intent intent = new Intent(OpenCardActivity.this, BlueToothActivity.class);
-        intent.putExtra("car_trail", cardNum);
         intent.putExtra("blue_step",2);
         startActivity(intent);
         finish();*/
@@ -233,7 +242,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             openlock(2);
         }
     };
-
 
 
     public void checkOpenLock(String msg) {
@@ -299,7 +307,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         } else if (i == 2) {//取消报警
             LogUtils.a("开始储存取消报警数据");
             UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
-            if (warnInfoListByID!=null){
+            if (warnInfoListByID != null) {
                 warnInfoListByID.setFlag(true);
                 UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
                 startService(intentService);
@@ -332,6 +340,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         startService(intentService);
         finish();
     }
+
     @Override
     public void showPersionInfo(PersionInfo persionInfo) {
         if (persionInfo != null && persionInfo.getType() == 1) {//type = 0结果暂时添加
@@ -346,7 +355,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             tvCarName.setText(persionInfo.getName());
             tvCarNumber.setText(persionInfo.getAlarm());
             startService(intentService);
-        } else  {
+        } else {
             startService(intentService);
         }
     }

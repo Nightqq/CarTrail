@@ -188,7 +188,6 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                /* Intent intent = new Intent(MainActivity.this, OpenLockActivity.class);
                 startActivity(intent);*/
                 Intent intent = new Intent(MainActivity.this, AuthBlueLinkActivity.class);
-                intent.putExtra("police_card", "140B2226");
                 intent.putExtra("blue_step", 1);
                 startActivity(intent);
             }
@@ -351,6 +350,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 2);
                                     break;
+
                                /* case 70:
                                     App.UPLOAD_STEP = 6;
                                     App.SWIPE_STEP = 7;
