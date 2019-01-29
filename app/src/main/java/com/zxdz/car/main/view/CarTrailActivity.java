@@ -1,6 +1,8 @@
 package com.zxdz.car.main.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -60,6 +62,7 @@ public class CarTrailActivity extends BaseActivity {
     private LocationService locationService;
     private AudioPlayUtils audioPlayUtils;
     private String resultadress;
+    private boolean isretention;
 
     @Override
     public int getLayoutId() {
@@ -77,9 +80,17 @@ public class CarTrailActivity extends BaseActivity {
                 mToolBar.setTitle("车辆进入轨迹");
                 mArriveButton.setText("到达装卸区");
             } else {
-                //BluetoothLock.getBlueHelp(this).closeAll();
                 mToolBar.setTitle("车辆出门轨迹");
-                mArriveButton.setText("到达滞留区");
+                //BluetoothLock.getBlueHelp(this).closeAll();
+                SharedPreferences sp = getSharedPreferences("spUtils", Context.MODE_PRIVATE);
+                isretention = sp.getBoolean("isretention", false);
+                if (isretention) {
+                    mArriveButton.setText("到达滞留区");
+                } else {
+                    mArriveButton.setText("出门");
+                }
+
+
             }
         }
 
@@ -181,11 +192,17 @@ public class CarTrailActivity extends BaseActivity {
         if (App.baojing_type == 1) {
             return;
         }
+        if (isretention){
+            Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
+            intent.putExtra("blue_step", 2);
+            startActivity(intent);
+            finish();
+        }else {
+            Intent intent = new Intent(CarTrailActivity.this, RemoveEquipmentActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
-        Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
-        intent.putExtra("blue_step", 2);
-        startActivity(intent);
-        finish();
       /*  new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setTitleText("行程结束，刷卡出门?")
                 .setContentText("请确认行程结束，刷卡出门解除警报")

@@ -149,6 +149,9 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         if (bundle != null) {
             step = bundle.getInt("blue_step");
         }
+        if (step==2){
+            openWorking.setText("滞留区等待中，结束后请刷卡开锁");
+        }
         audioPlayUtils = new AudioPlayUtils(this, R.raw.zpscwc_qdcmjcxazsb);
         audioPlayUtils.play();
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {

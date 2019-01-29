@@ -1,5 +1,8 @@
 package com.zxdz.car.main.view.setting;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioButton;
@@ -18,6 +21,7 @@ import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.presenter.CardSetPresenter;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -63,8 +67,14 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
     SwitchButton returnequipPolice;
     @BindView(R.id.returnequip_driver)
     SwitchButton returnequipDriver;
+    @BindView(R.id.isretention)
+    SwitchButton Misretention;
+
+
     private int currentType = 0;//当前操作的参数
     private SwitchButton[][] sb;
+    private SharedPreferences sp;
+    private boolean isretention;
 
     @Override
     public int getLayoutId() {
@@ -97,8 +107,17 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
             }
         }
         setPunchInState();
-
-
+        sp = getSharedPreferences("spUtils", Context.MODE_PRIVATE);
+        isretention = sp.getBoolean("isretention", false);
+        Misretention.setChecked(isretention);
+        Misretention.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                SharedPreferences.Editor edit = sp.edit();
+                edit.putBoolean("isretention", !isretention);
+                edit.commit();
+            }
+        });
     }
 
     /**
@@ -142,7 +161,8 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
         ToastUtils.showLong("设定刷卡失败");
     }
 
-    @OnClick({R.id.returnequip_driver, R.id.rb_id, R.id.rb_ic})
+
+    @OnClick({R.id.isretention, R.id.rb_id})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rb_id:
