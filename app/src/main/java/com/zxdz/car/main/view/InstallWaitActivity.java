@@ -69,7 +69,7 @@ public class InstallWaitActivity extends BaseActivity {
     public void init() {
         audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazgksb);
         audioPlayUtils.play();
-        mToolBar.setTitle("等待安装设备");
+        mToolBar.setTitle("等待安装控制器");
         setSupportActionBar(mToolBar);
       /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {

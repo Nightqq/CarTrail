@@ -179,7 +179,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                             if (audioPlayUtils == null) {
                                 policeingunclick();
                                 audioPlayUtils = new AudioPlayUtils(BaseActivity.this, R.raw.ydbj);
-                                callPolice(1);
+                                App.baojing_type = 1;
+                                callPolice(1,"移动报警");
                             }
                             if (!audioPlayUtils.isPLayComplete()) {
                                 audioPlayUtils.play(true);
@@ -199,7 +200,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                 dialog.dismiss();
             }*/
             LogUtils.a("停止报警语音");
-            callPolice(2);
+            App.baojing_type = 0;
+            callPolice(2,"移动报警");
             audioPlayUtils.stop();
             toastUtil.stop();
             BlueToothHelper.getBlueHelp().giveupCloseMessage(new BlueToothUtils.CloseCallPolice() {
@@ -213,17 +215,16 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         mTime = System.currentTimeMillis();
     }
 
-    private void callPolice(int i) {
+    //1：报警，2：取消报警
+    public void callPolice(int i,String content){
         SharedPreferences sp = getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
         String policeNum = sp.getString("policeNum", "111111");
         if (i == 1) {//报警
-            App.baojing_type = 1;
             LogUtils.a("开始储存报警数据");
-            // TODO: 2018\1\17 0017 强拆锁报警
             WarnInfo warnInfo = new WarnInfo();
             warnInfo.setLsId(App.LSID.intValue());
             warnInfo.setId(CarTravelHelper.carTravelRecord.getId());
-            warnInfo.setWarnContent("移动报警");
+            warnInfo.setWarnContent(content);
             warnInfo.setWarnDate(new Date());
             warnInfo.setWarnType(0);
             warnInfo.setDataState(0);
@@ -232,7 +233,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             WarnInfoHelper.saveWarnInfoToDB(warnInfo);
             startService(bjintent);
         } else if (i == 2) {//取消报警
-            App.baojing_type = 0;
             LogUtils.a("开始储存取消报警数据");
             UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
             if (warnInfoListByID != null) {
@@ -242,6 +242,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             }
         }
     }
+
+
+
+
+
+
 
     //屏幕不可点击
     private void policeingunclick() {
@@ -259,7 +265,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         dialog.setCancelable(false);
         dialog.show();*/
         //报警吐司
-        toastUtil = new ToastUtil(this, R.layout.activity_toast, "设备移动报警中，请将设备放回原处(民警刷卡可重置安装位置)");
+        toastUtil = new ToastUtil(this, R.layout.activity_toast, "控制器移动报警中，请将控制器放回原处(民警刷卡可重置安装位置)");
         toastUtil.show(100000000);
         //刷卡
         BlueToothHelper.getBlueHelp().giveupCloseMessage(new BlueToothUtils.CloseCallPolice() {

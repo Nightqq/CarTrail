@@ -96,7 +96,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         if (!isInitDevice) {
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#48D9B2"));
-            initDialog.setTitleText("设备初始化");
+            initDialog.setTitleText("控制器初始化");
             initDialog.setCancelable(false);
             initDialog.show();
 
@@ -116,7 +116,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         } else {
             App.ZDJID = DeviceUtils.getAndroidID();
             isInitEquSuccess = true;
-            ToastUtils.showLong("设备初始化完成");
+            ToastUtils.showLong("控制器初始化完成");
             App.readCardType = SPUtils.getInstance().getInt(Constant.READ_CARD_TYPE, Constant.NOT_SELECT_TYPE_ID);
 
         }
@@ -164,7 +164,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     public void errorDialog(final int type) {
         String content = "";
         if (type == 1) {
-            content = "【设备】初始化失败，请重试";
+            content = "【控制器】初始化失败，请重试";
         } else {
             content = "【系统参数】初始化失败，请重试";
         }
@@ -202,8 +202,8 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     public void loadInitInfo(TerminalInfo terminalInfo) {
         isInitEquSuccess = true;
         App.ZDJID = terminalInfo.getZdjId();
-        ToastUtils.showLong("初始化设备信息成功");
-        LogUtils.e("初始化设备信息成功--->" + terminalInfo.getZdjId());
+        ToastUtils.showLong("初始化控制器信息成功");
+        LogUtils.e("初始化控制器信息成功--->" + terminalInfo.getZdjId());
         SPUtils.getInstance().put(Constant.INIT_DEVICE, true);
         initDialog.dismissWithAnimation();
     }

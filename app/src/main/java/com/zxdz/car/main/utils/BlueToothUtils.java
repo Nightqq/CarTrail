@@ -137,7 +137,7 @@ public class BlueToothUtils {
             statue = bluetoothGatt.writeCharacteristic(writer_characteristic);
             return;
         } else {
-            enquiriesState.enquiriesState("请连接设备");
+            enquiriesState.enquiriesState("请连接控制器");
         }
     }
 
@@ -173,7 +173,7 @@ public class BlueToothUtils {
 //                closeLock.closeable("关锁命令发送成功");
 //            }
         } else {
-            closeLock.closeable("请连接设备");
+            closeLock.closeable("请连接控制器");
         }
     }
 
@@ -191,7 +191,7 @@ public class BlueToothUtils {
                     setParameters.setParameter("参数设置完成");
                 }
             } else {
-                setParameters.setParameter("请连接设备");
+                setParameters.setParameter("请连接控制器");
                 flag12 = true;
             }
         } else {
@@ -219,7 +219,7 @@ public class BlueToothUtils {
     private Runnable runnable2 = new Runnable() {
         @Override
         public void run() {
-            checkOpenLock("设备连接断开，重新连接中。。。");
+            checkOpenLock("智能锁连接断开，重新连接中。。。");
             ConnectedDevice(mAddress, new ConnectedDevicesListenter() {
                 @Override
                 public void connectenDevice(int i) {

@@ -66,7 +66,7 @@ public class RemoveEquipmentActivity extends BaseActivity {
         audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjccsb);
         audioPlayUtils.play();
 
-        mToolBar.setTitle("等待拆除设备");
+        mToolBar.setTitle("等待拆除控制器");
         setSupportActionBar(mToolBar);
       /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {

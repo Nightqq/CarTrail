@@ -129,7 +129,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="26sp"
-            android:text="将手机贴放于车辆仪表盘上（尽量水平放置），手持机放于手机贴上，完成后刷卡确认"
+            android:text="将设备贴放于车辆仪表盘上（尽量水平放置），控制器放于设备贴上，完成后刷卡确认"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -132,7 +132,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             App.UPLOAD_STEP = 6;
             audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjqrsbjhsk);
             audioPlayUtils.play();
-            mToolBar.setTitle("带车民警确认交还设备");
+            mToolBar.setTitle("带车民警确认交还控制器");
             installWait.setVisibility(View.GONE);
             refreshCard.setVisibility(View.VISIBLE);
         }

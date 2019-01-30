@@ -110,7 +110,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 }
                 if (flag) {
                     flag = false;
-                    callPolice(1);
+                    callPolice(1,"强拆锁");
                     audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.baojing);
                     audioPlayUtils.play(true);
                     tag = true;
@@ -120,7 +120,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 if (audioPlayUtils != null) {
                     openWorking.setText("工作中,工作完成后请刷卡");
                     if (tag) {
-                        callPolice(2);
+                        callPolice(2,"强拆锁");
                         //audioPlayUtils.stop();
                     }
                     flag = true;
@@ -160,7 +160,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 if (statecallpolice) {//刷完卡解除报警
                     audioPlayUtils.stop();
                     statecallpolice = false;
-                    callPolice(2);
+                    callPolice(2,"强拆锁");
                 }
                 showCardNumber(str);
             }
@@ -174,7 +174,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     //policeingunclick();
                     audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
                     audioPlayUtils.play(true);
-                    callPolice(1);
+                    callPolice(1,"强拆锁");
                 }
             }
         });
@@ -246,7 +246,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         }
     };
 
-
     public void checkOpenLock(String msg) {
         try {
             if (initDialog == null) {
@@ -288,37 +287,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         // TODO: 2017\12\22 0022  //是否已经安装设备，没有则语音提示请安装
         return false;
     }
-
-
-    private void callPolice(int i) {
-        SharedPreferences sp = getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
-        String policeNum = sp.getString("policeNum", "111111");
-        if (i == 1) {//报警
-            LogUtils.a("开始储存报警数据");
-            // TODO: 2018\1\17 0017 强拆锁报警
-            WarnInfo warnInfo = new WarnInfo();
-            warnInfo.setLsId(App.LSID.intValue());
-            warnInfo.setId(CarTravelHelper.carTravelRecord.getId());
-            warnInfo.setWarnContent("强拆锁");
-            warnInfo.setWarnDate(new Date());
-            warnInfo.setWarnType(0);
-            warnInfo.setDataState(0);
-            warnInfo.setWarnPoliceNum(policeNum);
-            warnInfo.setWarnFlag(0);
-            WarnInfoHelper.saveWarnInfoToDB(warnInfo);
-            startService(intentService);
-        } else if (i == 2) {//取消报警
-            LogUtils.a("开始储存取消报警数据");
-            UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
-            if (warnInfoListByID != null) {
-                warnInfoListByID.setFlag(true);
-                UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);
-                startService(intentService);
-            }
-        }
-    }
-
-
     @Override
     public void hideStateView() {
 
