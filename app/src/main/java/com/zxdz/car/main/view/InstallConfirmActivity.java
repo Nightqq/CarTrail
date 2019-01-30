@@ -250,22 +250,12 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             }
         }
         //根据读取的卡号查询人员信息
-        //  handler.postDelayed(runnable, 8000);
         Log.e("requestinfo", "开始获取民警数据");
         mPresenter.getPersionInfo(carNumber);
         if (!TextUtils.equals(carNumber, null)) {
             mcarNumber = carNumber;
-            //handler.postDelayed(mRunnable,500);
         }
     }
-   /* Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mPresenter.getPersionInfo(mcarNumber);
-            handler.postDelayed(mRunnable,500);
-        }
-    };*/
-
 
     /**
      * 读卡成功保存【卡号】

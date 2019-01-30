@@ -197,7 +197,7 @@ public class BlueToothActivity extends BaseActivity {
                     flag3 = false;
                     audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qdcmjsc);
                     audioPlayUtils.play();
-                    mHandler.postDelayed(new Runnable() {
+                    mHandler.postDelayed(new Runnable() {//如果车锁提前锁好，可以检测到并自动到拍照界面
                         @Override
                         public void run() {
                             BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
@@ -207,7 +207,7 @@ public class BlueToothActivity extends BaseActivity {
                                         Message message = new Message();
                                         message.obj = "上锁成功";
                                         mHandler.sendMessage(message);
-                                    } else {
+                                    } else {//如果还没锁，则等待接收锁车完成信号
                                         BlueToothHelper.getBlueHelp().setFlagbyte();
                                     }
                                 }

@@ -1,6 +1,5 @@
 package com.zxdz.car.main.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -19,6 +18,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
+import com.bumptech.glide.util.Util;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -26,12 +27,17 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
+import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.helper.TrailPointHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.utils.LocationService;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.model.domain.Constant;
+import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.model.domain.TrailPointInfo;
+import com.zxdz.car.main.service.UploadDataService;
+import com.zxdz.car.main.utils.BlueToothHelper;
+import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
 import com.zxdz.car.main.view.lock.BluetoothLock;
 
@@ -63,6 +69,7 @@ public class CarTrailActivity extends BaseActivity {
     private AudioPlayUtils audioPlayUtils;
     private String resultadress;
     private boolean isretention;
+    private Intent intentService;
 
     @Override
     public int getLayoutId() {
@@ -74,42 +81,41 @@ public class CarTrailActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         App.GravityListener_type = 1;//开启手持机移动报警
+        intentService = intentService = new Intent(this, UploadDataService.class);
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("spUtils", MODE_PRIVATE);
         if (bundle != null) {
             carTrail = bundle.getInt("car_trail");
             if (carTrail == 1) {
                 mToolBar.setTitle("车辆进入轨迹");
-                mArriveButton.setText("到达装卸区");
-            } else {
-                mToolBar.setTitle("车辆出门轨迹");
-                //BluetoothLock.getBlueHelp(this).closeAll();
-                SharedPreferences sp = getSharedPreferences("spUtils", Context.MODE_PRIVATE);
-                isretention = sp.getBoolean("isretention", false);
-                if (isretention) {
-                    mArriveButton.setText("到达滞留区");
-                } else {
-                    mArriveButton.setText("出门");
+                boolean isclickone = sp.getBoolean("isclickone", true);
+                if (isclickone){//是否点击确认到达
+                    mArriveButton.setText("到达装卸区");
+                }else {
+                    mArriveButton.setText("到达装卸区请刷卡确认");
+                    mArriveButton.setClickable(false);
+                    swipCard();
                 }
 
+            } else {
+                mToolBar.setTitle("车辆出门轨迹");
+                isretention = sp.getBoolean("isretention", false);
+                if (isretention) {//有滞留区
+                        mArriveButton.setText("到达滞留区");
 
+                } else {//没有滞留区
+                        mArriveButton.setText("出门");
+                }
             }
         }
 
         setSupportActionBar(mToolBar);
-       /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
-        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });*/
-
         RxView.clicks(mArriveButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 if (carTrail == 1) {
-                    closeLock();
+                    closeLock();//第一次锁车
                 } else {
-                    outDoor();
+                    outDoor();//滞留区锁车
                 }
             }
         });
@@ -127,65 +133,35 @@ public class CarTrailActivity extends BaseActivity {
             }
         }, 600);
     }
+    private void swipCard(){
+        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+            @Override
+            public void receiveCardID(String str) {
+                String carNumber = str.replaceAll(" ", "");
+                saveAdminCard(carNumber);  //存储卡号到本地数据库0
+                Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
+                intent.putExtra("blue_step", 1);
+                startActivity(intent);
+                startService(intentService);
+                finish();
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
     }
 
+
     public void closeLock() {
         if (App.baojing_type == 1) {
             return;
         }
-        /*new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                .setTitleText("到达目的地，是否关锁?")
-                .setContentText("确认达到后请关闭蓝牙锁")
-                .setConfirmText("关闭")
-                .setCancelText("不关闭")
-                .setCustomImage(R.mipmap.card_icon)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        Intent intent = new Intent(CarTrailActivity.this, LockActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
-                    }
-                })
-                .show();*/
         Intent intent = new Intent(CarTrailActivity.this, InstallConfirmActivity.class);
         intent.putExtra("confirm_step", 2);
         startActivity(intent);
         finish();
-       /* new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                .setTitleText("是否到达目的地?")
-                .setContentText("请带领干警刷卡确认")
-                .setConfirmText("刷卡")
-                .setCancelText("取消")
-                .setCustomImage(R.mipmap.card_icon)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        Intent intent = new Intent(CarTrailActivity.this, InstallConfirmActivity.class);
-                        intent.putExtra("confirm_step", 2);
-                        startActivity(intent);
-                        finish();
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
-                    }
-                })
-                .show();*/
     }
 
     public void outDoor() {
@@ -198,33 +174,11 @@ public class CarTrailActivity extends BaseActivity {
             startActivity(intent);
             finish();
         }else {
-            Intent intent = new Intent(CarTrailActivity.this, RemoveEquipmentActivity.class);
+            Intent intent = new Intent(CarTrailActivity.this, InstallConfirmActivity.class);
+            intent.putExtra("confirm_step", 3);
             startActivity(intent);
             finish();
         }
-
-      /*  new SweetAlertDialog(CarTrailActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                .setTitleText("行程结束，刷卡出门?")
-                .setContentText("请确认行程结束，刷卡出门解除警报")
-                .setConfirmText("刷卡")
-                .setCancelText("无卡")
-                .setCustomImage(R.mipmap.card_icon)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        Intent intent = new Intent(CarTrailActivity.this, RemoveEquipmentActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                })
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
-                    }
-                })
-                .show();*/
     }
 
     @Override
@@ -376,4 +330,15 @@ public class CarTrailActivity extends BaseActivity {
             }
         }
     }
+    /**
+     * 读卡成功保存【卡号】
+     *
+     * @param cardNumber
+     */
+    public void saveAdminCard(String cardNumber) {
+                CarTravelHelper.carTravelRecord.setDLGJ_SCKH(cardNumber);
+                CarTravelHelper.carTravelRecord.setDLGJ_SCSJ(new Date());
+                CarTravelHelper.carTravelRecord.setZT(40);
+            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+        }
 }

@@ -321,6 +321,78 @@
                 android:text="IC" />
         </RadioGroup>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="点击到达"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/clickenter"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="点击出门"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/clickout"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
