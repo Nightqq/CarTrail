@@ -6,20 +6,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
-import com.bumptech.glide.util.Util;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -33,13 +27,11 @@ import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.utils.LocationService;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.model.domain.Constant;
-import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.model.domain.TrailPointInfo;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
-import com.zxdz.car.main.view.lock.BluetoothLock;
 
 import java.util.Date;
 import java.util.Timer;
@@ -88,9 +80,9 @@ public class CarTrailActivity extends BaseActivity {
             if (carTrail == 1) {
                 mToolBar.setTitle("车辆进入轨迹");
                 boolean isclickone = sp.getBoolean("isclickone", true);
-                if (isclickone){//是否点击确认到达
+                if (isclickone) {//是否点击确认到达
                     mArriveButton.setText("到达装卸区");
-                }else {
+                } else {
                     mArriveButton.setText("到达装卸区请刷卡确认");
                     mArriveButton.setClickable(false);
                     swipCard();
@@ -100,10 +92,10 @@ public class CarTrailActivity extends BaseActivity {
                 mToolBar.setTitle("车辆出门轨迹");
                 isretention = sp.getBoolean("isretention", false);
                 if (isretention) {//有滞留区
-                        mArriveButton.setText("到达滞留区");
+                    mArriveButton.setText("到达滞留区");
 
                 } else {//没有滞留区
-                        mArriveButton.setText("出门");
+                    mArriveButton.setText("出门");
                 }
             }
         }
@@ -133,7 +125,8 @@ public class CarTrailActivity extends BaseActivity {
             }
         }, 600);
     }
-    private void swipCard(){
+
+    private void swipCard() {
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(String str) {
@@ -168,12 +161,12 @@ public class CarTrailActivity extends BaseActivity {
         if (App.baojing_type == 1) {
             return;
         }
-        if (isretention){
+        if (isretention) {
             Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
             intent.putExtra("blue_step", 2);
             startActivity(intent);
             finish();
-        }else {
+        } else {
             Intent intent = new Intent(CarTrailActivity.this, InstallConfirmActivity.class);
             intent.putExtra("confirm_step", 3);
             startActivity(intent);
@@ -330,15 +323,16 @@ public class CarTrailActivity extends BaseActivity {
             }
         }
     }
+
     /**
      * 读卡成功保存【卡号】
      *
      * @param cardNumber
      */
     public void saveAdminCard(String cardNumber) {
-                CarTravelHelper.carTravelRecord.setDLGJ_SCKH(cardNumber);
-                CarTravelHelper.carTravelRecord.setDLGJ_SCSJ(new Date());
-                CarTravelHelper.carTravelRecord.setZT(40);
-            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
-        }
+        CarTravelHelper.carTravelRecord.setDLGJ_SCKH(cardNumber);
+        CarTravelHelper.carTravelRecord.setDLGJ_SCSJ(new Date());
+        CarTravelHelper.carTravelRecord.setZT(40);
+        CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+    }
 }

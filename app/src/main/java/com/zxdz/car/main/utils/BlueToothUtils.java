@@ -19,13 +19,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
+import com.zxdz.car.R;
+import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.utils.SwitchUtils;
+import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.LockInfo;
 import com.zxdz.car.main.view.lock.OpenLockActivity;
@@ -58,6 +61,7 @@ public class BlueToothUtils {
     private boolean stateCallPolice = false;
     private SweetAlertDialog initDialog;
     private boolean isLoop = true;//是否在循环连接中
+    private AudioPlayUtils audioActivity;
 
     BlueToothUtils() {
         mContext = Utils.getContext();
@@ -83,9 +87,12 @@ public class BlueToothUtils {
         receivecardid = r;
         flagbyte[0] = 0x43;
     }
-    public void setflagbyte(){
+
+    public void setflagbyte() {
         flagbyte[0] = 0x46;
-    };
+    }
+
+    ;
 
     //报警模式不接受锁消息
     public void giveupCardID(CloseCallPolice closeCall, boolean state) {
@@ -241,6 +248,7 @@ public class BlueToothUtils {
                 handler1.removeCallbacks(runnable2);
                 isLoop = false;//循环成功不再循环
                 LogUtils.a("连接成功");
+                closeCallPloiceAudio();
                 if (null != initDialog && initDialog.isShowing()) {
                     initDialog.dismiss();
                 }
@@ -248,9 +256,13 @@ public class BlueToothUtils {
                 gatt.close();
                 bluetoothGatt = null;
                 OpenLockActivity.iscon = false;
-                LogUtils.a("连接断开");
+                LogUtils.a("连接断开"+isLoop);
+                //ToastUtils.showShort("蓝牙断开连接");
                 if (handler1 != null && !isLoop) {
-                    LogUtils.a("自动重连中。。。");
+                    audioActivity = new AudioPlayUtils(mContext, R.raw.lyljdkbj);
+                    audioActivity.play(true);
+                    BaseActivity.intent.callPolice(1, "蓝牙异常断开");
+                    //LogUtils.a("自动重连中。。。");
                     handler1.postDelayed(runnable2, 3000);
                 }
             }
@@ -321,7 +333,7 @@ public class BlueToothUtils {
                 return;
             }
             if (value != null) {
-                LogUtils.a("收到通知",flagbyte[0]+" q "+value[1]);
+                //LogUtils.a("收到通知", flagbyte[0] + " q " + value[1]);
                 parse(value);
             }
         }
@@ -360,8 +372,7 @@ public class BlueToothUtils {
                 LogUtils.a("车锁状态", Arrays.toString(s1));
                 if (s1[5] == 1) {//车锁按钮弹不起来时，则会判断失误
                     enquiriesState.enquiriesState("锁状态：开");
-                }
-                if (s1[5] == 0) {
+                }else if (s1[5] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
                 break;
@@ -377,7 +388,7 @@ public class BlueToothUtils {
                 break;
             case 0x43://刷卡返回
                 if (bytes1[1] == 0x43) {
-                    byte[] bytes = {(byte)(bytes1[3]^0xFF),(byte)(bytes1[4]^0xFF), (byte)(bytes1[5]^0xFF)};
+                    byte[] bytes = {(byte) (bytes1[3] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF)};
                     final String s = SwitchUtils.byte2HexStr(bytes);
                     handler1.post(new Runnable() {
                         @Override
@@ -461,8 +472,16 @@ public class BlueToothUtils {
     public void closeAlls() {
         if (bluetoothGatt != null) {
             isLoop = true;
+            closeCallPloiceAudio();
             LogUtils.a("开始断开");
             bluetoothGatt.disconnect();
+        }
+    }
+
+    private void closeCallPloiceAudio(){
+        if (audioActivity != null){
+            audioActivity.stop();
+            BaseActivity.intent.callPolice(2, null);
         }
     }
 

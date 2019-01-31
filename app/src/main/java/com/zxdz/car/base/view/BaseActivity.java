@@ -73,6 +73,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected P mPresenter;
 
+    public static BaseActivity intent = null;
+
     protected LoadingDialog mLoadingDialog;
 
     private ToneGenerator mToneGenerator;
@@ -125,6 +127,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         setbright();
         GravityTOpen();//开启移动报警
         bjintent = new Intent(this, UploadDataService.class);
+        intent = this;
     }
 
     /*
