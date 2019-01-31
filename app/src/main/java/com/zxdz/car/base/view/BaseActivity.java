@@ -207,7 +207,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             BlueToothHelper.getBlueHelp().giveupCloseMessage(new BlueToothUtils.CloseCallPolice() {
                 @Override
                 public void closeCallPolice() {
-
                 }
             }, false);
             audioPlayUtils = null;

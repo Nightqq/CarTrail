@@ -58,7 +58,7 @@
             android:layout_height="36dp"
             android:background="@color/main_button_color"
             android:clickable="false"
-            android:text="拆除设备"
+            android:text="拆除控制器"
             android:textSize="@dimen/setting_item_text"
             android:textColor="@color/white"/>
     </LinearLayout>

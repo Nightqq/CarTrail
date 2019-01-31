@@ -124,7 +124,7 @@ public class CarTrailActivity extends BaseActivity {
             @Override
             public void run() {
                 if (carTrail == 1) {
-                    audioPlayUtils = new AudioPlayUtils(CarTrailActivity.this, R.raw.sbazwc_qwydsb_kyxs);
+                    audioPlayUtils = new AudioPlayUtils(CarTrailActivity.this, R.raw.kzqazwc_qwydkzq_kyxs);//控制器安装完成，请勿移动控制器，可以行使
                     audioPlayUtils.play();
                 } else {
                     audioPlayUtils = new AudioPlayUtils(CarTrailActivity.this, R.raw.syk_kyslzyq);

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.zxdz.car.base.helper.ServerIPHelper;
 import com.zxdz.car.base.model.Config;
+import com.zxdz.car.base.view.BaseActivity;
 
 import java.util.List;
 

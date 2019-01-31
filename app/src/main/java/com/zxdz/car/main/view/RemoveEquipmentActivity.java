@@ -63,7 +63,7 @@ public class RemoveEquipmentActivity extends BaseActivity {
     @Override
     public void init() {
         App.GravityListener_type=0;
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjccsb);
+        audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjcckzq);//请带车民警拆除控制器
         audioPlayUtils.play();
 
         mToolBar.setTitle("等待拆除控制器");

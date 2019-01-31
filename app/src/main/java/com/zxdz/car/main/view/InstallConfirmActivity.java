@@ -130,7 +130,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
         if (step == 3) {
             App.SWIPE_STEP = 7;
             App.UPLOAD_STEP = 6;
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjqrsbjhsk);
+            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjqrsbjhsk);//请带车民警确认交还控制器刷卡
             audioPlayUtils.play();
             mToolBar.setTitle("带车民警确认交还控制器");
             installWait.setVisibility(View.GONE);

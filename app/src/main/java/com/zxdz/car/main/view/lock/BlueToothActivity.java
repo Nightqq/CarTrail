@@ -108,6 +108,12 @@ public class BlueToothActivity extends BaseActivity {
         if (bundle != null) {
             step = bundle.getInt("blue_step");
         }
+        if (step==1){
+            audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qzxqmjsc);//请装卸区民警锁车
+        }else {
+            audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qzlqmjsc);//请滞留区民警锁车
+        }
+        audioPlayUtils.play();
         closelock();
     }
 
@@ -195,8 +201,6 @@ public class BlueToothActivity extends BaseActivity {
                     checkOpenLock("锁车中");
                     mHandler.removeCallbacks(runnable2);
                     flag3 = false;
-                    audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qdcmjsc);
-                    audioPlayUtils.play();
                     mHandler.postDelayed(new Runnable() {//如果车锁提前锁好，可以检测到并自动到拍照界面
                         @Override
                         public void run() {

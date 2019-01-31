@@ -67,7 +67,7 @@ public class InstallWaitActivity extends BaseActivity {
 
     @Override
     public void init() {
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazgksb);
+        audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazkzq);//请带车民警安装控制器
         audioPlayUtils.play();
         mToolBar.setTitle("等待安装控制器");
         setSupportActionBar(mToolBar);
