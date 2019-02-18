@@ -253,6 +253,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     @Override
     protected void onStart() {
         super.onStart();
+        App.GravityListener_type=0;//关闭手持机移动报警
         App.IsNewLS=false;
         uploadDataInfo();
     }

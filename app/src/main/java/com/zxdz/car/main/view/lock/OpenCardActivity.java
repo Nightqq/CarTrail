@@ -108,14 +108,14 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                         LogUtils.a("异常step=" + step);
                     }
                 }
-                if (flag) {
+               /* if (flag) {
                     flag = false;
                     callPolice(1,"强拆锁");
                     audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.baojing);
                     audioPlayUtils.play(true);
                     tag = true;
                     openWorking.setText("非法开锁，报警中");
-                }
+                }*/
             } else if (obj.equals("上锁成功")) {
                 if (audioPlayUtils != null) {
                     openWorking.setText("工作中,工作完成后请刷卡");
@@ -161,8 +161,9 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     audioPlayUtils.stop();
                     statecallpolice = false;
                     callPolice(2,"强拆锁");
+                }else {
+                    showCardNumber(str);
                 }
-                showCardNumber(str);
             }
         });
         //开启强拆报警监测
@@ -172,7 +173,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 if (!statecallpolice) {
                     statecallpolice = true;
                     //policeingunclick();
-                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.ydbj);
+                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.baojing);
                     audioPlayUtils.play(true);
                     callPolice(1,"强拆锁");
                 }

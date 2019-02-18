@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="车辆进入"
+                    android:text="连接方向盘锁"
                     android:textColor="@color/card_info_color"
                     android:textSize="@dimen/setting_item_text" />
             </LinearLayout>

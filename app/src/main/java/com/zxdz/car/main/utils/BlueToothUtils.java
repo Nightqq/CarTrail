@@ -390,6 +390,7 @@ public class BlueToothUtils {
                 if (bytes1[1] == 0x43) {
                     byte[] bytes = {(byte) (bytes1[3] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF)};
                     final String s = SwitchUtils.byte2HexStr(bytes);
+                    LogUtils.a(s);
                     handler1.post(new Runnable() {
                         @Override
                         public void run() {
