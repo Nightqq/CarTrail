@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.view.BaseActivity;
+import com.zxdz.car.main.utils.BlueToothHelper;
+import com.zxdz.car.main.utils.BlueToothUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +24,17 @@ public class InitReturnActivity extends BaseActivity {
         if (CarTravelHelper.carTravelRecord!=null){
             //存储管理员初始化数据等待上传
         }
+        BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
+            @Override
+            public void enquiriesState(String str) {
+
+            }
+
+            @Override
+            public void enquiriesPower(String str) {
+
+            }
+        });
     }
 
     @Override
