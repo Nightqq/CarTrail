@@ -152,6 +152,10 @@ public class BlueToothActivity extends BaseActivity {
                         mHandler.sendMessage(message);
                         //initDialog.dismissWithAnimation();
                     }
+                    @Override
+                    public void enquiriesPower(String str){
+
+                    }
                 });
                 break;
             case R.id.open_lock_worked:
@@ -215,6 +219,11 @@ public class BlueToothActivity extends BaseActivity {
                                         BlueToothHelper.getBlueHelp().setFlagbyte();
                                     }
                                 }
+
+                                @Override
+                                public void enquiriesPower(String str){
+
+                                }
                             });
                         }
                     }, 500);
@@ -243,7 +252,7 @@ public class BlueToothActivity extends BaseActivity {
             public void openable(String str) {
                 LogUtils.a(str);
                 mHandler.removeCallbacks(runnable2);
-                audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qdcmjsc);
+                audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qzxqmjsc);
                 audioPlayUtils.play();
                 Message message = new Message();
                 message.obj = str;

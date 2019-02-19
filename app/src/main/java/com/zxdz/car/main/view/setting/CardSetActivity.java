@@ -69,18 +69,13 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
     SwitchButton returnequipDriver;
     @BindView(R.id.isretention)
     SwitchButton Misretention;
-    @BindView(R.id.clickenter)
-    SwitchButton clickenter;
-    @BindView(R.id.clickout)
-    SwitchButton clickout;
+
 
 
     private int currentType = 0;//当前操作的参数
     private SwitchButton[][] sb;
     private SharedPreferences sp;
     private boolean isretention;
-    private boolean isclickone;
-    private boolean isclicktwo;
 
     @Override
     public int getLayoutId() {
@@ -115,32 +110,13 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
         setPunchInState();
         sp = getSharedPreferences("spUtils", Context.MODE_PRIVATE);
         isretention = sp.getBoolean("isretention", false);
-        isclickone = sp.getBoolean("isclickone", true);
-        isclicktwo = sp.getBoolean("isclicktwo", true);
         Misretention.setChecked(isretention);
-        clickenter.setChecked(isclickone);
-        clickout.setChecked(isclicktwo);
+
         Misretention.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 SharedPreferences.Editor edit = sp.edit();
                 edit.putBoolean("isretention", !isretention);
-                edit.commit();
-            }
-        });
-        clickenter.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SharedPreferences.Editor edit = sp.edit();
-                edit.putBoolean("isretention", !isclickone);
-                edit.commit();
-            }
-        });
-        clickout.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SharedPreferences.Editor edit = sp.edit();
-                edit.putBoolean("isretention", !isclicktwo);
                 edit.commit();
             }
         });

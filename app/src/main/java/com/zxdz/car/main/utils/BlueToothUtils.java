@@ -375,6 +375,9 @@ public class BlueToothUtils {
                 }else if (s1[5] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
+                byte[] s2 = SwitchUtils.getBooleanArray(bytes1[4]);
+                byte[] s3 = SwitchUtils.getBooleanArray(bytes1[5]);
+                LogUtils.a("车锁电压", Arrays.toString(s2)+"yyy"+Arrays.toString(s3));
                 break;
             case 0x50://设置参数反馈
                 if (bytes1[1] == 0x00) {
@@ -514,6 +517,7 @@ public class BlueToothUtils {
 
     public interface EnquiriesStateListenter {
         void enquiriesState(String str);
+        void enquiriesPower(String str);
     }
 
     private CloseLockListener closeLock;

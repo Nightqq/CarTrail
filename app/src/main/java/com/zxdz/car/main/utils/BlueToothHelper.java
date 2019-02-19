@@ -3,6 +3,8 @@ package com.zxdz.car.main.utils;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import com.zxdz.car.App;
+
 /**
  * Created by Administrator on 2018/5/4.
  * 蓝牙功能类
@@ -75,10 +77,10 @@ public class BlueToothHelper extends BlueToothUtils {
         closeLocks(close);
     }
 
-    //设置参数
-//    public void setParameter(SetParametersListener Parameters){
-//        setParameters(Parameters);
-//    }
+    //设置参数(ic卡或id卡)i = 1是id，i = 2是ic
+    public void setParameter(SetParametersListener Parameters){
+        setParameters(App.readCardType,Parameters);
+    }
 
 
     //关闭蓝牙
