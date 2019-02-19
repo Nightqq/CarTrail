@@ -91,7 +91,6 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             super.handleMessage(msg);
         }
     };
-    private AudioPlayUtils audioPlayUtils;
     private String mcarNumber;
 
     @Override
@@ -112,17 +111,14 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             App.SWIPE_STEP = 4;
             App.UPLOAD_STEP = 3;
             LogUtils.a(App.UPLOAD_STEP);
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazkzq);
-
-            audioPlayUtils.play();
+            AudioPlayUtils.getAudio(this, R.raw.qdcmjazkzq).play();
             mToolBar.setTitle("带车民警确认安装完成刷卡");
             notMove.setVisibility(View.VISIBLE);
         }
         if (step == 2) {
             App.SWIPE_STEP = 5;
             App.UPLOAD_STEP = 4;
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.clddzxqqdcmjqrsk);
-            audioPlayUtils.play();
+            AudioPlayUtils.getAudio(this, R.raw.clddzxqqdcmjqrsk).play();
             mToolBar.setTitle("带车民警确认到达刷卡");
             installWait.setVisibility(View.GONE);
             refreshCard.setVisibility(View.VISIBLE);
@@ -130,8 +126,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
         if (step == 3) {
             App.SWIPE_STEP = 7;
             App.UPLOAD_STEP = 6;
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjqrjhkzqsc);//请带车民警确认交还控制器刷卡
-            audioPlayUtils.play();
+            AudioPlayUtils.getAudio(this, R.raw.qdcmjqrjhkzqsc).play();//请带车民警确认交还控制器刷卡
             mToolBar.setTitle("带车民警确认交还控制器");
             installWait.setVisibility(View.GONE);
             refreshCard.setVisibility(View.VISIBLE);
@@ -173,13 +168,12 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 }
                 if (step == 3) {
                     LogUtils.a("归还成功，行程结束");
-                    audioPlayUtils = new AudioPlayUtils(InstallConfirmActivity.this, R.raw.gclcjs);
-                    audioPlayUtils.play();
+                    AudioPlayUtils.getAudio(InstallConfirmActivity.this, R.raw.gclcjs).play();
                        /* final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);*/
-                    Intent intent = new Intent(InstallConfirmActivity.this, MainActivity.class);
-                    intent.putExtra("end", 1);
+                    Intent intent = new Intent(InstallConfirmActivity.this, InitReturnActivity.class);
+                   // intent.putExtra("end", 1);
                     startActivity(intent);
                     finish();
                 }
@@ -240,11 +234,10 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                     final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);*/
-                audioPlayUtils = new AudioPlayUtils(this, R.raw.gclcjs);
-                audioPlayUtils.play();
+                AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
                 BlueToothHelper.getBlueHelp().closeAll();
-                Intent intent = new Intent(InstallConfirmActivity.this, MainActivity.class);
-                intent.putExtra("end", 1);
+                Intent intent = new Intent(InstallConfirmActivity.this, InitReturnActivity.class);
+                //intent.putExtra("end", 1);
                 startActivity(intent);
                 finish();
             }

@@ -64,7 +64,6 @@ public class ReturnRefreshCardActivity extends BaseActivity {
     @BindView(R.id.tv_car_name)
     TextView tvCarName;
     private boolean flag = true;//跳转标准，避免多次多卡触发重复跳转
-    private AudioPlayUtils audioPlayUtils;
 
     @Override
     public int getLayoutId() {
@@ -74,9 +73,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void init() {
-        //new AudioPlayUtils(this, R.raw.qglrysk).play();
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.qglryshsbqrsk);
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(this, R.raw.qglryshsbqrsk).play();
         mToolBar.setTitle("确认行程结束");
         setSupportActionBar(mToolBar);
        /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
@@ -105,8 +102,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
                 }else {
                     App.SWIPE_STEP = 7;
                     App.UPLOAD_STEP = 6;
-                    audioPlayUtils = new AudioPlayUtils(ReturnRefreshCardActivity.this, R.raw.gclcjs);
-                    audioPlayUtils.play();
+                    AudioPlayUtils.getAudio(ReturnRefreshCardActivity.this, R.raw.gclcjs).play();
                     Intent intent = new Intent(ReturnRefreshCardActivity.this, InitReturnActivity.class);
                     startActivity(intent);
                     finish();

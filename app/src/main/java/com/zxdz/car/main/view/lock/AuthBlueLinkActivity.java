@@ -49,7 +49,6 @@ public class AuthBlueLinkActivity extends BaseActivity {
     private String My_address = "";
     private boolean flag3 = true;
     private Handler mHandler = new Handler() {};
-    private AudioPlayUtils audioPlayUtils;
     private String My_Address="54:6C:0E:BD:7E:EE";
 
     @Override
@@ -57,8 +56,7 @@ public class AuthBlueLinkActivity extends BaseActivity {
         ButterKnife.bind(this);
         basetoobar(AuthBlueToolbar, "蓝牙锁连接");
         //initdata();
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.sbzzsmz_qdd);
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(this, R.raw.sbzzsmz_qdd).play();
         //AuthBlueBluesaomiao.callOnClick();
         checkOpenLock("连接中");
         sendCommand(My_Address);

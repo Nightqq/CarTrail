@@ -64,7 +64,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     private SweetAlertDialog initDialog;
     private boolean flag = true;
     private boolean tag = false;//非法开锁标志
-    private AudioPlayUtils audioPlayUtils;
     private Intent intentService;
 
 
@@ -90,6 +89,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                             mcarNumber = cardNum;
                             // mHandler.postDelayed(mRunnable, 500);
                         }
+                        finish();
                         return;
                     } else if (step == 2) {
                         Intent intent = new Intent(OpenCardActivity.this, RemoveEquipmentActivity.class);
@@ -103,20 +103,16 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                /* if (flag) {
                     flag = false;
                     callPolice(1,"强拆锁");
-                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.baojing);
-                    audioPlayUtils.play(true);
+
                     tag = true;
                     openWorking.setText("非法开锁，报警中");
                 }*/
             } else if (obj.equals("上锁成功")) {
-                if (audioPlayUtils != null) {
                     openWorking.setText("工作中,工作完成后请刷卡");
                     if (tag) {
                         callPolice(2,"强拆锁");
-                        //audioPlayUtils.stop();
                     }
                     flag = true;
-                }
             } else if (obj.equals("失败成功")) {
                 openlock(2);
             }
@@ -144,13 +140,12 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         if (step==2){
             openWorking.setText("滞留区等待中，结束后请刷卡开锁");
         }
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.zpscwc_qdcmjcxazsb);//照片上传完成，请带车民警重新安装控制器
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(this, R.raw.zpscwc_qdcmjcxazsb).play();//照片上传完成，请带车民警重新安装控制器
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(String str) {
                 if (statecallpolice) {//刷完卡解除报警
-                    audioPlayUtils.stop();
+                    AudioPlayUtils.getAudio(OpenCardActivity.this,0).stop();
                     statecallpolice = false;
                     callPolice(2,"强拆锁");
                 }else {
@@ -165,8 +160,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 if (!statecallpolice) {
                     statecallpolice = true;
                     //policeingunclick();
-                    audioPlayUtils = new AudioPlayUtils(OpenCardActivity.this, R.raw.baojing);
-                    audioPlayUtils.play(true);
+                    AudioPlayUtils.getAudio(OpenCardActivity.this, R.raw.baojing).play(true);
                     callPolice(1,"强拆锁");
                 }
             }

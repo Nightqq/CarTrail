@@ -85,7 +85,6 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     private TerminalInfo terminalInfo;
 
     private UpdateInfoBroadcastReceiver updateInfoBroadcastReceiver;
-    private AudioPlayUtils audioPlayUtils;
     private SweetAlertDialog initDialog;
     private int flag = 0;
 
@@ -104,8 +103,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     public void init() {
         end = getIntent().getIntExtra("end", 0);
         if (end == 1) {
-            audioPlayUtils = new AudioPlayUtils(this, R.raw.gclcjs);
-            audioPlayUtils.play();
+           AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
         }
         i=1;//屏幕常亮取消
         Glide.with(this).load(R.mipmap.upload_loading).into(mUploadLoadingImageView);

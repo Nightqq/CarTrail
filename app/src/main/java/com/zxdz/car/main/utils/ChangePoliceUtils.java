@@ -28,7 +28,6 @@ public class ChangePoliceUtils {
     private int mClass;
     private String newPoliceNew;
     private static ChangePoliceUtils changePoliceUtils;
-    private AudioPlayUtils audioPlayUtils;
     // public static Handler mHandler;
 
     private ChangePoliceUtils(Context mContext, int mClass) {
@@ -66,8 +65,7 @@ public class ChangePoliceUtils {
     private int showDialog() {
         LogUtils.a("开始showdialog");
         final int[] i = {1};
-        audioPlayUtils = new AudioPlayUtils(mContext, R.raw.qhkhbyz_sfghmj);
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(mContext, R.raw.qhkhbyz_sfghmj).play();
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(mContext, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setTitleText("是否更换民警")
                 .setContentText("如选是进入管理员刷卡确认页面，如选择否则此次刷卡无效")

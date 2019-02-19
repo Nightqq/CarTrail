@@ -64,7 +64,6 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     LinearLayout mNextLayout;
     @BindView(R.id.tv_car_number)
     TextView mCardNumberTextView;
-    AudioPlayUtils audioPlayUtils;
     public String flag = "0";//跳转标准，避免多次多卡触发重复跳转
     @BindView(R.id.tv_reason1)
     LinearLayout tvReason1;
@@ -108,8 +107,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         if (swipecardhelp.getArray(0, 0) == 1) {
             App.SWIPE_STEP = 1;
             mToolBar.setTitle("刷管理员授权卡");
-            audioPlayUtils = new AudioPlayUtils(getApplicationContext(), R.raw.glyqrsbsk);
-            audioPlayUtils.play();
+            AudioPlayUtils.getAudio(getApplicationContext(), R.raw.glyqrsbsk).play();
         } else {
             if (swipecardhelp.getArray(0, 1) == 1) {
                 handler.postDelayed(runnable, 500);
@@ -138,16 +136,14 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             public void call(Void aVoid) {
                 if (App.POLICE_SWIPE == 0) {
                     App.SWIPE_STEP = 2;
-                    audioPlayUtils = new AudioPlayUtils(getApplicationContext(), R.raw.qdcmjqrlysk);
-                    audioPlayUtils.play();
+                    AudioPlayUtils.getAudio(getApplicationContext(), R.raw.qdcmjqrlysk).play();
                     mToolBar.setTitle("带车民警刷卡");
                     return;
                 } else {
                     if (App.DRIVER_SWIPE == 0) {
                         //swipeCard(3);
                         App.SWIPE_STEP = 3;
-                        audioPlayUtils = new AudioPlayUtils(getApplicationContext(), R.raw.qscjsysk);
-                        audioPlayUtils.play();
+                        AudioPlayUtils.getAudio(getApplicationContext(), R.raw.qscjsysk).play();
                         mToolBar.setTitle("驾驶员刷卡");
                         return;
                     } else {
@@ -236,8 +232,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 }
             } else {
                 mCardStateTextView.setVisibility(View.GONE);
-                audioPlayUtils = new AudioPlayUtils(getApplicationContext(), R.raw.bsgly_qglysk);
-                audioPlayUtils.play();
+                AudioPlayUtils.getAudio(getApplicationContext(), R.raw.bsgly_qglysk).play();
             }
         } else if (App.SWIPE_STEP == 2) {
             tvAuthState1.setVisibility(View.GONE);
@@ -340,8 +335,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 this.finish();
                 break;
             case 6:
-                audioPlayUtils = new AudioPlayUtils(this, R.raw.gclcjs);
-                audioPlayUtils.play();
+                AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
                 intent.setClass(this, MainActivity.class);
                 intent.putExtra("end", 1);
                 startActivity(intent);

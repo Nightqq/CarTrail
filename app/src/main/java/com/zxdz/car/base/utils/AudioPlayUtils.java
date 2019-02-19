@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.LogUtils;
 
 public class AudioPlayUtils {
 
-    Context mContext = null;
+    private static Context mContext = null;
 
     AudioManager audioManager;
 
@@ -29,16 +29,14 @@ public class AudioPlayUtils {
     /**
      * 播放声音的资源ID
      */
-    private int mRawId;
+    private static int mRawId;
 
     private boolean isLoop;
 
-    private boolean isPLayComplete;
+    public static boolean isPLayComplete;
+    private static AudioPlayUtils audioPlayUtils;
 
-    public AudioPlayUtils(Context context, int rawId) {
-        mContext = context;
-        mRawId = rawId;
-        isPLayComplete=false;
+    private AudioPlayUtils() {
         audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setMicrophoneMute(false);
         audioManager.setSpeakerphoneOn(true);
@@ -46,19 +44,29 @@ public class AudioPlayUtils {
         audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
     }
 
+    public static AudioPlayUtils getAudio(Context context, int rawId) {
+        mRawId = rawId;
+        mContext = context;
+        if (audioPlayUtils == null) {
+            audioPlayUtils = new AudioPlayUtils();
+        }
+        return audioPlayUtils;
+    }
+
+
     class PlayThread implements Runnable {
         @Override
         public void run() {
-            if (isRun) {
+            if (isPLayComplete) {
                 if (audioManager.isSpeakerphoneOn()) {
-                  //  LogUtils.e("扬声器打开了1");
+                    //  LogUtils.e("扬声器打开了1");
                 } else {
                     audioManager.setSpeakerphoneOn(false);
-                 //   LogUtils.e("扬声器关闭了");
+                    //   LogUtils.e("扬声器关闭了");
                     if (audioManager.isSpeakerphoneOn()) {
-                      //  LogUtils.e("扬声器打开了2");
+                        //  LogUtils.e("扬声器打开了2");
                     } else {
-                      //  LogUtils.e("扬声器还是没打开");
+                        //  LogUtils.e("扬声器还是没打开");
                     }
                 }
                 playerSound = MediaPlayer.create(mContext, mRawId);
@@ -69,37 +77,36 @@ public class AudioPlayUtils {
                 playerSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        if (playerSound!=null){
+                        if (playerSound != null) {
                             playerSound.release();
                         }
-                       // LogUtils.a( isPLayComplete);
+                        // LogUtils.a( isPLayComplete);
                     }
                 });
             }
         }
     }
 
-    public boolean isPLayComplete() {//循环播放是否运行
+  /*  private boolean isPLayComplete() {//循环播放是否运行
         return isPLayComplete;
     }
 
-    public void setPLayComplete(boolean PLayComplete) {
+    private void setPLayComplete(boolean PLayComplete) {
         isPLayComplete = PLayComplete;
-    }
+    }*/
 
     public void play() {
+        isPLayComplete = true;
         playThread = new Thread(new PlayThread());
         playThread.run();
     }
 
     public void play(boolean flag) {
-        isPLayComplete = true;
         isLoop = flag;
         play();
     }
 
     public void stop() {
-        isRun = false;
         isPLayComplete = false;
         if (playerSound != null) {
             if (playerSound.isLooping()) {
@@ -107,10 +114,11 @@ public class AudioPlayUtils {
             }
             playerSound.stop();
         }
-        if (playThread!=null&&playThread.isAlive()){
+        if (playThread != null && playThread.isAlive()) {
             playThread.interrupt();
         }
         audioManager = null;
         playerSound = null;
+        audioPlayUtils=null;
     }
 }

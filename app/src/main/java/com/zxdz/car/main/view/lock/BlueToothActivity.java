@@ -109,9 +109,9 @@ public class BlueToothActivity extends BaseActivity {
             step = bundle.getInt("blue_step");
         }
         if (step==1){
-            audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qzxqmjsc);//请装卸区民警锁车
+            AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qzxqmjsc).play();//请装卸区民警锁车
         }else {
-            audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qzlqmjsc);//请滞留区民警锁车
+            AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qzlqmjsc).play();//请滞留区民警锁车
         }
         audioPlayUtils.play();
         closelock();
@@ -154,7 +154,6 @@ public class BlueToothActivity extends BaseActivity {
                     }
                     @Override
                     public void enquiriesPower(String str){
-
                     }
                 });
                 break;
@@ -252,8 +251,7 @@ public class BlueToothActivity extends BaseActivity {
             public void openable(String str) {
                 LogUtils.a(str);
                 mHandler.removeCallbacks(runnable2);
-                audioPlayUtils = new AudioPlayUtils(BlueToothActivity.this, R.raw.qzxqmjsc);
-                audioPlayUtils.play();
+                AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qdcmjsc).play();
                 Message message = new Message();
                 message.obj = str;
                 message.what = 1;

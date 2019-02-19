@@ -376,7 +376,7 @@ public class BluetoothLock {
                 }
                 if (lianjie) {
                     Toast.makeText(context, "搜索到蓝牙设备", Toast.LENGTH_SHORT).show();
-  //            new AudioPlayUtils(context, R.raw.qdlgjxzlys).play();
+  //            AudioPlayUtils.getAudio(context, R.raw.qdlgjxzlys).play();
                 }
                 //getblue.getblueTooth(device);
             } else if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {

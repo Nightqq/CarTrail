@@ -67,7 +67,6 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
     @BindView(R.id.tv_dept)
     TextView tvDeptTextView;
 
-    AudioPlayUtils audioPlayUtils;
 
     private boolean flag = true;//跳转标准，避免多次多卡触发重复跳转
     private boolean flag2 = true;
@@ -103,8 +102,7 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
         mPresenter = new PersionInfoPresenter(this, this);
         intentService = new Intent(this, UploadDataService.class);
 
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.lysljcg_qdcmjqrlysk);
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(this, R.raw.lysljcg_qdcmjqrlysk).play();
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(String str) {

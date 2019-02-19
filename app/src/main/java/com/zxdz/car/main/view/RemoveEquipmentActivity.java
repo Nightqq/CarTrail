@@ -53,7 +53,6 @@ public class RemoveEquipmentActivity extends BaseActivity {
     private AudioManager audoManager;
 
     private boolean isFirstOpen = true;
-    private AudioPlayUtils audioPlayUtils;
 
     @Override
     public int getLayoutId() {
@@ -63,9 +62,7 @@ public class RemoveEquipmentActivity extends BaseActivity {
     @Override
     public void init() {
         App.GravityListener_type=0;
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjcckzq);//请带车民警拆除控制器
-        audioPlayUtils.play();
-
+        AudioPlayUtils.getAudio(this, R.raw.qdcmjcckzq).play();//请带车民警拆除控制器
         mToolBar.setTitle("等待拆除控制器");
         setSupportActionBar(mToolBar);
       /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);

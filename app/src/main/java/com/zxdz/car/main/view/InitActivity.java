@@ -63,7 +63,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
 
     @Override
     public void init() {
-        new AudioPlayUtils(this, R.raw.init).play();
+        AudioPlayUtils.getAudio(this, R.raw.init).play();
         LogUtils.e("设备串号--->" + DeviceUtils.getAndroidID());
         mPresenter = new SettingInfoPresenter(this, this);
         initEquInfo();

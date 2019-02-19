@@ -23,7 +23,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.zxdz.car.R;
 import com.zxdz.car.base.utils.AudioPlayUtils;
@@ -61,7 +60,6 @@ public class BlueToothUtils {
     private boolean stateCallPolice = false;
     private SweetAlertDialog initDialog;
     private boolean isLoop = true;//是否在循环连接中
-    private AudioPlayUtils audioActivity;
 
     BlueToothUtils() {
         mContext = Utils.getContext();
@@ -256,11 +254,10 @@ public class BlueToothUtils {
                 gatt.close();
                 bluetoothGatt = null;
                 OpenLockActivity.iscon = false;
-                LogUtils.a("连接断开"+isLoop);
+                LogUtils.a("连接断开" + isLoop);
                 //ToastUtils.showShort("蓝牙断开连接");
                 if (handler1 != null && !isLoop) {
-                    audioActivity = new AudioPlayUtils(mContext, R.raw.lyljdkbj);
-                    audioActivity.play(true);
+                    AudioPlayUtils.getAudio(mContext, R.raw.lyljdkbj).play(true);
                     BaseActivity.intent.callPolice(1, "蓝牙异常断开");
                     //LogUtils.a("自动重连中。。。");
                     handler1.postDelayed(runnable2, 3000);
@@ -372,7 +369,7 @@ public class BlueToothUtils {
                 LogUtils.a("车锁状态", Arrays.toString(s1));
                 if (s1[5] == 1) {//车锁按钮弹不起来时，则会判断失误
                     enquiriesState.enquiriesState("锁状态：开");
-                }else if (s1[5] == 0) {
+                } else if (s1[5] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
                 byte[] s2 = SwitchUtils.getBooleanArray(bytes1[4]);
@@ -482,11 +479,9 @@ public class BlueToothUtils {
         }
     }
 
-    private void closeCallPloiceAudio(){
-        if (audioActivity != null){
-            audioActivity.stop();
-            BaseActivity.intent.callPolice(2, null);
-        }
+    private void closeCallPloiceAudio() {
+        AudioPlayUtils.getAudio(Utils.getContext(), 0).stop();
+        BaseActivity.intent.callPolice(2, null);
     }
 
     private CloseCallPolice closeCall;

@@ -43,7 +43,6 @@ public class CameraActivity extends BaseActivity {
     ImageView cameraImg;
     private Bitmap mBitmap;
     private boolean flag = false;
-    private AudioPlayUtils audioPlayUtils;
     private Intent intentService;
     private int step;
 
@@ -66,8 +65,7 @@ public class CameraActivity extends BaseActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                audioPlayUtils = new AudioPlayUtils(CameraActivity.this, R.raw.scwc_qdcmjqxsbpz);
-                audioPlayUtils.play();
+                AudioPlayUtils.getAudio(CameraActivity.this, R.raw.scwc_qdcmjqxsbpz).play();
             }
         }, 600);
         alarm(1);

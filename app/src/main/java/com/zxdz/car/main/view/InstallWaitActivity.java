@@ -56,7 +56,6 @@ public class InstallWaitActivity extends BaseActivity {
 
     private SweetAlertDialog confirmDialog;
 
-    AudioPlayUtils audioPlayUtils;
 
     private boolean isFirstOpen = true;
 
@@ -67,8 +66,7 @@ public class InstallWaitActivity extends BaseActivity {
 
     @Override
     public void init() {
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.qdcmjazkzq);//请带车民警安装控制器
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(this, R.raw.qdcmjazkzq).play();//请带车民警安装控制器
         mToolBar.setTitle("等待安装控制器");
         setSupportActionBar(mToolBar);
       /*  mToolBar.setNavigationIcon(R.mipmap.back_icon);

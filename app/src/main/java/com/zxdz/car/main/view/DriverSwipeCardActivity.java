@@ -74,7 +74,6 @@ public class DriverSwipeCardActivity extends BaseActivity<PersionInfoPresenter> 
     @BindView(R.id.tv_reason)
     TextView tvReasonName;
 
-    AudioPlayUtils audioPlayUtils;
 
     private boolean flag = true;//跳转标准，避免多次多卡触发重复跳转
 
@@ -96,8 +95,7 @@ public class DriverSwipeCardActivity extends BaseActivity<PersionInfoPresenter> 
     @Override
     public void init() {
         App.SWIPE_STEP = 3;
-        audioPlayUtils = new AudioPlayUtils(this, R.raw.qscjsysk);
-        audioPlayUtils.play();
+        AudioPlayUtils.getAudio(this, R.raw.qscjsysk).play();
         mToolBar.setTitle("驾驶员刷卡");
         setSupportActionBar(mToolBar);
        /* mToolBar.setNavigationIcon(R.mipmap.back_icon);

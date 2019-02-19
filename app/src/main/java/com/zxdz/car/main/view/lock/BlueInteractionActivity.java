@@ -50,18 +50,16 @@ public class BlueInteractionActivity extends AppCompatActivity {
             // 通过msg传递过来的信息，吐司一下收到的信息
             String obj = (String) msg.obj;
             if (obj.equals("000000")){
-                audioPlayUtils = new AudioPlayUtils(BlueInteractionActivity.this, R.raw.baojing);
-                audioPlayUtils.play(true);
+                AudioPlayUtils.getAudio(BlueInteractionActivity.this, R.raw.baojing).play(true);
                 return;
             }else if (obj.equals("111111")){
-                audioPlayUtils.stop();
+                AudioPlayUtils.getAudio(BlueInteractionActivity.this,0).stop();
                 return;
             }
             Toast.makeText(BlueInteractionActivity.this, obj, Toast.LENGTH_SHORT).show();
             tvCarNumber.setText(obj);
         }
     };
-    private AudioPlayUtils audioPlayUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

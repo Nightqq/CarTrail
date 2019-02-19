@@ -4,34 +4,25 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.ToneGenerator;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -58,8 +49,6 @@ import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.utils.ToastUtil;
 import com.zxdz.car.main.view.MainActivity;
-import com.zxdz.car.main.view.setting.PasswordValidataActivity;
-import com.zxdz.car.main.view.setting.SettingActivity;
 
 import java.util.Date;
 import java.util.List;
@@ -95,7 +84,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
      private InitT initThread;*/
     private boolean flag = true;
-    private static AudioPlayUtils audioPlayUtils;
     private GravityT gravityT;
     private Intent bjintent;
     private Dialog dialog;
@@ -179,14 +167,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     if (Math.abs(z0 - z) > 1.5 || Math.abs(x0 - x) > 5 || Math.abs(y0 - y) > 3) {
                         if (System.currentTimeMillis() - mTime > 2000) {
                             // TODO: 2018\5\10 0010 报警
-                            if (audioPlayUtils == null) {
-                                policeingunclick();
-                                audioPlayUtils = new AudioPlayUtils(BaseActivity.this, R.raw.ydbj);
+                            if (App.baojing_type == 0) {
                                 App.baojing_type = 1;
+                                policeingunclick();
+
                                 callPolice(1,"移动报警");
                             }
-                            if (!audioPlayUtils.isPLayComplete()) {
-                                audioPlayUtils.play(true);
+                            if (!AudioPlayUtils.isPLayComplete) {
+                                AudioPlayUtils.getAudio(BaseActivity.this, R.raw.ydbj).play(true);
                             }
                         }
                     } else {
@@ -198,21 +186,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     private void unPolice() {
-        if (audioPlayUtils != null) {
-           /* if (dialog != null) {
-                dialog.dismiss();
-            }*/
+        if (App.baojing_type == 1) {
             LogUtils.a("停止报警语音");
             App.baojing_type = 0;
             callPolice(2,"移动报警");
-            audioPlayUtils.stop();
+            AudioPlayUtils.getAudio(this,0).stop();
             toastUtil.stop();
             BlueToothHelper.getBlueHelp().giveupCloseMessage(new BlueToothUtils.CloseCallPolice() {
                 @Override
                 public void closeCallPolice() {
                 }
             }, false);
-            audioPlayUtils = null;
         }
         mTime = System.currentTimeMillis();
     }
