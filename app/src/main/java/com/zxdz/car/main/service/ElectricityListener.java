@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.widget.Toast;
 
 import com.blankj.subutil.util.Utils;
+import com.zxdz.car.App;
+import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.view.MainActivity;
 
@@ -48,8 +50,10 @@ public class ElectricityListener {
                 switch (intent.getAction()) {
                     case Intent.ACTION_POWER_CONNECTED://接通电源
                         Toast.makeText(context, "接通电源", Toast.LENGTH_SHORT).show();
-                        Intent mintent = new Intent(com.blankj.utilcode.util.Utils.getContext(), MainActivity.class);
+                        closePolice();
                         BlueToothHelper.getBlueHelp().closeAll();
+                        Intent mintent = new Intent(com.blankj.utilcode.util.Utils.getContext(), MainActivity.class);
+                        intent.putExtra("end", 1);
                         mContext.startActivity(mintent);
                         break;
                     case Intent.ACTION_POWER_DISCONNECTED://拔出电源
@@ -64,5 +68,7 @@ public class ElectricityListener {
         }
     }
 
+    private void closePolice() {
 
+    }
 }

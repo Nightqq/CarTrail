@@ -1,8 +1,6 @@
 package com.zxdz.car.main.view.lock;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,15 +20,11 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
-import com.zxdz.car.base.helper.UnWarnInfoHelper;
-import com.zxdz.car.base.helper.WarnInfoHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
-import com.zxdz.car.main.model.domain.UnWarnInfo;
-import com.zxdz.car.main.model.domain.WarnInfo;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
@@ -43,7 +36,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.functions.Action1;
 

@@ -107,9 +107,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
                     App.UPLOAD_STEP = 6;
                     audioPlayUtils = new AudioPlayUtils(ReturnRefreshCardActivity.this, R.raw.gclcjs);
                     audioPlayUtils.play();
-                    BlueToothHelper.getBlueHelp().closeAll();
-                    Intent intent = new Intent(ReturnRefreshCardActivity.this, MainActivity.class);
-                    intent.putExtra("end", 1);
+                    Intent intent = new Intent(ReturnRefreshCardActivity.this, InitReturnActivity.class);
                     startActivity(intent);
                     finish();
 

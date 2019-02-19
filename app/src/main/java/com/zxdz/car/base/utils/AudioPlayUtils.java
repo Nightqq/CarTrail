@@ -107,7 +107,7 @@ public class AudioPlayUtils {
             }
             playerSound.stop();
         }
-        if (playThread.isAlive()){
+        if (playThread!=null&&playThread.isAlive()){
             playThread.interrupt();
         }
         audioManager = null;

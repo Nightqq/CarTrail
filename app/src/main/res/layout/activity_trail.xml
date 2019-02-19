@@ -45,18 +45,33 @@
         android:background="@color/gray_ddd"></View>
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp">
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_arrive"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/common_btn_bg"
             android:text="到达目的地"
             android:textSize="@dimen/setting_item_text"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/dp_10"/>
+        <Button
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:id="@+id/btn_again"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/common_btn_bg"
+            android:text="到达装卸区"
+            android:textSize="@dimen/setting_item_text"
             android:textColor="@color/white"/>
+
     </LinearLayout>
 </RelativeLayout>

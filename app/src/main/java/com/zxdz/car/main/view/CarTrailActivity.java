@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -55,6 +57,8 @@ public class CarTrailActivity extends BaseActivity {
 
     @BindView(R.id.tv_address)
     TextView mAddressTextView;
+    @BindView(R.id.btn_again)
+    Button btnAgain;
 
     private int carTrail = 1;//车辆轨迹记录类型(工作进入，工作出门)
     private LocationService locationService;
@@ -96,11 +100,22 @@ public class CarTrailActivity extends BaseActivity {
 
                 } else {//没有滞留区
                     mArriveButton.setText("出门");
+                    btnAgain.setVisibility(View.VISIBLE);
                 }
             }
         }
 
         setSupportActionBar(mToolBar);
+        RxView.clicks(btnAgain).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+              //再次进入装卸区
+                Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
+                intent.putExtra("blue_step", 1);
+                startActivity(intent);
+                finish();
+            }
+        });
         RxView.clicks(mArriveButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -111,6 +126,9 @@ public class CarTrailActivity extends BaseActivity {
                 }
             }
         });
+
+
+
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -335,4 +353,5 @@ public class CarTrailActivity extends BaseActivity {
         CarTravelHelper.carTravelRecord.setZT(40);
         CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
     }
+
 }

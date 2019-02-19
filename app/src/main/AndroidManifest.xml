@@ -153,7 +153,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".main.view.setting.InformationActivity"></activity>
+        <activity android:name=".main.view.setting.InformationActivity" />
+        <activity android:name=".main.view.InitReturnActivity"></activity>
     </application>
 
 </manifest>
