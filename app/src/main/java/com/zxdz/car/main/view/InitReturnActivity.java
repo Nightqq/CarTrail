@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.view.BaseActivity;
@@ -21,6 +22,7 @@ public class InitReturnActivity extends BaseActivity {
     @Override
     public void init() {
         ButterKnife.bind(this);
+        App.GravityListener_type=0;//关闭手持机移动报警
         if (CarTravelHelper.carTravelRecord!=null){
             //存储管理员初始化数据等待上传
         }
