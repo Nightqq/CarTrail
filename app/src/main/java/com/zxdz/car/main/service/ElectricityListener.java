@@ -69,6 +69,6 @@ public class ElectricityListener {
     }
 
     private void closePolice() {
-
+        AudioPlayUtils.getAudio(mContext,0).stop();
     }
 }
