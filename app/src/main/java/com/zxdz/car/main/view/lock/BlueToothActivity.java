@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+
 public class BlueToothActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
@@ -58,7 +58,6 @@ public class BlueToothActivity extends BaseActivity {
     private boolean flag3 = true;
     public static Context context;
     private Intent intentService;
-    private AudioPlayUtils audioPlayUtils;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -113,7 +112,6 @@ public class BlueToothActivity extends BaseActivity {
         }else {
             AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qzlqmjsc).play();//请滞留区民警锁车
         }
-        audioPlayUtils.play();
         closelock();
     }
 

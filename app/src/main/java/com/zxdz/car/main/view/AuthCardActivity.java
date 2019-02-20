@@ -104,6 +104,14 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         App.LSID = 0L;
         CarTravelHelper.carTravelRecord = null;
         swipecardhelp = SwipingCardUtils.swipecardhelp(getApplicationContext());
+        if (swipecardhelp.getArray(0, 0) == 0&&swipecardhelp.getArray(0, 1) == 0&&swipecardhelp.getArray(0, 2) == 0){
+            //掉过领用直接安装
+            Intent mIntent  = new Intent(AuthCardActivity.this, InstallConfirmActivity.class);
+            mIntent.putExtra("confirm_step", 1);
+            startActivity(mIntent);
+            finish();
+            return;
+        }
         if (swipecardhelp.getArray(0, 0) == 1) {
             App.SWIPE_STEP = 1;
             mToolBar.setTitle("刷管理员授权卡");

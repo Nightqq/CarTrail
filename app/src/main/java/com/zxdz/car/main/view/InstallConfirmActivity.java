@@ -23,8 +23,10 @@ import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
+import com.zxdz.car.base.utils.SwipingCardUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
+import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
@@ -256,8 +258,20 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
      * @param cardNumber
      */
     public void saveAdminCard(String cardNumber) {
+        if (CarTravelHelper.carTravelRecord == null) {
+            CarTravelHelper.carTravelRecord = new CarTravelRecord();
+            CarTravelHelper.carTravelRecord.setLS_ID(0);
+            CarTravelHelper.carTravelRecord.setId(System.currentTimeMillis());
+            CarTravelHelper.carTravelRecord.setZDJ_ID(App.ZDJID);
+        }
         if (CarTravelHelper.carTravelRecord != null) {
             if (step == 1) {
+                SwipingCardUtils swipecardhelp = SwipingCardUtils.swipecardhelp(getApplicationContext());
+                if (swipecardhelp.getArray(0, 0) == 0&&swipecardhelp.getArray(0, 1) == 0&&swipecardhelp.getArray(0, 2) == 0){
+                    //掉过领用直接安装
+                    CarTravelHelper.carTravelRecord.setDLGJ_LYKH(cardNumber);
+                    CarTravelHelper.carTravelRecord.setDLGJ_LYSJ(new Date());
+                }
                 CarTravelHelper.carTravelRecord.setDLGJ_AZKH(cardNumber);
                 CarTravelHelper.carTravelRecord.setDLGJ_AZSJ(new Date());
                 CarTravelHelper.carTravelRecord.setZT(20);
@@ -298,6 +312,13 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             tvAlarmTextView.setText(persionInfo.getDLGJ_JH());
             tvDeptTextView.setText(persionInfo.getDLGJ_BMMC());
             if (step == 1) {
+                SwipingCardUtils swipecardhelp = SwipingCardUtils.swipecardhelp(getApplicationContext());
+                if (swipecardhelp.getArray(0, 0) == 0&&swipecardhelp.getArray(0, 1) == 0&&swipecardhelp.getArray(0, 2) == 0){
+                    //掉过领用直接安装
+                    CarTravelHelper.carTravelRecord.setDLGJ_LYXM(persionInfo.getDLGJ_XM());
+                    CarTravelHelper.carTravelRecord.setDLGJ_LYJH(persionInfo.getDLGJ_JH());
+                    CarTravelHelper.carTravelRecord.setDLGJ_LYBM(persionInfo.getDLGJ_BMMC());
+                }
                 CarTravelHelper.carTravelRecord.setDLGJ_AZXM(persionInfo.getDLGJ_XM());
                 CarTravelHelper.carTravelRecord.setDLGJ_AZJH(persionInfo.getDLGJ_JH());
                 CarTravelHelper.carTravelRecord.setDLGJ_AZBM(persionInfo.getDLGJ_BMMC());
