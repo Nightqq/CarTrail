@@ -14,11 +14,13 @@ import android.media.ToneGenerator;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -56,6 +58,9 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import okhttp3.Interceptor;
+
+import static com.zxdz.car.main.view.lock.BlueToothActivity.context;
 
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView, IDialog {
@@ -703,5 +708,24 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (i == 0){
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_HOME:
+                    return true;
+                case KeyEvent.KEYCODE_MENU://菜单
+                    return true;
+                case KeyEvent.KEYCODE_BACK://后退
+                    return true;
+                case KeyEvent.KEYCODE_VOLUME_DOWN://音量-
+                    return true;
+                case KeyEvent.KEYCODE_VOLUME_UP://音量+
+                    return true;
+                case KeyEvent.KEYCODE_CALL://拨号
+                    return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
