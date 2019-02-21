@@ -20,6 +20,8 @@ import com.zxdz.car.main.contract.CardSetContract;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.presenter.CardSetPresenter;
 
+import java.time.temporal.ValueRange;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,13 +71,15 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
     SwitchButton returnequipDriver;
     @BindView(R.id.isretention)
     SwitchButton Misretention;
-
+    @BindView(R.id.confirm_arrived)
+    SwitchButton confirmArrived;
 
 
     private int currentType = 0;//当前操作的参数
     private SwitchButton[][] sb;
     private SharedPreferences sp;
     private boolean isretention;
+    private boolean isclickone;
 
     @Override
     public int getLayoutId() {
@@ -110,8 +114,19 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
         setPunchInState();
         sp = getSharedPreferences("spUtils", Context.MODE_PRIVATE);
         isretention = sp.getBoolean("isretention", false);
+        isclickone = sp.getBoolean("isclickone", false);
+
+        confirmArrived.setChecked(isclickone);
         Misretention.setChecked(isretention);
 
+        confirmArrived.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                SharedPreferences.Editor edit = sp.edit();
+                edit.putBoolean("isclickone", !isclickone);
+                edit.commit();
+            }
+        });
         Misretention.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {

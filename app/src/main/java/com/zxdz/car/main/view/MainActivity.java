@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,7 +41,6 @@ import com.zxdz.car.main.presenter.UploadInfoPresenter;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
-import com.zxdz.car.main.utils.ToastUtil;
 import com.zxdz.car.main.view.lock.AuthBlueLinkActivity;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
 import com.zxdz.car.main.view.lock.CameraActivity;
@@ -109,7 +109,6 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         Glide.with(this).load(R.mipmap.upload_loading).into(mUploadLoadingImageView);
         mPresenter = new UploadInfoPresenter(this, this);
         intentService = new Intent(MainActivity.this, UploadDataService.class);
-
         //设置是否继续任务
         setLastStep();
         setCardType();
@@ -152,6 +151,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                 }*/
             }
         });
+
 
         RxView.clicks(mUploadHitTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
