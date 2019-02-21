@@ -71,8 +71,6 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
     SwitchButton returnequipDriver;
     @BindView(R.id.isretention)
     SwitchButton Misretention;
-    @BindView(R.id.confirm_arrived)
-    SwitchButton confirmArrived;
 
 
     private int currentType = 0;//当前操作的参数
@@ -114,19 +112,8 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
         setPunchInState();
         sp = getSharedPreferences("spUtils", Context.MODE_PRIVATE);
         isretention = sp.getBoolean("isretention", false);
-        isclickone = sp.getBoolean("isclickone", false);
-
-        confirmArrived.setChecked(isclickone);
         Misretention.setChecked(isretention);
 
-        confirmArrived.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                SharedPreferences.Editor edit = sp.edit();
-                edit.putBoolean("isclickone", !isclickone);
-                edit.commit();
-            }
-        });
         Misretention.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {

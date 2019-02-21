@@ -82,13 +82,8 @@ public class CarTrailActivity extends BaseActivity {
             carTrail = bundle.getInt("car_trail");
             if (carTrail == 1) {
                 mToolBar.setTitle("车辆进入轨迹");
-                boolean isclickone = sp.getBoolean("isclickone", false);
-                if (!isclickone) {//是否点击确认到达
-                    mArriveButton.setText("到达装卸区");
-                } else {
-                    mArriveButton.setText("到达装卸区请刷卡确认");
-                    swipCard();
-                }
+                mArriveButton.setText("到达装卸区请刷卡确认");
+                swipCard();
 
             } else {
                 mToolBar.setTitle("车辆出门轨迹");
