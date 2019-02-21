@@ -237,7 +237,6 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);*/
                 AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
-                BlueToothHelper.getBlueHelp().closeAll();
                 Intent intent = new Intent(InstallConfirmActivity.this, InitReturnActivity.class);
                 //intent.putExtra("end", 1);
                 startActivity(intent);

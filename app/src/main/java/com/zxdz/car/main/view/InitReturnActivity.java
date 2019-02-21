@@ -1,9 +1,8 @@
 package com.zxdz.car.main.view;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
@@ -22,8 +21,8 @@ public class InitReturnActivity extends BaseActivity {
     @Override
     public void init() {
         ButterKnife.bind(this);
-        App.GravityListener_type=0;//关闭手持机移动报警
-        if (CarTravelHelper.carTravelRecord!=null){
+        App.GravityListener_type = 0;//关闭手持机移动报警
+        if (CarTravelHelper.carTravelRecord != null) {
             //存储管理员初始化数据等待上传
         }
         BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
@@ -34,7 +33,8 @@ public class InitReturnActivity extends BaseActivity {
 
             @Override
             public void enquiriesPower(String str) {
-
+                LogUtils.i("车锁电压11", str);
+                //ToastUtils.showShort(str);
             }
         });
     }

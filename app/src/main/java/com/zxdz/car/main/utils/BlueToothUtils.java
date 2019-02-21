@@ -244,7 +244,7 @@ public class BlueToothUtils {
                 }
                 handler.removeCallbacks(runnable1);
                 handler1.removeCallbacks(runnable2);
-                isLoop = false;//循环成功不再循环
+                isLoop = false;//连接成功，断开就会重连
                 LogUtils.a("连接成功");
                 closeCallPloiceAudio();
                 if (null != initDialog && initDialog.isShowing()) {
@@ -366,15 +366,15 @@ public class BlueToothUtils {
                 break;
             case 0x52://查询锁状态返回
                 byte[] s1 = SwitchUtils.getBooleanArray(bytes1[3]);
-                LogUtils.a("车锁状态", Arrays.toString(s1));
+                LogUtils.a("车锁状态", Arrays.toString(s1)+"yyy"+bytes1[3]);
                 if (s1[5] == 1) {//车锁按钮弹不起来时，则会判断失误
                     enquiriesState.enquiriesState("锁状态：开");
                 } else if (s1[5] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
-                byte[] s2 = SwitchUtils.getBooleanArray(bytes1[4]);
-                byte[] s3 = SwitchUtils.getBooleanArray(bytes1[5]);
-                LogUtils.a("车锁电压", Arrays.toString(s2)+"yyy"+Arrays.toString(s3));
+                LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]);
+                float power = ((float)(bytes1[5]*256+bytes1[4]))/100;
+                enquiriesState.enquiriesPower(power+"V");
                 break;
             case 0x50://设置参数反馈
                 if (bytes1[1] == 0x00) {
@@ -428,7 +428,16 @@ public class BlueToothUtils {
             }
         }
     }
-
+    public void rmoveConnections(){
+        if (null != handler ){
+            if (null != runnable1){
+                handler.removeCallbacks(runnable1);
+            }
+            if (null != runnable2){
+                handler.removeCallbacks(runnable2);
+            }
+        }
+    }
 
     public void unregist() {
         if (mReceiver != null && flag == 2 && mContext != null) {

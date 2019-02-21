@@ -87,6 +87,9 @@ public class BlueToothHelper extends BlueToothUtils {
     public void closeAll() {
         closeAlls();
     }
+    public void removeconnection(){
+        rmoveConnections();
+    }
 
     //注销广播
     public void unRegister() {

@@ -120,6 +120,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         RxView.clicks(mCardInLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                BlueToothHelper.getBlueHelp().removeconnection();
                 Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
                 startActivityForResult(intent, CaptureActivity.REQ_CODE);
                /* String title = "";
