@@ -125,6 +125,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         intent = this;
     }
 
+
+
     /*
     * i=0常亮
     * */

@@ -33,7 +33,7 @@ public class SwipingCardUtils {
     private void initArray(){
         if (sp.getBoolean("swipe_card",true)){
             SharedPreferences.Editor edit = sp.edit();
-            int[][] swipe_card_styp={{0,1,0},{0,1,0},{0,1,0},{0,1,0},{0,1,0}};
+            int[][] swipe_card_styp={{0,0,0},{0,1,0},{0,1,0},{0,1,0},{0,1,0}};
             for (int i = 0; i <5; i++) {
                 for (int j = 0; j < 3; j++) {
                     edit.putInt("swipe_card"+i+""+j,swipe_card_styp[i][j]);

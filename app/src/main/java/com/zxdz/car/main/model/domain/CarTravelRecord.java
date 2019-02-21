@@ -135,6 +135,10 @@ public class CarTravelRecord {
     @JSONField(name = "DLGJ_JHBM")
     private String DLGJ_JHBM = "";
 
+    @JSONField(name = "GLY_GHQRSJ")//管理员初始化时间
+    private Date GLY_GHQRSJ = new Date();
+
+
     //数据交换状态
     @JSONField(name = "SJJHBZ")
     private int SJJHBZ = 0;
@@ -148,7 +152,7 @@ public class CarTravelRecord {
     public CarTravelRecord() {
 
     }
-    @Generated(hash = 1746862099)
+    @Generated(hash = 754780892)
     public CarTravelRecord(Long id, int LS_ID, String ZDJ_ID, int QY_ID, Date RIQI,
             int ZT, String GLRY, Date GLRYSJ, String DLGJ_LYKH, Date DLGJ_LYSJ,
             String DLGJ_LYXM, String DLGJ_LYJH, String DLGJ_LYBM, String WLJSYKH,
@@ -159,8 +163,8 @@ public class CarTravelRecord {
             String DLGJ_SCJH, String DLGJ_SCBM, Date GJPZSJ, String GJPZPNG,
             String DLGJ_KSKH, Date DLGJ_KSSJ, String KS_ADDRESS, String DLGJ_KSXM,
             String DLGJ_KSJH, String DLGJ_KSBM, String DLGJ_JHKH, Date DLGJ_JHSJ,
-            String DLGJ_JHXM, String DLGJ_JHJH, String DLGJ_JHBM, int SJJHBZ,
-            String BZ, String imageUrl) {
+            String DLGJ_JHXM, String DLGJ_JHJH, String DLGJ_JHBM, Date GLY_GHQRSJ,
+            int SJJHBZ, String BZ, String imageUrl) {
         this.id = id;
         this.LS_ID = LS_ID;
         this.ZDJ_ID = ZDJ_ID;
@@ -207,6 +211,7 @@ public class CarTravelRecord {
         this.DLGJ_JHXM = DLGJ_JHXM;
         this.DLGJ_JHJH = DLGJ_JHJH;
         this.DLGJ_JHBM = DLGJ_JHBM;
+        this.GLY_GHQRSJ = GLY_GHQRSJ;
         this.SJJHBZ = SJJHBZ;
         this.BZ = BZ;
         this.imageUrl = imageUrl;
@@ -550,5 +555,11 @@ public class CarTravelRecord {
     }
     public void setDLGJ_KSBM(String DLGJ_KSBM) {
         this.DLGJ_KSBM = DLGJ_KSBM;
+    }
+    public Date getGLY_GHQRSJ() {
+        return this.GLY_GHQRSJ;
+    }
+    public void setGLY_GHQRSJ(Date GLY_GHQRSJ) {
+        this.GLY_GHQRSJ = GLY_GHQRSJ;
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -76,7 +77,7 @@ public class CarTrailActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         App.GravityListener_type = 1;//开启手持机移动报警
-        intentService = intentService = new Intent(this, UploadDataService.class);
+        intentService = new Intent(this, UploadDataService.class);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("spUtils", MODE_PRIVATE);
         if (bundle != null) {
             carTrail = bundle.getInt("car_trail");
@@ -102,7 +103,8 @@ public class CarTrailActivity extends BaseActivity {
         RxView.clicks(btnAgain).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-              //再次进入装卸区
+              //进入下一个装卸区
+                App.Lock_car_num=App.Lock_car_num++;
                 Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
                 intent.putExtra("blue_step", 1);
                 startActivity(intent);
@@ -344,5 +346,4 @@ public class CarTrailActivity extends BaseActivity {
         CarTravelHelper.carTravelRecord.setZT(40);
         CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
     }
-
 }

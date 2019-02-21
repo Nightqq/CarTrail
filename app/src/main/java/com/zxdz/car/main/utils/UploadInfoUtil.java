@@ -83,7 +83,7 @@ public class UploadInfoUtil {
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        LogUtils.a("上传数据-resultInfoNotOk");
+                        LogUtils.a("上传数据-resultInfoNotOk",message);
                     }
 
                     @Override
@@ -107,7 +107,7 @@ public class UploadInfoUtil {
                                 uploadUnWarnInfo();
                             }
                             //信息所有状态上传完成，则删除记录
-                            if (carTravelRecord.getZT() == 70 && carTravelRecord == CarTravelHelper.carTravelRecord) {
+                            if (carTravelRecord.getZT() == 80 && carTravelRecord == CarTravelHelper.carTravelRecord) {
                                 CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);//上传完成删除该条流水
                                 App.UPLOAD_STEP = 1;
                                 isFinish = true;
@@ -171,7 +171,7 @@ public class UploadInfoUtil {
                     @Override
                     public void onNext(ResultInfo resultInfo) {
                         if (resultInfo != null && resultInfo.message.equals("拍照成功")) {
-                            LogUtils.a("上传数据-照片成功");
+                            LogUtils.a("上传数据-照片成功"+resultInfo.message);
                             TakePictureHelper.deleteWarnInfoInDB(pictureInfo1);
                             List<PictureInfo> pictureInfoii = TakePictureHelper.getpictureInfoListHaveLSID();
                             if (pictureInfoii != null && pictureInfoii.size() > 0) {

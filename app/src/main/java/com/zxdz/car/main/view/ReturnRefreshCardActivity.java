@@ -19,6 +19,7 @@ import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.utils.SwipingCardUtils;
 import com.zxdz.car.base.view.BaseActivity;
+import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 
@@ -64,6 +65,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
     @BindView(R.id.tv_car_name)
     TextView tvCarName;
     private boolean flag = true;//跳转标准，避免多次多卡触发重复跳转
+    private Intent intentserver;
 
     @Override
     public int getLayoutId() {
@@ -83,6 +85,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
                 finish();
             }
         });*/
+        intentserver = new Intent(this, UploadDataService.class);
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(String str) {
@@ -105,6 +108,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
                     AudioPlayUtils.getAudio(ReturnRefreshCardActivity.this, R.raw.gclcjs).play();
                     Intent intent = new Intent(ReturnRefreshCardActivity.this, InitReturnActivity.class);
                     startActivity(intent);
+                    startService(intentserver);
                     finish();
 
                 }

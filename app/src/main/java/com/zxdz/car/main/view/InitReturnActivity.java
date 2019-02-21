@@ -24,6 +24,9 @@ public class InitReturnActivity extends BaseActivity {
         App.GravityListener_type = 0;//关闭手持机移动报警
         if (CarTravelHelper.carTravelRecord != null) {
             //存储管理员初始化数据等待上传
+            LogUtils.a("初始化数据等待上传");
+            CarTravelHelper.carTravelRecord.setZT(80);
+            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
         }
         BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
             @Override

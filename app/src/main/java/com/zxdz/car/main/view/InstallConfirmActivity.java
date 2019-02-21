@@ -177,6 +177,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                     Intent intent = new Intent(InstallConfirmActivity.this, InitReturnActivity.class);
                    // intent.putExtra("end", 1);
                     startActivity(intent);
+                    startService(intentService);
                     finish();
                 }
             }
@@ -240,6 +241,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 Intent intent = new Intent(InstallConfirmActivity.this, InitReturnActivity.class);
                 //intent.putExtra("end", 1);
                 startActivity(intent);
+                startService(intentService);
                 finish();
             }
         }

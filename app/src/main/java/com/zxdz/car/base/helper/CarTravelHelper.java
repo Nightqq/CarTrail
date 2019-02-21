@@ -32,9 +32,9 @@ public class CarTravelHelper {
 
     //到6.6为止异常退出再进入中调用
     public static CarTravelRecord getCarTravelRecord() {
-        if (carTravelRecordDao.queryBuilder().list() != null && carTravelRecordDao.queryBuilder().list().size() > 0) {
+     /* if (carTravelRecordDao.queryBuilder().list() != null && carTravelRecordDao.queryBuilder().list().size() > 0) {
             return carTravelRecordDao.queryBuilder().list().get(0);
-        }
+        }*/
         return null;
     }
 

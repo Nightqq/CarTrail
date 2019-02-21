@@ -44,6 +44,7 @@ public class App extends Application {
 
     public static boolean IsNewLS = false;
 
+    public static int Lock_car_num=1;
 
     /**
      * 根据所刷卡的步骤，来决定上传那些数据
@@ -54,6 +55,7 @@ public class App extends Application {
      * 4.1tp
      * 5：带领干警开锁，上传主信息，上传报警记录(中间如果有非法移动及警报信息，则上传)
      * 6：带领干警交还，上传主信息，上传出门的轨迹路线(开锁到大门这中间的轨迹路线),上传整个流程中的更换带领干警信息记录
+     * 7：管理员确认归还
      */
     public static int UPLOAD_STEP = 1;
 

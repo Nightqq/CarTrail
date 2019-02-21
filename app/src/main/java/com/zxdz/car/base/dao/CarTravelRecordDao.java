@@ -70,9 +70,10 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         public final static Property DLGJ_JHXM = new Property(43, String.class, "DLGJ_JHXM", false, "DLGJ__JHXM");
         public final static Property DLGJ_JHJH = new Property(44, String.class, "DLGJ_JHJH", false, "DLGJ__JHJH");
         public final static Property DLGJ_JHBM = new Property(45, String.class, "DLGJ_JHBM", false, "DLGJ__JHBM");
-        public final static Property SJJHBZ = new Property(46, int.class, "SJJHBZ", false, "SJJHBZ");
-        public final static Property BZ = new Property(47, String.class, "BZ", false, "BZ");
-        public final static Property ImageUrl = new Property(48, String.class, "imageUrl", false, "IMAGE_URL");
+        public final static Property GLY_GHQRSJ = new Property(46, java.util.Date.class, "GLY_GHQRSJ", false, "GLY__GHQRSJ");
+        public final static Property SJJHBZ = new Property(47, int.class, "SJJHBZ", false, "SJJHBZ");
+        public final static Property BZ = new Property(48, String.class, "BZ", false, "BZ");
+        public final static Property ImageUrl = new Property(49, String.class, "imageUrl", false, "IMAGE_URL");
     }
 
 
@@ -134,9 +135,10 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
                 "\"DLGJ__JHXM\" TEXT," + // 43: DLGJ_JHXM
                 "\"DLGJ__JHJH\" TEXT," + // 44: DLGJ_JHJH
                 "\"DLGJ__JHBM\" TEXT," + // 45: DLGJ_JHBM
-                "\"SJJHBZ\" INTEGER NOT NULL ," + // 46: SJJHBZ
-                "\"BZ\" TEXT," + // 47: BZ
-                "\"IMAGE_URL\" TEXT);"); // 48: imageUrl
+                "\"GLY__GHQRSJ\" INTEGER," + // 46: GLY_GHQRSJ
+                "\"SJJHBZ\" INTEGER NOT NULL ," + // 47: SJJHBZ
+                "\"BZ\" TEXT," + // 48: BZ
+                "\"IMAGE_URL\" TEXT);"); // 49: imageUrl
     }
 
     /** Drops the underlying database table. */
@@ -366,16 +368,21 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         if (DLGJ_JHBM != null) {
             stmt.bindString(46, DLGJ_JHBM);
         }
-        stmt.bindLong(47, entity.getSJJHBZ());
+ 
+        java.util.Date GLY_GHQRSJ = entity.getGLY_GHQRSJ();
+        if (GLY_GHQRSJ != null) {
+            stmt.bindLong(47, GLY_GHQRSJ.getTime());
+        }
+        stmt.bindLong(48, entity.getSJJHBZ());
  
         String BZ = entity.getBZ();
         if (BZ != null) {
-            stmt.bindString(48, BZ);
+            stmt.bindString(49, BZ);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(49, imageUrl);
+            stmt.bindString(50, imageUrl);
         }
     }
 
@@ -600,16 +607,21 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         if (DLGJ_JHBM != null) {
             stmt.bindString(46, DLGJ_JHBM);
         }
-        stmt.bindLong(47, entity.getSJJHBZ());
+ 
+        java.util.Date GLY_GHQRSJ = entity.getGLY_GHQRSJ();
+        if (GLY_GHQRSJ != null) {
+            stmt.bindLong(47, GLY_GHQRSJ.getTime());
+        }
+        stmt.bindLong(48, entity.getSJJHBZ());
  
         String BZ = entity.getBZ();
         if (BZ != null) {
-            stmt.bindString(48, BZ);
+            stmt.bindString(49, BZ);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(49, imageUrl);
+            stmt.bindString(50, imageUrl);
         }
     }
 
@@ -667,9 +679,10 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43), // DLGJ_JHXM
             cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44), // DLGJ_JHJH
             cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45), // DLGJ_JHBM
-            cursor.getInt(offset + 46), // SJJHBZ
-            cursor.isNull(offset + 47) ? null : cursor.getString(offset + 47), // BZ
-            cursor.isNull(offset + 48) ? null : cursor.getString(offset + 48) // imageUrl
+            cursor.isNull(offset + 46) ? null : new java.util.Date(cursor.getLong(offset + 46)), // GLY_GHQRSJ
+            cursor.getInt(offset + 47), // SJJHBZ
+            cursor.isNull(offset + 48) ? null : cursor.getString(offset + 48), // BZ
+            cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49) // imageUrl
         );
         return entity;
     }
@@ -722,9 +735,10 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         entity.setDLGJ_JHXM(cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43));
         entity.setDLGJ_JHJH(cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44));
         entity.setDLGJ_JHBM(cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45));
-        entity.setSJJHBZ(cursor.getInt(offset + 46));
-        entity.setBZ(cursor.isNull(offset + 47) ? null : cursor.getString(offset + 47));
-        entity.setImageUrl(cursor.isNull(offset + 48) ? null : cursor.getString(offset + 48));
+        entity.setGLY_GHQRSJ(cursor.isNull(offset + 46) ? null : new java.util.Date(cursor.getLong(offset + 46)));
+        entity.setSJJHBZ(cursor.getInt(offset + 47));
+        entity.setBZ(cursor.isNull(offset + 48) ? null : cursor.getString(offset + 48));
+        entity.setImageUrl(cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49));
      }
     
     @Override

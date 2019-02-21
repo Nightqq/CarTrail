@@ -97,22 +97,24 @@ public class AudioPlayUtils {
 
     public void play() {
         isPLayComplete = true;
+        isLoop = false;
         playThread = new Thread(new PlayThread());
         playThread.run();
     }
 
     public void play(boolean flag) {
-        isLoop = flag;
         play();
+        isLoop = flag;
     }
 
     public void stop() {
         isPLayComplete = false;
         if (playerSound != null) {
-            if (playerSound.isLooping()) {
+            if (isLoop) {
+                isLoop=false;
                 playerSound.setLooping(false);
+                playerSound.stop();
             }
-            playerSound.stop();
         }
         if (playThread != null && playThread.isAlive()) {
             playThread.interrupt();

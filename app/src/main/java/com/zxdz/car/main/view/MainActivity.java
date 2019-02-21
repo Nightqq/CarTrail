@@ -103,9 +103,9 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     public void init() {
         end = getIntent().getIntExtra("end", 0);
         if (end == 1) {
-           AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
+            AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
         }
-        i=1;//屏幕常亮取消
+        i = 1;//屏幕常亮取消
         Glide.with(this).load(R.mipmap.upload_loading).into(mUploadLoadingImageView);
         mPresenter = new UploadInfoPresenter(this, this);
         intentService = new Intent(MainActivity.this, UploadDataService.class);
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         String androidID = DeviceUtils.getAndroidID();
         Log.e("串口号", androidID);
 
-        //车辆进入
+        //连接方向盘锁
         RxView.clicks(mCardInLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -219,25 +219,25 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                     case RESULT_OK:
                         String stringExtra = data.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT);
                         LogUtils.a(stringExtra);
-                        mac= QrCodeToMAC.getMAC(stringExtra);
+                        mac = QrCodeToMAC.getMAC(stringExtra);
                         checkOpenLock("连接中");
                         BlueToothHelper.getBlueHelp().closeAll();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                              BlueToothHelper.getBlueHelp().ConnectedDevices(mac, new BlueToothUtils.ConnectedDevicesListenter() {
-                                  @Override
-                                  public void connectenDevice(int i) {
-                                      if (i == 1) { //连接成功跳转管理员刷卡页面
-                                          if (initDialog!=null&&initDialog.isShowing()){
-                                              initDialog.dismiss();
-                                          }
-                                          startActivity(new Intent(MainActivity.this, AuthCardActivity.class));
-                                      }
-                                  }
-                              },true);
+                                BlueToothHelper.getBlueHelp().ConnectedDevices(mac, new BlueToothUtils.ConnectedDevicesListenter() {
+                                    @Override
+                                    public void connectenDevice(int i) {
+                                        if (i == 1) { //连接成功跳转管理员刷卡页面
+                                            if (initDialog != null && initDialog.isShowing()) {
+                                                initDialog.dismiss();
+                                            }
+                                            startActivity(new Intent(MainActivity.this, AuthCardActivity.class));
+                                        }
+                                    }
+                                }, true);
                             }
-                        },2000);
+                        }, 2000);
 
                         break;
                     case RESULT_CANCELED:
@@ -253,8 +253,8 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     @Override
     protected void onStart() {
         super.onStart();
-        App.GravityListener_type=0;//关闭手持机移动报警
-        App.IsNewLS=false;
+        App.GravityListener_type = 0;//关闭手持机移动报警
+        App.IsNewLS = false;
         uploadDataInfo();
     }
 
@@ -278,13 +278,14 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         App.POLICE_SWIPE = 0;
         App.DRIVER_SWIPE = 0;
     }
+
     /**
      * 进入主界面，首先判断是否有未完成的记录
      */
     public void setLastStep() {
         if (CarTravelHelper.getCarTravelRecord() != null) {
             CarTravelHelper.carTravelRecord = CarTravelHelper.getCarTravelRecord();
-            App.LSID=new Long(CarTravelHelper.carTravelRecord.getLS_ID());
+            App.LSID = new Long(CarTravelHelper.carTravelRecord.getLS_ID());
             new SweetAlertDialog(MainActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                     .setTitleText("操作继续")
                     .setContentText("监测到有未完成的记录，是否继续上次行程？")
@@ -312,13 +313,13 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 11:
                                     App.UPLOAD_STEP = 2;
                                     App.SWIPE_STEP = 3;
-                                    App.GravityListener_type=0;//关闭手持机移动报警
+                                    App.GravityListener_type = 0;//关闭手持机移动报警
                                     intent = new Intent(MainActivity.this, InstallWaitActivity.class);
                                     break;
                                 case 20:
                                     App.UPLOAD_STEP = 3;
                                     App.SWIPE_STEP = 4;
-                                    App.GravityListener_type=1;//开启手持机移动报警
+                                    App.GravityListener_type = 1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 1);
                                     break;
@@ -328,26 +329,26 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 40:
                                     App.UPLOAD_STEP = 4;
                                     App.SWIPE_STEP = 5;
-                                    App.GravityListener_type=1;//开启手持机移动报警
+                                    App.GravityListener_type = 1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, BlueToothActivity.class);
                                     intent.putExtra("blue_step", 1);
                                     break;
                                 case 43:
                                     App.UPLOAD_STEP = 4;
                                     App.SWIPE_STEP = 5;
-                                    App.GravityListener_type=0;//关闭手持机移动报警
+                                    App.GravityListener_type = 0;//关闭手持机移动报警
                                     intent = new Intent(MainActivity.this, CameraActivity.class);
                                     break;
                                 case 45:
                                     App.UPLOAD_STEP = 5;
                                     App.SWIPE_STEP = 5;
-                                    App.GravityListener_type=1;//开启手持机移动报警
+                                    App.GravityListener_type = 1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, OpenCardActivity.class);
                                     break;
                                 case 50:
                                     App.UPLOAD_STEP = 5;
                                     App.SWIPE_STEP = 6;
-                                    App.GravityListener_type=1;//开启手持机移动报警
+                                    App.GravityListener_type = 1;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 2);
                                     break;
@@ -371,7 +372,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                         @Override
                                         public void connectenDevice(int i) {
                                             if (i == 1) { //连接成功跳转管理员刷卡页面
-                                                if (initDialog!=null&&initDialog.isShowing()){
+                                                if (initDialog != null && initDialog.isShowing()) {
                                                     initDialog.dismiss();
                                                 }
                                                 if (finalIntent != null) {
@@ -379,9 +380,9 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                                 }
                                             }
                                         }
-                                    },false);
+                                    }, false);
                                 }
-                            },2000);
+                            }, 2000);
                         }
                     })
 
@@ -435,6 +436,9 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         }
     }
 
+
+
+
     /**
      * 数据上传
      */
@@ -452,81 +456,83 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+            @Override
+            protected void onCreate (Bundle savedInstanceState){
+                super.onCreate(savedInstanceState);
+                // TODO: add setContentView(...) invocation
+                ButterKnife.bind(this);
 
-    /**
-     * 定义广播接收器
-     */
-    private class UpdateInfoBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //更新数据上传结果
-            int resultCode = intent.getExtras().getInt("result_code");
-            LogUtils.e("uploadResult --->" + resultCode);
-            //同步完成
-            if (resultCode == 0) {
-                //ToastUtils.showLong("数据上传完成");
-                mUploadLoadingImageView.setVisibility(View.GONE);
-                mUploadDoneImageView.setVisibility(View.VISIBLE);
-                mUploadHitTextView.setText("数据上传完成");
+
             }
-            //同步中
-            if (resultCode == 1) {
-                mUploadLoadingImageView.setVisibility(View.VISIBLE);
-                mUploadDoneImageView.setVisibility(View.GONE);
-                mUploadHitTextView.setText("数据正在上传···");
+
+            /**
+             * 定义广播接收器
+             */
+            private class UpdateInfoBroadcastReceiver extends BroadcastReceiver {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    //更新数据上传结果
+                    int resultCode = intent.getExtras().getInt("result_code");
+                    LogUtils.e("uploadResult --->" + resultCode);
+                    //同步完成
+                    if (resultCode == 0) {
+                        //ToastUtils.showLong("数据上传完成");
+                        mUploadLoadingImageView.setVisibility(View.GONE);
+                        mUploadDoneImageView.setVisibility(View.VISIBLE);
+                        mUploadHitTextView.setText("数据上传完成");
+                    }
+                    //同步中
+                    if (resultCode == 1) {
+                        mUploadLoadingImageView.setVisibility(View.VISIBLE);
+                        mUploadDoneImageView.setVisibility(View.GONE);
+                        mUploadHitTextView.setText("数据正在上传···");
+                    }
+                }
+            }
+
+            @Override
+            public void hideStateView () {
+
+            }
+
+            @Override
+            public void showNoNet () {
+
+            }
+
+            @Override
+            public void loadCarRecordUpload (ResultInfo resultInfo){
+                ToastUtils.showLong("数据上传成功");
+            }
+
+            @Override
+            public void loadTrailUpload (ResultInfo resultInfo){
+                ToastUtils.showLong("数据上传成功");
+            }
+
+            @Override
+            public void loadWarnUpload (ResultInfo resultInfo){
+                ToastUtils.showLong("数据上传成功");
+            }
+
+            @Override
+            public void loadChangeUpload (ResultInfo resultInfo){
+                ToastUtils.showLong("数据上传成功");
+            }
+
+            @Override
+            protected void onDestroy () {
+                super.onDestroy();
+                if (updateInfoBroadcastReceiver != null) {
+                    unregisterReceiver(updateInfoBroadcastReceiver);
+                }
+            }
+            public void checkOpenLock (String msg){
+                initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                initDialog.setTitleText(msg);
+                initDialog.setCancelable(false);
+                initDialog.show();
+                initDialog.setCanceledOnTouchOutside(true);
             }
         }
-    }
-
-    @Override
-    public void hideStateView() {
-
-    }
-
-    @Override
-    public void showNoNet() {
-
-    }
-
-    @Override
-    public void loadCarRecordUpload(ResultInfo resultInfo) {
-        ToastUtils.showLong("数据上传成功");
-    }
-
-    @Override
-    public void loadTrailUpload(ResultInfo resultInfo) {
-        ToastUtils.showLong("数据上传成功");
-    }
-
-    @Override
-    public void loadWarnUpload(ResultInfo resultInfo) {
-        ToastUtils.showLong("数据上传成功");
-    }
-
-    @Override
-    public void loadChangeUpload(ResultInfo resultInfo) {
-        ToastUtils.showLong("数据上传成功");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (updateInfoBroadcastReceiver != null) {
-            unregisterReceiver(updateInfoBroadcastReceiver);
-        }
-    }
-    public void checkOpenLock(String msg) {
-        initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        initDialog.setTitleText(msg);
-        initDialog.setCancelable(false);
-        initDialog.show();
-        initDialog.setCanceledOnTouchOutside(true);
-    }
-}

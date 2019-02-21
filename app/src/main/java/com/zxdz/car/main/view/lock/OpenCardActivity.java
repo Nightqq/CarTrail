@@ -82,12 +82,14 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                         intent2.putExtra("car_trail", 2);
                         startActivity(intent2);
                         //根据读取的卡号查询人员信息
-                        savedate(2);
-                        Log.e("requestinfo", "请求干警信息");
-                        mPresenter.getPersionInfo(cardNum);
-                        if (!TextUtils.equals(cardNum, null)) {
-                            mcarNumber = cardNum;
-                            // mHandler.postDelayed(mRunnable, 500);
+                        if (App.Lock_car_num==1){//第一次离开装卸区
+                            savedate(2);
+                            Log.e("requestinfo", "请求干警信息");
+                            mPresenter.getPersionInfo(cardNum);
+                            if (!TextUtils.equals(cardNum, null)) {
+                                mcarNumber = cardNum;
+                                // mHandler.postDelayed(mRunnable, 500);
+                            }
                         }
                         finish();
                         return;
