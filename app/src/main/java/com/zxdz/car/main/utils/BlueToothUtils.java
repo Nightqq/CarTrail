@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
+import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.utils.SwitchUtils;
@@ -389,8 +390,15 @@ public class BlueToothUtils {
                 break;
             case 0x43://刷卡返回
                 if (bytes1[1] == 0x43) {
-                    byte[] bytes = {(byte) (bytes1[3] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF)};
-                    final String s = SwitchUtils.byte2HexStr(bytes);
+                    byte[] bytess = new byte[3];
+                    if (App.readCardType == 1){
+                        byte[] bytes = {(byte) (bytes1[3] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF)};
+                        bytess = bytes;
+                    }else {
+                        byte[] bytes = {(byte) (bytes1[6] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF)};
+                        bytess = bytes;
+                    }
+                    final String s = SwitchUtils.byte2HexStr(bytess);
                     LogUtils.a(s);
                     handler1.post(new Runnable() {
                         @Override
