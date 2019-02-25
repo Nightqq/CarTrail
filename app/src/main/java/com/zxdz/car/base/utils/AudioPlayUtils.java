@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.widget.PopupWindow;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -31,9 +32,9 @@ public class AudioPlayUtils {
      */
     private static int mRawId;
 
-    private boolean isLoop;
+    private boolean isLoop = false;
 
-    public static boolean isPLayComplete;
+    public static boolean isPLayComplete=false;
     private static AudioPlayUtils audioPlayUtils;
 
     private AudioPlayUtils() {
@@ -70,9 +71,7 @@ public class AudioPlayUtils {
                     }
                 }
                 playerSound = MediaPlayer.create(mContext, mRawId);
-                if (isLoop) {
-                    playerSound.setLooping(true);
-                }
+                playerSound.setLooping(isLoop);
                 playerSound.start();
                 playerSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -80,7 +79,10 @@ public class AudioPlayUtils {
                         if (playerSound != null) {
                             playerSound.release();
                         }
+                        LogUtils.a("语音lll结束");
                         // LogUtils.a( isPLayComplete);
+                        isLoop = false;
+                        isPLayComplete=false;
                     }
                 });
             }
@@ -96,8 +98,10 @@ public class AudioPlayUtils {
     }*/
 
     public void play() {
+        if (isPLayComplete){
+            return;
+        }
         isPLayComplete = true;
-        isLoop = false;
         playThread = new Thread(new PlayThread());
         playThread.run();
     }
@@ -111,9 +115,13 @@ public class AudioPlayUtils {
         isPLayComplete = false;
         if (playerSound != null) {
             if (isLoop) {
-                isLoop=false;
-                playerSound.setLooping(false);
-                playerSound.stop();
+                isLoop = false;
+                try {
+                    playerSound.setLooping(false);
+                    playerSound.stop();
+                } catch (IllegalStateException e) {
+                    LogUtils.e("语音lll异常");
+                }
             }
         }
         if (playThread != null && playThread.isAlive()) {
@@ -121,6 +129,6 @@ public class AudioPlayUtils {
         }
         audioManager = null;
         playerSound = null;
-        audioPlayUtils=null;
+        audioPlayUtils = null;
     }
 }

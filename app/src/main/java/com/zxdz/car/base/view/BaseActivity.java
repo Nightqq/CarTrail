@@ -3,6 +3,7 @@ package com.zxdz.car.base.view;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,12 +12,9 @@ import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.ToneGenerator;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -58,9 +56,6 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import okhttp3.Interceptor;
-
-import static com.zxdz.car.main.view.lock.BlueToothActivity.context;
 
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView, IDialog {
@@ -100,7 +95,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        i=0;
+        i = 0;
         this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代码
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
@@ -126,11 +121,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
 
-
     /*
-    * i=0常亮
-    * */
+     * i=0常亮
+     * */
     public static int i;
+
     public void setbright() {
         if (i == 0) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
@@ -180,11 +175,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                                 App.baojing_type = 1;
                                 policeingunclick();
 
-                                callPolice(1,"移动报警");
+                                callPolice(1, "移动报警");
                             }
-                            if (!AudioPlayUtils.isPLayComplete) {
-                                AudioPlayUtils.getAudio(BaseActivity.this, R.raw.ydbj).play(true);
-                            }
+                            AudioPlayUtils.getAudio(BaseActivity.this, R.raw.ydbj).play(true);
                         }
                     } else {
                         unPolice();
@@ -198,8 +191,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         if (App.baojing_type == 1) {
             LogUtils.a("停止报警语音");
             App.baojing_type = 0;
-            callPolice(2,"移动报警");
-            AudioPlayUtils.getAudio(this,0).stop();
+            callPolice(2, "移动报警");
+            AudioPlayUtils.getAudio(this, 0).stop();
             toastUtil.stop();
             BlueToothHelper.getBlueHelp().giveupCloseMessage(new BlueToothUtils.CloseCallPolice() {
                 @Override
@@ -211,7 +204,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     //1：报警，2：取消报警
-    public void callPolice(int i,String content){
+    public void callPolice(int i, String content) {
         SharedPreferences sp = getSharedPreferences("activity", Context.MODE_WORLD_READABLE);
         String policeNum = sp.getString("policeNum", "111111");
         if (i == 1) {//报警
@@ -237,11 +230,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             }
         }
     }
-
-
-
-
-
 
 
     //屏幕不可点击
@@ -290,9 +278,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
 
-
-
-
     @Override
     public void onBackPressed() {
     }
@@ -309,7 +294,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         //程序不可见判断程序是否处于前台
         SharedPreferences sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
         boolean start_set_3 = sp.getBoolean("start_set_3", true);
-        if (start_flag && start_set_3 && !isAppOnForeground()) {
+        KeyguardManager manager = (KeyguardManager) Utils.getContext().getSystemService(Utils.getContext().KEYGUARD_SERVICE);
+        boolean b = manager.inKeyguardRestrictedInputMode();//屏幕是否黑屏
+        if (start_flag && start_set_3 && !b && !isAppOnForeground()) {
             handler.postDelayed(runnable, 500);
         }
     }
@@ -318,7 +305,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         @Override
         public void run() {
             LogUtils.a("定时将后台应用跳转前台");
-
             //次方法启动activity，按下home键无法启动
             /*ActivityManager am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
             am.moveTaskToFront(getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);*/
@@ -437,7 +423,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_restart:
                 passwardValidata();
                 break;
@@ -451,15 +437,15 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     private PasswardView passwardView;
 
     //密码验证对话框
-    private void passwardValidata(){
+    private void passwardValidata() {
         final android.app.AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        View view = View.inflate(this,R.layout.activity_card_set_passwardvalidata, null);
+        View view = View.inflate(this, R.layout.activity_card_set_passwardvalidata, null);
         alertDialog.setView(view);
-        TextView title = (TextView)view.findViewById(R.id.mm_title);
+        TextView title = (TextView) view.findViewById(R.id.mm_title);
         title.setText("重启系统");
-        passwardView = (PasswardView)view.findViewById(R.id.pwd_view);
+        passwardView = (PasswardView) view.findViewById(R.id.pwd_view);
         Button btnCancel = (Button) view.findViewById(R.id.server_btn_cancel);
-        Button btnClipbord = (Button)view.findViewById(R.id.server_btn_clipboard);
+        Button btnClipbord = (Button) view.findViewById(R.id.server_btn_clipboard);
         btnClipbord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -491,7 +477,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             }
         });
         alertDialog.show();
-        passwardView.postDelayed(runnable1,100);
+        passwardView.postDelayed(runnable1, 100);
     }
 
     private InputMethodManager inputMethodManager;
@@ -712,7 +698,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (i == 0){
+        if (i == 0) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_HOME:
                     return true;

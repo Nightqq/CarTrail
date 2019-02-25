@@ -122,6 +122,8 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
                 edit.commit();
             }
         });
+
+
     }
 
     /**
@@ -166,7 +168,7 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
     }
 
 
-    @OnClick({R.id.isretention, R.id.rb_id})
+    @OnClick({R.id.rb_ic, R.id.rb_id})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rb_id:

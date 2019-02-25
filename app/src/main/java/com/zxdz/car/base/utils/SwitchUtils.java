@@ -7,6 +7,8 @@ import android.renderscript.Int3;
 import android.util.Base64;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
+
 import org.greenrobot.greendao.annotation.Convert;
 
 import java.io.ByteArrayOutputStream;
@@ -358,7 +360,8 @@ public class SwitchUtils {
 
     public static String getBitmapByte(Bitmap bitmap) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        LogUtils.a("图片尺寸"+bitmap.getWidth(),bitmap.getHeight());
+        bitmap.compress(Bitmap.CompressFormat.WEBP, 100, out);
         try {
             out.flush();
             out.close();

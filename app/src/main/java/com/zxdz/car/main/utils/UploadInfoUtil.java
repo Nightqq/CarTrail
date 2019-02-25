@@ -89,13 +89,14 @@ public class UploadInfoUtil {
                     @Override
                     public void resultInfoOk() {//上传成功
                         if (resultInfo != null && resultInfo.data != null) {
-                            LogUtils.a("上传数据—主信息上传完成" + JSON.toJSONString(resultInfo.data));
+                            LogUtils.a("上传数据—主信息上传完成返回" + JSON.toJSONString(resultInfo.data));
                             //删除之前的流水数据
                             if (CarTravelHelper.carTravelRecord != null && carTravelRecord != CarTravelHelper.carTravelRecord) {
                                 CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);
                                 LogUtils.a("删除之前的流水数据", carTravelRecord.toString());
                             } else {
                                 App.LSID = new Long(resultInfo.data.getLS_ID());
+                                LogUtils.a("上传返回的流水id", App.LSID );
                             }
                             if (carTravelRecord.getLS_ID() == 0L) {
                                 carTravelRecord.setLS_ID(resultInfo.data.getLS_ID());

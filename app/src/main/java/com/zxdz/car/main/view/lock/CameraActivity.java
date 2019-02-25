@@ -1,11 +1,16 @@
 package com.zxdz.car.main.view.lock;
 
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +29,7 @@ import com.zxdz.car.main.model.domain.PictureInfo;
 import com.zxdz.car.main.service.UploadDataService;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -70,9 +76,70 @@ public class CameraActivity extends BaseActivity {
         }, 600);
         alarm(1);
         intentService = new Intent(this, UploadDataService.class);
+
+        imgname=new Date()+"";
         Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        ContentValues contentValues = new ContentValues(2);
+        contentValues.put(MediaStore.Images.Media.DATA, getPhotopath());
+        //如果想拍完存在系统相机的默认目录,改为
+        //contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, "111111.jpg");
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        Uri mPhotoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        mIntent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
         startActivityForResult(mIntent, 1);
+
+       /* Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        File out = new File(getPhotopath());
+        Uri uri = Uri.fromFile(out);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        startActivityForResult(mIntent, 1);*/
     }
+
+
+    String imgname="";
+    private String getPhotopath() {
+        // 照片全路径
+        String fileName = "";
+        // 文件夹路径
+        String pathUrl = Environment.getExternalStorageDirectory() + "/mymy/";
+        String imageName =imgname;
+        File file = new File(pathUrl);
+        file.mkdirs();// 创建文件夹
+        fileName = pathUrl + imageName;
+        return fileName;
+    }
+    private Bitmap getBitmapFromUrl(String url, double width, double height) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true; // 设置了此属性一定要记得将值设置为false
+        Bitmap bitmap = BitmapFactory.decodeFile(url);
+        // 防止OOM发生
+        options.inJustDecodeBounds = false;
+        int mWidth = bitmap.getWidth();
+        int mHeight = bitmap.getHeight();
+        Matrix matrix = new Matrix();
+        float scaleWidth = 1;
+        float scaleHeight = 1;
+        // 按照固定宽高进行缩放
+        // 这里希望知道照片是横屏拍摄还是竖屏拍摄
+        // 因为两种方式宽高不同，缩放效果就会不同
+        // 这里用了比较笨的方式
+        if (mWidth <= mHeight) {
+            scaleWidth = (float) (width / mWidth);
+            scaleHeight = (float) (height / mHeight);
+        } else {
+            scaleWidth = (float) (height / mWidth);
+            scaleHeight = (float) (width / mHeight);
+        }
+        // 按照固定大小对图片进行缩放
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, mWidth, mHeight,
+                matrix, true);
+        // 用完了记得回收
+        bitmap.recycle();
+        return newBitmap;
+    }
+
 
     @Override
     public int getLayoutId() {
@@ -85,8 +152,9 @@ public class CameraActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             flag = true;
             start_flag=true;
-            Bundle bundle = data.getExtras();
-            mBitmap = (Bitmap) bundle.get("data");
+            /*Bundle bundle = data.getExtras();
+            mBitmap = (Bitmap) bundle.get("data");*/
+            mBitmap = getBitmapFromUrl(getPhotopath(), 313.5, 462.0);
             cameraImg.setImageBitmap(mBitmap);
         }
     }
