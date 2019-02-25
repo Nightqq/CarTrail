@@ -170,7 +170,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 }
                 if (step == 3) {
                     LogUtils.a("归还成功，行程结束");
-                    AudioPlayUtils.getAudio(InstallConfirmActivity.this, R.raw.gclcjs).play();
+                    AudioPlayUtils.getAudio(InstallConfirmActivity.this, R.raw.gclcjs_qjsbjhgly).play();//该次流程结束，请将设备交还管理员
                        /* final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);*/
