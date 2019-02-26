@@ -237,7 +237,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                     final Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);*/
-                AudioPlayUtils.getAudio(this, R.raw.gclcjs).play();
+                AudioPlayUtils.getAudio(this, R.raw.gclcjs_qjsbjhgly).play();
                 Intent intent = new Intent(InstallConfirmActivity.this, InitReturnActivity.class);
                 //intent.putExtra("end", 1);
                 startActivity(intent);

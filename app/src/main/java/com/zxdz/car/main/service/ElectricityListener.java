@@ -54,8 +54,10 @@ public class ElectricityListener {
                     case Intent.ACTION_POWER_CONNECTED://接通电源
                         Toast.makeText(context, "接通电源", Toast.LENGTH_SHORT).show();
                         closePolice();
-                        CarTravelHelper.carTravelRecord.setGLY_GHQRSJ(new Date());
-                        CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+                        if ( CarTravelHelper.carTravelRecord!=null){
+                            CarTravelHelper.carTravelRecord.setGLY_GHQRSJ(new Date());
+                            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+                        }
                         BlueToothHelper.getBlueHelp().closeAll();
                         Intent mintent = new Intent(com.blankj.utilcode.util.Utils.getContext(), MainActivity.class);
                         intent.putExtra("end", 1);

@@ -105,7 +105,7 @@ public class ReturnRefreshCardActivity extends BaseActivity {
                 }else {
                     App.SWIPE_STEP = 7;
                     App.UPLOAD_STEP = 6;
-                    AudioPlayUtils.getAudio(ReturnRefreshCardActivity.this, R.raw.gclcjs).play();
+                    AudioPlayUtils.getAudio(ReturnRefreshCardActivity.this, R.raw.gclcjs_qjsbjhgly).play();
                     Intent intent = new Intent(ReturnRefreshCardActivity.this, InitReturnActivity.class);
                     startActivity(intent);
                     startService(intentserver);

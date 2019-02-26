@@ -157,7 +157,7 @@ public class UploadInfoUtil {
         if (pictureInfos != null && pictureInfos.size() > 0) {//上传所有有流水id是数据
             LogUtils.a("上传数据-未上传照片个数" + pictureInfos.size());
             for (final PictureInfo pictureInfo1 : pictureInfos) {
-                LogUtils.a("上传数据—准备上传照片");
+                LogUtils.a("上传数据—准备上传照片",pictureInfo1.toString());
                 Subscription subscribe = mEngin.uploadPicture(pictureInfo1).subscribe(new Subscriber<ResultInfo>() {
                     @Override
                     public void onCompleted() {
@@ -166,7 +166,9 @@ public class UploadInfoUtil {
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtils.a("上传数据-准备上传照片失败", e.getMessage());
+                        if (e!=null){
+                            LogUtils.a("上传数据-准备上传照片失败", e.getMessage().toString());
+                        }
                     }
 
                     @Override

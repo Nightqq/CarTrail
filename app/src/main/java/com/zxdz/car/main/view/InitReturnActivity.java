@@ -34,6 +34,11 @@ public class InitReturnActivity extends BaseActivity {
             CarTravelHelper.carTravelRecord.setZT(80);
             CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
             @Override
             public void enquiriesState(String str) {
@@ -41,9 +46,16 @@ public class InitReturnActivity extends BaseActivity {
             }
 
             @Override
-            public void enquiriesPower(String str) {
+            public void enquiriesPower(final String str) {
                 LogUtils.i("车锁电压11", str);
-                //ToastUtils.showShort(str);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initReturnElectricity.setText(str);
+                        //ToastUtils.showShort(str);
+                    }
+                });
+
             }
         });
     }

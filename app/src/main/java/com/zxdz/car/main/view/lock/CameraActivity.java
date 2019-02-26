@@ -154,7 +154,7 @@ public class CameraActivity extends BaseActivity {
             start_flag=true;
             /*Bundle bundle = data.getExtras();
             mBitmap = (Bitmap) bundle.get("data");*/
-            mBitmap = getBitmapFromUrl(getPhotopath(), 313.5, 462.0);
+            mBitmap = getBitmapFromUrl(getPhotopath(), 350, 350);
             cameraImg.setImageBitmap(mBitmap);
         }
     }

@@ -378,6 +378,7 @@ public class BlueToothUtils {
                 long round = Math.round(pencent);
                 //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
                 enquiriesState.enquiriesPower(round+"%");
+
                 break;
             case 0x50://设置参数反馈
                 if (bytes1[1] == 0x00) {

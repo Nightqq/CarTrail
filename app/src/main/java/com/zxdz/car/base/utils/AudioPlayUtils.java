@@ -51,6 +51,7 @@ public class AudioPlayUtils {
         if (audioPlayUtils == null) {
             audioPlayUtils = new AudioPlayUtils();
         }
+
         return audioPlayUtils;
     }
 
