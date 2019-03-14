@@ -97,7 +97,7 @@ public class CameraActivity extends BaseActivity {
     }
 
 
-    String imgname="";
+    static String imgname="";
     private String getPhotopath() {
         // 照片全路径
         String fileName = "";
@@ -177,7 +177,15 @@ public class CameraActivity extends BaseActivity {
                 break;
             case R.id.camera_again:
                 start_flag=false;
+                imgname=new Date()+"";
                 Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                ContentValues contentValues = new ContentValues(2);
+                contentValues.put(MediaStore.Images.Media.DATA, getPhotopath());
+                //如果想拍完存在系统相机的默认目录,改为
+                //contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, "111111.jpg");
+                contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                Uri mPhotoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                mIntent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
                 startActivityForResult(mIntent, 1);
                 break;
         }

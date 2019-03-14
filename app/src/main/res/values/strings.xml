@@ -9,7 +9,7 @@
     <string name="area_setting">区域设定</string>
     <string name="swipe_setting">刷卡设定</string>
     <string name="call_roll">点名信息</string>
-    <string name="setting_server_IP">设置服务器ip</string>
+    <string name="setting_server_IP">设置监狱信息</string>
     <string name="change_police">自启动设定</string>
     <string name="gps_interval">GPS上传间隔时间(单位:秒)</string>
     <string-array name="car_ways">
