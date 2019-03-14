@@ -374,7 +374,7 @@ public class BlueToothUtils {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
                 float power = ((float)(bytes1[5]*256+bytes1[4]))/100;
-                double pencent = (power - 1)*100/0.61;
+                double pencent = (power - 3)*100/1.2;
                 long round = Math.round(pencent);
                 //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
                 enquiriesState.enquiriesPower(round+"%");
