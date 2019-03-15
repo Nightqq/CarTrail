@@ -151,7 +151,7 @@ public class BlueToothActivity extends BaseActivity {
                         //initDialog.dismissWithAnimation();
                     }
                     @Override
-                    public void enquiriesPower(String str){
+                    public void enquiriesPower(long str){
                     }
                 });
                 break;
@@ -218,7 +218,7 @@ public class BlueToothActivity extends BaseActivity {
                                 }
 
                                 @Override
-                                public void enquiriesPower(String str){
+                                public void enquiriesPower(long str){
 
                                 }
                             });

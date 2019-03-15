@@ -38,17 +38,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="智能锁剩余电量："
-                android:textColor="@color/black"
-                android:textSize="24sp" />
-
-            <TextView
                 android:id="@+id/init_return_electricity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="99%"
+                android:text="智能锁剩余电量：99%"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </LinearLayout>

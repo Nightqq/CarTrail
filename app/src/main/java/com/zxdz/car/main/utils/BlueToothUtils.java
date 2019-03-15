@@ -376,8 +376,8 @@ public class BlueToothUtils {
                 float power = ((float)(bytes1[5]*256+bytes1[4]))/100;
                 double pencent = (power - 3)*100/1.2;
                 long round = Math.round(pencent);
-                //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
-                enquiriesState.enquiriesPower(round+"%");
+                LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
+                enquiriesState.enquiriesPower(round);
 
                 break;
             case 0x50://设置参数反馈
@@ -533,7 +533,7 @@ public class BlueToothUtils {
 
     public interface EnquiriesStateListenter {
         void enquiriesState(String str);
-        void enquiriesPower(String str);
+        void enquiriesPower(long str);
     }
 
     private CloseLockListener closeLock;

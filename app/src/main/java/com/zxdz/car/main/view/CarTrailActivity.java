@@ -88,7 +88,6 @@ public class CarTrailActivity extends BaseActivity {
                 mToolBar.setTitle("车辆进入轨迹");
                 mArriveButton.setText("到达装卸区请刷卡确认");
                 swipCard();
-
             } else {
                 mToolBar.setTitle("车辆出门轨迹");
                 isretention = sp.getBoolean("isretention", false);
@@ -154,7 +153,7 @@ public class CarTrailActivity extends BaseActivity {
                     }
                 });
             }
-        },10000);
+        },15000);
     }
 
     @Override
