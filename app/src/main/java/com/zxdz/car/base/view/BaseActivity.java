@@ -91,6 +91,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     private Dialog dialog;
     private ToastUtil toastUtil;
     public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
+    private UnWarnInfo warnInfoListByID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -222,7 +223,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             startService(bjintent);
         } else if (i == 2) {//取消报警
             LogUtils.a("开始储存取消报警数据");
-            UnWarnInfo warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
+
+            if ( CarTravelHelper.carTravelRecord != null){
+                warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
+            }
             if (warnInfoListByID != null) {
                 warnInfoListByID.setFlag(true);
                 UnWarnInfoHelper.saveWarnInfoToDB(warnInfoListByID);

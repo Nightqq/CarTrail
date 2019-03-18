@@ -107,7 +107,7 @@ public class SwitchUtils {
         }
         return sb.toString().toUpperCase().trim();
     }
-    //单个元素转换
+    //单个元素转换为字符串
     public static String byte2HexStr1(byte b) {
         String stmp = Integer.toHexString(b & 0xFF);
         return stmp.toUpperCase().trim();

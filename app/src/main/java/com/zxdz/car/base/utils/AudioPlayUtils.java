@@ -108,8 +108,8 @@ public class AudioPlayUtils {
     }
 
     public void play(boolean flag) {
-        play();
         isLoop = flag;
+        play();
     }
 
     public void stop() {
