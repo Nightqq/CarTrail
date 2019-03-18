@@ -226,7 +226,7 @@ public class BlueToothUtils {
         @Override
         public void run() {
             checkOpenLock("智能锁连接断开，重新连接中。。。");
-            ConnectedDevice(mAddress, new ConnectedDevicesListenter() {
+            ConnectedDevice(mAddress, new ConnectedDevicesListenter() {//用这个方式预防蓝牙被手动关掉
                 @Override
                 public void connectenDevice(int i) {
 
@@ -252,16 +252,18 @@ public class BlueToothUtils {
                     initDialog.dismiss();
                 }
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {  //断开连接
-                gatt.close();
-                bluetoothGatt = null;
-                OpenLockActivity.iscon = false;
+                //OpenLockActivity.iscon = false;
                 LogUtils.a("连接断开" + isLoop);
                 //ToastUtils.showShort("蓝牙断开连接");
                 if (handler1 != null && !isLoop) {
-                    AudioPlayUtils.getAudio(mContext, R.raw.lyljdkbj).play(true);
-                    BaseActivity.intent.callPolice(1, "蓝牙异常断开");
                     //LogUtils.a("自动重连中。。。");
-                    handler1.postDelayed(runnable2, 3000);
+                    AudioPlayUtils.getAudio(mContext, R.raw.lyljdkbj).play(true);
+                    handler1.postDelayed(runnable2, 2000);
+                    //如果流水id没有拿到，就开始报警会空指针（不过不会蹦掉，导致不能往下走）
+                    BaseActivity.intent.callPolice(1, "蓝牙异常断开");
+                }else{
+                    gatt.close();
+                    bluetoothGatt = null;
                 }
             }
         }
@@ -289,7 +291,11 @@ public class BlueToothUtils {
                 writer_characteristic.setValue(bytes);
                 bluetoothGatt.writeCharacteristic(writer_characteristic);
 
-                connectedDevicesListenter.connectenDevice(1);
+                if (connectedDevicesListenter != null){
+                    connectedDevicesListenter.connectenDevice(1);
+                    connectedDevicesListenter = null;//不释放有可能会跳转到第一次连接成功后的界面
+                }
+
                 if (read_characteristic != null) {
                     LogUtils.a("设置notify");
                     setCharacteristicNotification(read_characteristic, true);
@@ -373,10 +379,15 @@ public class BlueToothUtils {
                 } else if (s1[5] == 0) {
                     enquiriesState.enquiriesState("锁状态：关");
                 }
-                float power = ((float)(bytes1[5]*256+bytes1[4]))/100;
+                String s2 = SwitchUtils.byte2HexStr1(bytes1[4]);
+                String s3 = SwitchUtils.byte2HexStr1(bytes1[5]);
+                int d = Integer.valueOf(s2,16);
+                int e = Integer.valueOf(s3,16);
+                float power = ((float)(e*256+d))/100;
                 double pencent = (power - 3)*100/1.2;
                 long round = Math.round(pencent);
-                LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
+                //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
+                //LogUtils.a("车锁电压33","s2"+s2+"s3"+s3+"d"+d+"e"+e);
                 enquiriesState.enquiriesPower(round);
 
                 break;
@@ -571,12 +582,12 @@ public class BlueToothUtils {
         if (null == initDialog) {
             initDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            initDialog.setTitleText(msg);
             initDialog.setCancelable(false);
             initDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             initDialog.setCanceledOnTouchOutside(true);
         }
         if (!initDialog.isShowing()) {
+            initDialog.setTitleText(msg);
             initDialog.show();
         }
     }

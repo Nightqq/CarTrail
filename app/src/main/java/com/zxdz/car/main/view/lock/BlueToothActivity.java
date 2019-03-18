@@ -3,11 +3,9 @@ package com.zxdz.car.main.view.lock;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
-import com.zxdz.car.main.adapter.ExpandAdapter;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
@@ -49,8 +47,6 @@ public class BlueToothActivity extends BaseActivity {
     Button openLockConc1;
     @BindView(R.id.open_lock_conc2)
     Button openLockConc2;
-    private ExpandAdapter expandAdapter;
-    private String My_address = "";
     private SweetAlertDialog initDialog;
     private int step = 1;//判断是从哪个界面跳转到确认界面
     private boolean flag = true;
@@ -93,8 +89,6 @@ public class BlueToothActivity extends BaseActivity {
             }
         }
     };
-    private String num;
-    private String police_num;
 
     @Override
     public void init() {
@@ -107,9 +101,9 @@ public class BlueToothActivity extends BaseActivity {
         if (bundle != null) {
             step = bundle.getInt("blue_step");
         }
-        if (step==1){
+        if (step == 1) {
             AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qzxqmjsc).play();//请装卸区民警锁车
-        }else {
+        } else {
             AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qzlqmjsc).play();//请滞留区民警锁车
         }
         closelock();
@@ -150,8 +144,9 @@ public class BlueToothActivity extends BaseActivity {
                         mHandler.sendMessage(message);
                         //initDialog.dismissWithAnimation();
                     }
+
                     @Override
-                    public void enquiriesPower(long str){
+                    public void enquiriesPower(long str) {
                     }
                 });
                 break;
@@ -218,13 +213,13 @@ public class BlueToothActivity extends BaseActivity {
                                 }
 
                                 @Override
-                                public void enquiriesPower(long str){
+                                public void enquiriesPower(long str) {
 
                                 }
                             });
                         }
                     }, 500);
-                    mHandler.postDelayed(runnable3,20000);
+                    //mHandler.postDelayed(runnable3, 15000);
                 }
             }
 
@@ -271,8 +266,8 @@ public class BlueToothActivity extends BaseActivity {
     Runnable runnable3 = new Runnable() {
         @Override
         public void run() {
-            AudioPlayUtils.getAudio(BlueToothActivity.this,R.raw.qdcmjsc).play();
-            mHandler.postDelayed(runnable3,10000);
+            AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qdcmjsc).play();
+            mHandler.postDelayed(this,3000);
         }
     };
 
@@ -300,5 +295,7 @@ public class BlueToothActivity extends BaseActivity {
         runnable2 = null;
         runnable3 = null;
         mHandler = null;
+        AudioPlayUtils.getAudio(Utils.getContext(), 0).stop();
+
     }
 }
