@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.zxdz.car.R;
@@ -22,7 +21,6 @@ import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -291,9 +289,9 @@ public class BlueToothActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacks(runnable3);
+       // mHandler.removeCallbacks(runnable3);
         runnable2 = null;
-        runnable3 = null;
+        //runnable3 = null;
         mHandler = null;
         AudioPlayUtils.getAudio(Utils.getContext(), 0).stop();
 

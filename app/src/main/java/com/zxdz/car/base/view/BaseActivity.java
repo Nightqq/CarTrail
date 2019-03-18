@@ -710,10 +710,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     return true;
                 case KeyEvent.KEYCODE_BACK://后退
                     return true;
-                case KeyEvent.KEYCODE_VOLUME_DOWN://音量-
+                /*case KeyEvent.KEYCODE_VOLUME_DOWN://音量-
                     return true;
                 case KeyEvent.KEYCODE_VOLUME_UP://音量+
-                    return true;
+                    return true;*/
                 case KeyEvent.KEYCODE_CALL://拨号
                     return true;
             }

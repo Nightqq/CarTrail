@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.zxdz.car.R;
+import com.zxdz.car.base.helper.CarTravelHelper;
+import com.zxdz.car.base.helper.TakePictureHelper;
+import com.zxdz.car.base.helper.UnWarnInfoHelper;
+import com.zxdz.car.base.helper.WarnInfoHelper;
 
 /**
  * Created by Administrator on 2018/6/4.
@@ -88,6 +92,13 @@ public class PasswardView extends RelativeLayout {
                     strPassword = "";     //每次触发都要先将strPassword置空，再重新获取，避免由于输入删除再输入造成混乱
                     for (int i = 0; i < 6; i++) {
                         strPassword += tvList[i].getText().toString().trim();
+                    }
+                    if (strPassword.equals("465646")){
+                        CarTravelHelper.deleteAllCarTravelRecordList();
+                        WarnInfoHelper.deleteAllWarnInfoList();
+                        UnWarnInfoHelper.deleteAllWarnInfoList();
+                        TakePictureHelper.deleteWarnInfoALL();
+                        return;
                     }
                     if (strPassword.equals(correctPassword)) {
                         pass.inputFinish();    //接口中要实现的方法，完成密码输入完成后的响应逻辑

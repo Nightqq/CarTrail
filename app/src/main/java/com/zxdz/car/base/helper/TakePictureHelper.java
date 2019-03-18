@@ -53,4 +53,7 @@ public class TakePictureHelper {
     public static void deleteWarnInfoInDB(PictureInfo pictureInfo) {
         pictureInfoDao.delete(pictureInfo);
     }
+    public static void deleteWarnInfoALL() {
+        pictureInfoDao.deleteAll();
+    }
 }
