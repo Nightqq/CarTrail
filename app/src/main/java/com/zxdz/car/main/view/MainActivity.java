@@ -96,10 +96,15 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     private Handler handler = new Handler();
 
     Intent intentService;
+    private int end;
 
 
     @Override
     public void init() {
+        end = getIntent().getIntExtra("end", 0);
+        if (end == 1) {
+            AudioPlayUtils.getAudio(this, R.raw.gclcjs_qjsbjhgly).play();
+        }
         i = 1;//屏幕常亮取消
         Glide.with(this).load(R.mipmap.upload_loading).into(mUploadLoadingImageView);
         mPresenter = new UploadInfoPresenter(this, this);

@@ -1,5 +1,6 @@
 package com.zxdz.car.main.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -66,6 +67,7 @@ public class CarTrailActivity extends BaseActivity {
     private String resultadress;
     private boolean isretention;
     private Intent intentService;
+    private Timer timer;
 
     @Override
     public int getLayoutId() {
@@ -79,13 +81,13 @@ public class CarTrailActivity extends BaseActivity {
         App.GravityListener_type = 1;//开启手持机移动报警
         intentService = new Intent(this, UploadDataService.class);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("spUtils", MODE_PRIVATE);
+        timer = new Timer();
         if (bundle != null) {
             carTrail = bundle.getInt("car_trail");
             if (carTrail == 1) {
                 mToolBar.setTitle("车辆进入轨迹");
                 mArriveButton.setText("到达装卸区请刷卡确认");
                 swipCard();
-
             } else {
                 mToolBar.setTitle("车辆出门轨迹");
                 isretention = sp.getBoolean("isretention", false);
@@ -122,14 +124,11 @@ public class CarTrailActivity extends BaseActivity {
             }
         });
 
-
-
-        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (carTrail == 1) {
-                   AudioPlayUtils.getAudio(CarTrailActivity.this, R.raw.kzqazwc_qwydsb_kyxs_ddzxqqskqr).play();;//控制器安装完成，请勿移动控制器，可以行使,到达装卸区请刷卡确认
+                    AudioPlayUtils.getAudio(CarTrailActivity.this, R.raw.kzqazwc_qwydsb_kyxs_ddzxqqskqr).play();;//控制器安装完成，请勿移动控制器，可以行使,到达装卸区请刷卡确认
                 } else {
                     AudioPlayUtils.getAudio(CarTrailActivity.this, R.raw.syk_kyslzyq).play();
                 }
@@ -138,18 +137,23 @@ public class CarTrailActivity extends BaseActivity {
     }
 
     private void swipCard() {
-        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+        timer.schedule(new TimerTask() {
             @Override
-            public void receiveCardID(String str) {
-                String carNumber = str.replaceAll(" ", "");
-                saveAdminCard(carNumber);  //存储卡号到本地数据库0
-                Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
-                intent.putExtra("blue_step", 1);
-                startActivity(intent);
-                startService(intentService);
-                finish();
+            public void run() {
+                BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+                    @Override
+                    public void receiveCardID(String str) {
+                        String carNumber = str.replaceAll(" ", "");
+                        saveAdminCard(carNumber);  //存储卡号到本地数据库0
+                        Intent intent = new Intent(CarTrailActivity.this, BlueToothActivity.class);
+                        intent.putExtra("blue_step", 1);
+                        startActivity(intent);
+                        startService(intentService);
+                        finish();
+                    }
+                });
             }
-        });
+        },15000);
     }
 
     @Override
@@ -345,5 +349,11 @@ public class CarTrailActivity extends BaseActivity {
         CarTravelHelper.carTravelRecord.setDLGJ_SCSJ(new Date());
         CarTravelHelper.carTravelRecord.setZT(40);
         CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer = null;
     }
 }

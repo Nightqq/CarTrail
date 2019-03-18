@@ -1,5 +1,6 @@
 package com.zxdz.car.main.view;
 
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
@@ -7,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
+import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
@@ -46,12 +48,23 @@ public class InitReturnActivity extends BaseActivity {
             }
 
             @Override
-            public void enquiriesPower(final String str) {
+            public void enquiriesPower(final long str) {
                 LogUtils.i("车锁电压11", str);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initReturnElectricity.setText(str);
+                        if (str>30){
+                            initReturnElectricity.setText("智能锁剩余电量："+str+"%");
+                        }else if (str >= 0 && str <= 30){
+                            initReturnElectricity.setText("智能锁电量不足："+str+"%");
+                            initReturnElectricity.setTextColor(Color.RED);
+                            AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdlbz_qjscd).play();
+                        }else {
+                            initReturnElectricity.setText("智能锁电池损坏，请及时更换");
+                            initReturnElectricity.setTextColor(Color.RED);
+                            AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdcsh_qjsgh).play();
+                        }
+
                         //ToastUtils.showShort(str);
                     }
                 });

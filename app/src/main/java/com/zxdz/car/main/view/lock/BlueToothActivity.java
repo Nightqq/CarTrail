@@ -151,7 +151,7 @@ public class BlueToothActivity extends BaseActivity {
                         //initDialog.dismissWithAnimation();
                     }
                     @Override
-                    public void enquiriesPower(String str){
+                    public void enquiriesPower(long str){
                     }
                 });
                 break;
@@ -193,7 +193,7 @@ public class BlueToothActivity extends BaseActivity {
     }
 
     private void closelock() {
-        mHandler.postDelayed(runnable2, 8000);
+        mHandler.postDelayed(runnable2, 8000);//这个开锁是用来
         BlueToothHelper.getBlueHelp().closeLock(new BlueToothUtils.CloseLockListener() {
             @Override
             public void closeable(String str) {
@@ -218,12 +218,13 @@ public class BlueToothActivity extends BaseActivity {
                                 }
 
                                 @Override
-                                public void enquiriesPower(String str){
+                                public void enquiriesPower(long str){
 
                                 }
                             });
                         }
                     }, 500);
+                    mHandler.postDelayed(runnable3,20000);
                 }
             }
 
@@ -270,8 +271,8 @@ public class BlueToothActivity extends BaseActivity {
     Runnable runnable3 = new Runnable() {
         @Override
         public void run() {
-            LogUtils.a("定时重新开锁");
-            //openlock(2);
+            AudioPlayUtils.getAudio(BlueToothActivity.this,R.raw.qdcmjsc).play();
+            mHandler.postDelayed(runnable3,10000);
         }
     };
 
@@ -292,31 +293,12 @@ public class BlueToothActivity extends BaseActivity {
         }
     }
 
-   /* private void savedate(int i) {
-        if (i == 1) {//锁车
-            *//*if (CarTravelHelper.carTravelRecord != null) {
-                CarTravelHelper.carTravelRecord.setDLGJ_SCSJ(new Date());
-                CarTravelHelper.carTravelRecord.setDLGJ_SCKH(police_num);
-                LogUtils.a(police_num);
-                CarTravelHelper.carTravelRecord.setZT(40);
-                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
-                App.SWIPE_STEP = 5;
-                //上传主信息记录
-                App.UPLOAD_STEP = 4;
-                startService(intentService);
-            }*//*
-        } else if (i == 2) {//开锁
-            if (CarTravelHelper.carTravelRecord != null) {
-                CarTravelHelper.carTravelRecord.setDLGJ_KSSJ(new Date());
-                CarTravelHelper.carTravelRecord.setDLGJ_KSKH(num);
-                CarTravelHelper.carTravelRecord.setZT(50);
-                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
-                App.SWIPE_STEP = 6;
-                //上传主信息记录
-                App.UPLOAD_STEP = 5;
-                startService(intentService);
-                finish();
-            }
-        }
-    }*/
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(runnable3);
+        runnable2 = null;
+        runnable3 = null;
+        mHandler = null;
+    }
 }
