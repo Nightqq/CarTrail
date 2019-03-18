@@ -12,10 +12,15 @@ public class ServerIP {
     @Id
     private Long id;
     private String ip;
-    @Generated(hash = 1542538987)
-    public ServerIP(Long id, String ip) {
+    private String personID;
+    private String personfactory;
+
+    @Generated(hash = 373955404)
+    public ServerIP(Long id, String ip, String personID, String personfactory) {
         this.id = id;
         this.ip = ip;
+        this.personID = personID;
+        this.personfactory = personfactory;
     }
     @Generated(hash = 1306829204)
     public ServerIP() {
@@ -31,5 +36,17 @@ public class ServerIP {
     }
     public void setIp(String ip) {
         this.ip = ip;
+    }
+    public String getPersonID() {
+        return this.personID;
+    }
+    public void setPersonID(String personID) {
+        this.personID = personID;
+    }
+    public String getPersonfactory() {
+        return this.personfactory;
+    }
+    public void setPersonfactory(String personfactory) {
+        this.personfactory = personfactory;
     }
 }

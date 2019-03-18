@@ -26,6 +26,8 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Ip = new Property(1, String.class, "ip", false, "IP");
+        public final static Property PersonID = new Property(2, String.class, "personID", false, "PERSON_ID");
+        public final static Property Personfactory = new Property(3, String.class, "personfactory", false, "PERSONFACTORY");
     }
 
 
@@ -42,7 +44,9 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SERVER_IP\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"IP\" TEXT);"); // 1: ip
+                "\"IP\" TEXT," + // 1: ip
+                "\"PERSON_ID\" TEXT," + // 2: personID
+                "\"PERSONFACTORY\" TEXT);"); // 3: personfactory
     }
 
     /** Drops the underlying database table. */
@@ -64,6 +68,16 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
         if (ip != null) {
             stmt.bindString(2, ip);
         }
+ 
+        String personID = entity.getPersonID();
+        if (personID != null) {
+            stmt.bindString(3, personID);
+        }
+ 
+        String personfactory = entity.getPersonfactory();
+        if (personfactory != null) {
+            stmt.bindString(4, personfactory);
+        }
     }
 
     @Override
@@ -79,6 +93,16 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
         if (ip != null) {
             stmt.bindString(2, ip);
         }
+ 
+        String personID = entity.getPersonID();
+        if (personID != null) {
+            stmt.bindString(3, personID);
+        }
+ 
+        String personfactory = entity.getPersonfactory();
+        if (personfactory != null) {
+            stmt.bindString(4, personfactory);
+        }
     }
 
     @Override
@@ -90,7 +114,9 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
     public ServerIP readEntity(Cursor cursor, int offset) {
         ServerIP entity = new ServerIP( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // ip
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // ip
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // personID
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // personfactory
         );
         return entity;
     }
@@ -99,6 +125,8 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
     public void readEntity(Cursor cursor, ServerIP entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setIp(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setPersonID(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPersonfactory(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override
