@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
+import com.zxdz.car.App;
+import com.zxdz.car.base.helper.ServerIPHelper;
+import com.zxdz.car.main.model.domain.ServerIP;
+
+import java.util.List;
 
 public class WifiUtils {
 
@@ -34,18 +39,27 @@ public class WifiUtils {
         return wifiUtils;
     }
 
-    public void openBroadcast(){
+    public void openBroadcast() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);//连上与否
         wifiBroadcast = new wifiBroadcast();
-        context.registerReceiver(wifiBroadcast,intentFilter);
+        context.registerReceiver(wifiBroadcast, intentFilter);
     }
 
     private class wifiBroadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) {
+                if (wifiManager == null) {
+                    wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+                } else {
+                    if (wifiManager.reconnect()) {
+                        String ssid = wifiManager.getConnectionInfo().getSSID();
+                        Toast.makeText(context, "wifi名称1：" + ssid, Toast.LENGTH_SHORT).show();
+                    }
+                }
                 //获取当前的wifi状态int类型数据
                 int mWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
                 switch (mWifiState) {
@@ -72,10 +86,51 @@ public class WifiUtils {
                         break;
                 }
             }
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mWifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                if (mWifiInfo.isConnected()) {
+                    String ssid = wifiManager.getConnectionInfo().getSSID();
+                    Toast.makeText(context, "wifi名称：" +ssid, Toast.LENGTH_SHORT).show();
+                    List<ServerIP> areaInfoListFromDB = ServerIPHelper.getAreaInfoListFromDB();
+                    if (areaInfoListFromDB != null && areaInfoListFromDB.size() > 0) {
+                        ServerIP server_IP = areaInfoListFromDB.get(0);
+                        String ip= "\"" + server_IP.getWifi_name() + "\"";
+                        String ip2= "\"" + server_IP.getWifi_name_2() + "\"";
+
+                        if (server_IP.getWifi_name() != null && ip.equals(ssid)) {
+                            App.ipchange = 1;
+                            Toast.makeText(context, "使用ip1：" + server_IP.getIp(), Toast.LENGTH_SHORT).show();
+                        } else if (server_IP.getWifi_name_2() != null && ip2.equals(ssid)) {
+                            App.ipchange = 2;
+                            Toast.makeText(context, "使用ip2：" +server_IP.getIp_2(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+//            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+//                ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//                NetworkInfo mWifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//                if (mWifiInfo.isConnected()) {
+//                    String ssid = wifiManager.getConnectionInfo().getSSID();
+//                    Toast.makeText(context, "wifi名称2："+ssid , Toast.LENGTH_SHORT).show();
+//                    List<ServerIP> areaInfoListFromDB = ServerIPHelper.getAreaInfoListFromDB();
+//                    if (areaInfoListFromDB != null && areaInfoListFromDB.size() > 0) {
+//                        ServerIP server_IP = areaInfoListFromDB.get(0);
+//                        if (server_IP.getWifi_name() != null && server_IP.getWifi_name().equals(ssid)) {
+//                            App.ipchange = 1;
+//                            Toast.makeText(context, "使用ip1：" + server_IP.getIp(), Toast.LENGTH_SHORT).show();
+//                        } else if (server_IP.getWifi_name_2() != null && server_IP.getWifi_name_2().equals(ssid)) {
+//                            App.ipchange = 2;
+//                            Toast.makeText(context, "使用ip2：" + server_IP.getIp_2(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 
-    public void unRegistBroadcast(){
+    public void unRegistBroadcast() {
         context.unregisterReceiver(wifiBroadcast);
     }
 

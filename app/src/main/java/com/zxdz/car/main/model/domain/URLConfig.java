@@ -1,8 +1,12 @@
 package com.zxdz.car.main.model.domain;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.blankj.utilcode.util.Utils;
+import com.zxdz.car.App;
 import com.zxdz.car.base.helper.ServerIPHelper;
 import com.zxdz.car.base.model.Config;
 import com.zxdz.car.base.view.BaseActivity;
@@ -22,10 +26,21 @@ public class URLConfig {
         List<ServerIP> areaInfoListFromDB = ServerIPHelper.getAreaInfoListFromDB();
         if (areaInfoListFromDB != null && areaInfoListFromDB.size() > 0) {
             ServerIP server_IP = areaInfoListFromDB.get(0);
-            return "http://" + server_IP.getIp() + "/AreaMonitor/services/handler.ashx?";
-        } else {
-            return "http://192.168.0.10/AreaMonitor/services/handler.ashx?";
+            if (App.ipchange == 1) {
+                if (server_IP.getDk() != null && !server_IP.getDk().equals("")) {
+                    return "http://" + server_IP.getIp() + ":" + server_IP.getDk() + "/AreaMonitor/services/handler.ashx?";
+                } else {
+                    return "http://" + server_IP.getIp() + "/AreaMonitor/services/handler.ashx?";
+                }
+            } else if (App.ipchange == 2) {
+                if (server_IP.getDk_2() != null && !server_IP.getDk_2().equals("")) {
+                    return "http://" + server_IP.getIp_2() + ":" + server_IP.getDk_2() + "/AreaMonitor/services/handler.ashx?";
+                } else {
+                    return "http://" + server_IP.getIp_2() + "/AreaMonitor/services/handler.ashx?";
+                }
+            }
         }
+        return "http://192.168.0.10/AreaMonitor/services/handler.ashx?";
     }
 
     public static URLConfig getinstance() {

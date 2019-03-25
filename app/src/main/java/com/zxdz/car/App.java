@@ -47,6 +47,8 @@ public class App extends Application {
 
     public static int Lock_car_num=1;
 
+    public static int ipchange=1;//ip更改标志1为默认，2虚拟ip
+
     /**
      * 根据所刷卡的步骤，来决定上传那些数据
      * 1：带领干警领用，上传主信息

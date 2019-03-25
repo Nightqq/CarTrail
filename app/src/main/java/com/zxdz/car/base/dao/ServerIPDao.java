@@ -25,9 +25,14 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Ip = new Property(1, String.class, "ip", false, "IP");
-        public final static Property PersonID = new Property(2, String.class, "personID", false, "PERSON_ID");
-        public final static Property Personfactory = new Property(3, String.class, "personfactory", false, "PERSONFACTORY");
+        public final static Property Wifi_name = new Property(1, String.class, "wifi_name", false, "WIFI_NAME");
+        public final static Property Ip = new Property(2, String.class, "ip", false, "IP");
+        public final static Property Dk = new Property(3, String.class, "dk", false, "DK");
+        public final static Property Wifi_name_2 = new Property(4, String.class, "wifi_name_2", false, "WIFI_NAME_2");
+        public final static Property Ip_2 = new Property(5, String.class, "ip_2", false, "IP_2");
+        public final static Property Dk_2 = new Property(6, String.class, "dk_2", false, "DK_2");
+        public final static Property PersonID = new Property(7, String.class, "personID", false, "PERSON_ID");
+        public final static Property Personfactory = new Property(8, String.class, "personfactory", false, "PERSONFACTORY");
     }
 
 
@@ -44,9 +49,14 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"SERVER_IP\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"IP\" TEXT," + // 1: ip
-                "\"PERSON_ID\" TEXT," + // 2: personID
-                "\"PERSONFACTORY\" TEXT);"); // 3: personfactory
+                "\"WIFI_NAME\" TEXT," + // 1: wifi_name
+                "\"IP\" TEXT," + // 2: ip
+                "\"DK\" TEXT," + // 3: dk
+                "\"WIFI_NAME_2\" TEXT," + // 4: wifi_name_2
+                "\"IP_2\" TEXT," + // 5: ip_2
+                "\"DK_2\" TEXT," + // 6: dk_2
+                "\"PERSON_ID\" TEXT," + // 7: personID
+                "\"PERSONFACTORY\" TEXT);"); // 8: personfactory
     }
 
     /** Drops the underlying database table. */
@@ -64,19 +74,44 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
             stmt.bindLong(1, id);
         }
  
+        String wifi_name = entity.getWifi_name();
+        if (wifi_name != null) {
+            stmt.bindString(2, wifi_name);
+        }
+ 
         String ip = entity.getIp();
         if (ip != null) {
-            stmt.bindString(2, ip);
+            stmt.bindString(3, ip);
+        }
+ 
+        String dk = entity.getDk();
+        if (dk != null) {
+            stmt.bindString(4, dk);
+        }
+ 
+        String wifi_name_2 = entity.getWifi_name_2();
+        if (wifi_name_2 != null) {
+            stmt.bindString(5, wifi_name_2);
+        }
+ 
+        String ip_2 = entity.getIp_2();
+        if (ip_2 != null) {
+            stmt.bindString(6, ip_2);
+        }
+ 
+        String dk_2 = entity.getDk_2();
+        if (dk_2 != null) {
+            stmt.bindString(7, dk_2);
         }
  
         String personID = entity.getPersonID();
         if (personID != null) {
-            stmt.bindString(3, personID);
+            stmt.bindString(8, personID);
         }
  
         String personfactory = entity.getPersonfactory();
         if (personfactory != null) {
-            stmt.bindString(4, personfactory);
+            stmt.bindString(9, personfactory);
         }
     }
 
@@ -89,19 +124,44 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
             stmt.bindLong(1, id);
         }
  
+        String wifi_name = entity.getWifi_name();
+        if (wifi_name != null) {
+            stmt.bindString(2, wifi_name);
+        }
+ 
         String ip = entity.getIp();
         if (ip != null) {
-            stmt.bindString(2, ip);
+            stmt.bindString(3, ip);
+        }
+ 
+        String dk = entity.getDk();
+        if (dk != null) {
+            stmt.bindString(4, dk);
+        }
+ 
+        String wifi_name_2 = entity.getWifi_name_2();
+        if (wifi_name_2 != null) {
+            stmt.bindString(5, wifi_name_2);
+        }
+ 
+        String ip_2 = entity.getIp_2();
+        if (ip_2 != null) {
+            stmt.bindString(6, ip_2);
+        }
+ 
+        String dk_2 = entity.getDk_2();
+        if (dk_2 != null) {
+            stmt.bindString(7, dk_2);
         }
  
         String personID = entity.getPersonID();
         if (personID != null) {
-            stmt.bindString(3, personID);
+            stmt.bindString(8, personID);
         }
  
         String personfactory = entity.getPersonfactory();
         if (personfactory != null) {
-            stmt.bindString(4, personfactory);
+            stmt.bindString(9, personfactory);
         }
     }
 
@@ -114,9 +174,14 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
     public ServerIP readEntity(Cursor cursor, int offset) {
         ServerIP entity = new ServerIP( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // ip
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // personID
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // personfactory
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // wifi_name
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // ip
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // dk
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // wifi_name_2
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ip_2
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // dk_2
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // personID
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // personfactory
         );
         return entity;
     }
@@ -124,9 +189,14 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
     @Override
     public void readEntity(Cursor cursor, ServerIP entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setIp(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setPersonID(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setPersonfactory(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setWifi_name(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setIp(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setDk(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setWifi_name_2(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIp_2(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDk_2(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setPersonID(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setPersonfactory(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     @Override
