@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         mPresenter = new UploadInfoPresenter(this, this);
         intentService = new Intent(MainActivity.this, UploadDataService.class);
         //设置是否继续任务
-        setLastStep();
+       // setLastStep();
         setCardType();
         String androidID = DeviceUtils.getAndroidID();
         Log.e("串口号", androidID);

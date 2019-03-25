@@ -62,14 +62,18 @@ public class UploadDataService extends Service {
                         CarTravelHelper.saveCarTravelRecordToDB(carTravelRecord);
                     }*/
                     if (carTravelRecord.getZT()==45){
-                        return;
+                        LogUtils.a("状态值45");
+                        continue;
                     }
                     uploadInfoUtil.uploadCarRecord(carTravelRecord);
                    // LogUtils.a("上传主信息",carTravelRecord.toString());
                 } else {
+                    LogUtils.a("carTravelRecord=null");
                     ToastUtils.showLong("未检测到流水信息，请完善操作");
                 }
             }
+        }else {
+            LogUtils.a("carTravelRecordListFromDB=null");
         }
     }
 

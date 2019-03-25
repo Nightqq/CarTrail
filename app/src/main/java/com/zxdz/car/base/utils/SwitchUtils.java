@@ -3,6 +3,9 @@ package com.zxdz.car.base.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.renderscript.Int3;
 import android.util.Base64;
 import android.util.Log;
@@ -13,6 +16,8 @@ import org.greenrobot.greendao.annotation.Convert;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -357,8 +362,9 @@ public class SwitchUtils {
         return ((ucCRCHi & 0x00FF) << 8) | (ucCRCLo & 0x00FF) & 0xFFFF;
     }
 
-
+//转换为base64字符串，在这之前给图片添加水印
     public static String getBitmapByte(Bitmap bitmap) {
+        bitmap = addTimeFlag(bitmap);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         LogUtils.a("图片尺寸"+bitmap.getWidth(),bitmap.getHeight());
         bitmap.compress(Bitmap.CompressFormat.WEBP, 100, out);
@@ -372,6 +378,28 @@ public class SwitchUtils {
         byte[] encode = Base64.encode(bytes, Base64.DEFAULT);
         String encodeString = new String(encode);
         return encodeString;
+    }
+
+    /**
+     * 添加时间水印
+     * @param bitmap
+     * @return
+     */
+    private static Bitmap addTimeFlag(Bitmap bitmap){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap newbitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newbitmap);
+        canvas.drawBitmap(bitmap,0,0,null);
+        Paint paint = new Paint();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String time = sdf.format(new Date(System.currentTimeMillis()));
+        paint.setColor(Color.RED);
+        paint.setTextSize(25);
+        canvas.drawText(time,(float) (width*1)/19,(float) (height*2)/19,paint);
+        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.restore();
+        return newbitmap;
     }
 
     public static Bitmap stringtoBitmap(String string) {
