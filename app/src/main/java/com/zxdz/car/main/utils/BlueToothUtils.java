@@ -389,7 +389,7 @@ public class BlueToothUtils {
                 //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
                 //LogUtils.a("车锁电压33","s2"+s2+"s3"+s3+"d"+d+"e"+e);
                 enquiriesState.enquiriesPower(round);
-
+                flagbyte[0] = 0x46;
                 break;
             case 0x50://设置参数反馈
                 if (bytes1[1] == 0x00) {
@@ -421,7 +421,7 @@ public class BlueToothUtils {
                     });
                     break;
                 } else {
-                    if (bytes1[1] == 0x45) {//强拆报警
+                    if (bytes1[1] == 0x45 && openCallPolice != null) {//强拆报警
                         openCallPolice.openCallPolice();
                     }
                 }

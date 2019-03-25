@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -186,14 +187,14 @@ public class BlueToothActivity extends BaseActivity {
     }
 
     private void closelock() {
-        mHandler.postDelayed(runnable2, 8000);//这个开锁是用来
+        checkOpenLock("锁车中");//阻塞线程
+        //mHandler.postDelayed(runnable2, 8000);//这个开锁是用来
         BlueToothHelper.getBlueHelp().closeLock(new BlueToothUtils.CloseLockListener() {
             @Override
             public void closeable(String str) {
                 LogUtils.a(str);
                 if (flag3) {
-                    checkOpenLock("锁车中");
-                    mHandler.removeCallbacks(runnable2);
+                    //mHandler.removeCallbacks(runnable2);
                     flag3 = false;
                     mHandler.postDelayed(new Runnable() {//如果车锁提前锁好，可以检测到并自动到拍照界面
                         @Override
@@ -228,9 +229,7 @@ public class BlueToothActivity extends BaseActivity {
                 message.obj = str;
                 message.what = 1;
                 mHandler.sendMessage(message);
-                if (initDialog != null) {
-                    initDialog.dismissWithAnimation();
-                }
+
             }
         });
     }
@@ -271,14 +270,16 @@ public class BlueToothActivity extends BaseActivity {
 
     public void checkOpenLock(String msg) {
         try {
-            LogUtils.a("准备开锁弹窗");
-            if (!initDialog.isShowing()) {
-                LogUtils.a("准备开锁弹窗开启");
+           // LogUtils.a("准备开锁弹窗");
+            if (initDialog == null){
                 initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                 initDialog.setTitleText(msg);
                 initDialog.setCancelable(false);
                 initDialog.setCanceledOnTouchOutside(true);
+            }
+            if (!initDialog.isShowing()) {
+               // LogUtils.a("准备开锁弹窗开启");
                 initDialog.show();
             }
         } catch (Exception e) {
@@ -288,6 +289,9 @@ public class BlueToothActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (initDialog != null && initDialog.isShowing()) {
+            initDialog.dismiss();
+        }
         super.onDestroy();
        // mHandler.removeCallbacks(runnable3);
         runnable2 = null;
