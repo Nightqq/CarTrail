@@ -18,14 +18,15 @@
 
         <LinearLayout
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
+               android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请管理员确认设备归还"
+                android:text="请管理员刷卡或接通电源结束流程以确认设备归还"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </LinearLayout>

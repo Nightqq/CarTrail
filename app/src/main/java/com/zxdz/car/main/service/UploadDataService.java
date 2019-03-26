@@ -61,10 +61,6 @@ public class UploadDataService extends Service {
                         carTravelRecord.setLS_ID(0);
                         CarTravelHelper.saveCarTravelRecordToDB(carTravelRecord);
                     }*/
-                    if (carTravelRecord.getZT()==45){
-                        LogUtils.a("状态值45");
-                        continue;
-                    }
                     uploadInfoUtil.uploadCarRecord(carTravelRecord);
                    // LogUtils.a("上传主信息",carTravelRecord.toString());
                 } else {

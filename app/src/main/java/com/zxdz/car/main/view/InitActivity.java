@@ -29,6 +29,7 @@ import com.zxdz.car.main.model.domain.SettingInfo;
 import com.zxdz.car.main.model.domain.TerminalInfo;
 import com.zxdz.car.main.presenter.SettingInfoPresenter;
 import com.zxdz.car.main.view.setting.PasswordValidataActivity;
+import com.zxdz.car.main.view.setting.ServerIPActivity;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -81,19 +82,9 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (isInitEquSuccess){
-            mInitSettingButton.callOnClick();
-        }
-    }
-
-    /**
-     * 初始化设备信息(理论上新设备只需要执行一次)
-     */
-    public void initEquInfo() {
-        boolean isInitDevice = SPUtils.getInstance().getBoolean(Constant.INIT_DEVICE, false);
-        if (!isInitDevice) {
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        if (requestCode==1){
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#48D9B2"));
             initDialog.setTitleText("控制器初始化");
@@ -112,7 +103,24 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             cardInfo.setCardType(0);
             cardInfo.setRemark("测试卡");
             CardHelper.saveCardInfoToDB(cardInfo);
+        }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isInitEquSuccess){
+            mInitSettingButton.callOnClick();
+        }
+    }
+
+    /**
+     * 初始化设备信息(理论上新设备只需要执行一次)
+     */
+    public void initEquInfo() {
+        boolean isInitDevice = SPUtils.getInstance().getBoolean(Constant.INIT_DEVICE, false);
+        if (!isInitDevice) {
+            startActivityForResult(new Intent(this, ServerIPActivity.class),1);
         } else {
             App.ZDJID = DeviceUtils.getAndroidID();
             isInitEquSuccess = true;
@@ -211,22 +219,22 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     @Override
     public void loadSettingInfo(final SettingInfo settingInfo) {
         ToastUtils.showLong("系统参数初始化完成");
-        initSettingDialog.dismissWithAnimation();
+        initSettingDialog.dismiss();
         SPUtils.getInstance().put(Constant.INIT_SETTING_DATE, true);
-        App.QYID = settingInfo.getAreaId();
-        App.ZDJID = settingInfo.getZdjId();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PoliceInfoAllHelper.deleteAllPoliceInfoAllList();
-                List<PoliceInfoAll> dlgj = settingInfo.getDlgj();
-                if (dlgj != null && dlgj.size()>0) {//保存民警卡号到本地
-                    LogUtils.a("民警数量" + dlgj.size() + "卡号：" + dlgj.get(0).getDLGJ_KH());
-                    PoliceInfoAllHelper.savePoliceInfoAllListToDB(dlgj);
-                }
-            }
-        }).start();
         if (settingInfo != null) {
+            App.QYID = settingInfo.getAreaId();
+            App.ZDJID = settingInfo.getZdjId();
+            new Thread(new Runnable() {//保存民警卡号
+                @Override
+                public void run() {
+                    PoliceInfoAllHelper.deleteAllPoliceInfoAllList();
+                    List<PoliceInfoAll> dlgj = settingInfo.getDlgj();
+                    if (dlgj != null && dlgj.size()>0) {//保存民警卡号到本地
+                        LogUtils.a("民警数量" + dlgj.size() + "卡号：" + dlgj.get(0).getDLGJ_KH());
+                        PoliceInfoAllHelper.savePoliceInfoAllListToDB(dlgj);
+                    }
+                }
+            }).start();
             //设备信息保存
             TerminalInfo terminalInfo = new TerminalInfo();
             terminalInfo.setZdjId(settingInfo.getZdjId());
@@ -239,17 +247,15 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             terminalInfo.setUseState(settingInfo.getUseState());
             terminalInfo.setRemark(settingInfo.getRemark());
             TerminalInfoHelper.saveTerminalInfoToDB(terminalInfo);
-
             //保存管理员卡号
             if (settingInfo.getAdmins() != null && settingInfo.getAdmins().size() > 0) {
+                CardHelper.deleteAllCardInfoList();
                 CardHelper.saveCardInfoListToDB(settingInfo.getAdmins());
             }
-
             //保存区域路线信息
             if (settingInfo.getRoutes() != null && settingInfo.getRoutes().size() > 0) {
                 RouteHelper.saveRouteInfoListToDB(settingInfo.getRoutes());
             }
-
             //保存区域信息到数据库
             if (!StringUtils.isEmpty(App.ZDJID) && settingInfo.getAreas() != null && settingInfo.getAreas().size() > 0) {
                 AreaInfo areaInfo = settingInfo.getAreas().get(0);
@@ -257,13 +263,9 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
                 AreaHelper.saveAreaInfoToDB(areaInfo);
             }
         }
-
         Intent intent = new Intent(InitActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
-
-
-
     }
 
     @OnClick(R.id.init_setting)

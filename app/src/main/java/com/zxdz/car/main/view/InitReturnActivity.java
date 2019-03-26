@@ -8,10 +8,14 @@ import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
+import com.zxdz.car.base.helper.CardHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
+import com.zxdz.car.main.model.domain.CardInfo;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +30,6 @@ public class InitReturnActivity extends BaseActivity {
     @Override
     public void init() {
         ButterKnife.bind(this);
-
         mToolBar.setTitle("确认行程结束");
         setSupportActionBar(mToolBar);
         App.GravityListener_type = 0;//关闭手持机移动报警
@@ -64,13 +67,23 @@ public class InitReturnActivity extends BaseActivity {
                             initReturnElectricity.setTextColor(Color.RED);
                             AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdcsh_qjsgh).play();
                         }
-
                         //ToastUtils.showShort(str);
                     }
                 });
-
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //调用刷卡刷管理员卡开锁
+        List<CardInfo> cardInfoListFromDB = CardHelper.getCardInfoListFromDB();
+        if (cardInfoListFromDB!=null&&cardInfoListFromDB.size()>0){
+            for (CardInfo admin:cardInfoListFromDB) {
+                String adminCardNumber = admin.getAdminCardNumber();
+            }
+        }
     }
 
     @Override
