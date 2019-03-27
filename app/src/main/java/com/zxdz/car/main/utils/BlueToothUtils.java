@@ -31,7 +31,6 @@ import com.zxdz.car.base.utils.SwitchUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.LockInfo;
-import com.zxdz.car.main.view.lock.OpenLockActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,11 +55,12 @@ public class BlueToothUtils {
     private String mAddress;
     private final SharedPreferences sp;
     private boolean flag12 = true;
-    private int flag = 1;
+    //private int flag = 1;
     private boolean isClosed = false;
     private boolean stateCallPolice = false;
     private SweetAlertDialog initDialog;
     private boolean isLoop = true;//是否在循环连接中
+    private boolean stateCallPoliceremove = false;
 
     BlueToothUtils() {
         mContext = Utils.getContext();
@@ -97,7 +97,7 @@ public class BlueToothUtils {
     public void giveupCardID(CloseCallPolice closeCall, boolean state) {
         this.closeCall = closeCall;
         stateCallPolice = state;
-        if (isClosed) {
+        if (isClosed && closeLock != null) {
             closeLock.closedLock("上锁成功");
             isClosed = false;
         }
@@ -261,7 +261,7 @@ public class BlueToothUtils {
                     handler1.postDelayed(runnable2, 2000);
                     //如果流水id没有拿到，就开始报警会空指针（不过不会蹦掉，导致不能往下走）
                     BaseActivity.intent.callPolice(1, "蓝牙异常断开");
-                }else{
+                } else {
                     gatt.close();
                     bluetoothGatt = null;
                 }
@@ -291,7 +291,7 @@ public class BlueToothUtils {
                 writer_characteristic.setValue(bytes);
                 bluetoothGatt.writeCharacteristic(writer_characteristic);
 
-                if (connectedDevicesListenter != null){
+                if (connectedDevicesListenter != null) {
                     connectedDevicesListenter.connectenDevice(1);
                     connectedDevicesListenter = null;//不释放有可能会跳转到第一次连接成功后的界面
                 }
@@ -331,7 +331,7 @@ public class BlueToothUtils {
                 LogUtils.a("tagggg", value[1] + "");
                 if (value[1] == 0x46) {
                     isClosed = true;
-                } else if (value[1] == 0x43) {
+                } else if (value[1] == 0x43 && closeCall != null) {
                     closeCall.closeCallPolice();
                 }
                 return;
@@ -373,62 +373,75 @@ public class BlueToothUtils {
                 break;
             case 0x52://查询锁状态返回
                 byte[] s1 = SwitchUtils.getBooleanArray(bytes1[3]);
-                LogUtils.a("车锁状态", Arrays.toString(s1)+"yyy"+bytes1[3]);
-                if (s1[5] == 1) {//车锁按钮弹不起来时，则会判断失误
-                    enquiriesState.enquiriesState("锁状态：开");
-                } else if (s1[5] == 0) {
-                    enquiriesState.enquiriesState("锁状态：关");
+                LogUtils.a("车锁状态", Arrays.toString(s1) + "yyy" + bytes1[3]);
+                if (enquiriesState != null) {
+                    if (s1[5] == 1) {//车锁按钮弹不起来时，则会判断失误
+                        enquiriesState.enquiriesState("锁状态：开");
+                    } else if (s1[5] == 0) {
+                        enquiriesState.enquiriesState("锁状态：关");
+                    }
+                    String s2 = SwitchUtils.byte2HexStr1(bytes1[4]);
+                    String s3 = SwitchUtils.byte2HexStr1(bytes1[5]);
+                    int d = Integer.valueOf(s2, 16);
+                    int e = Integer.valueOf(s3, 16);
+                    float power = ((float) (e * 256 + d)) / 100;
+                    double pencent = (power - 3) * 100 / 1.2;
+                    long round = Math.round(pencent);
+                    //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
+                    //LogUtils.a("车锁电压33","s2"+s2+"s3"+s3+"d"+d+"e"+e);
+                    enquiriesState.enquiriesPower(round);
+                    enquiriesState = null;//查询完以后不再接受消息
                 }
-                String s2 = SwitchUtils.byte2HexStr1(bytes1[4]);
-                String s3 = SwitchUtils.byte2HexStr1(bytes1[5]);
-                int d = Integer.valueOf(s2,16);
-                int e = Integer.valueOf(s3,16);
-                float power = ((float)(e*256+d))/100;
-                double pencent = (power - 3)*100/1.2;
-                long round = Math.round(pencent);
-                //LogUtils.a("车锁电压22", "bytes1[4]"+bytes1[4]+"bytes1[5]"+bytes1[5]+"power"+power);
-                //LogUtils.a("车锁电压33","s2"+s2+"s3"+s3+"d"+d+"e"+e);
-                enquiriesState.enquiriesPower(round);
-                flagbyte[0] = 0x46;
                 break;
             case 0x50://设置参数反馈
-                if (bytes1[1] == 0x00) {
-                    setParameters.setParameter("设置参数成功");
-                } else if (bytes1[1] == 0x03) {
-                    setParameters.setParameter("执行命令超时");
-                    flag12 = true;
-                } else if (bytes1[1] == 0x02) {
-                    setParameters.setParameter("电量低");
+                if (setParameters != null) {
+                    if (bytes1[1] == 0x00) {
+                        setParameters.setParameter("设置参数成功");
+                    } else if (bytes1[1] == 0x03) {
+                        setParameters.setParameter("执行命令超时");
+                        flag12 = true;
+                    } else if (bytes1[1] == 0x02) {
+                        setParameters.setParameter("电量低");
+                    }
+                } else {
+                    LogUtils.a("设置参数返回监听对象丢失");
                 }
                 break;
             case 0x43://刷卡返回
                 if (bytes1[1] == 0x43) {
-                    byte[] bytess = new byte[3];
-                    if (App.readCardType == 1){
+                    byte[] bytess;
+                    if (App.readCardType == 1) {
                         byte[] bytes = {(byte) (bytes1[3] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF)};
                         bytess = bytes;
-                    }else {
+                    } else {
                         byte[] bytes = {(byte) (bytes1[6] ^ 0xFF), (byte) (bytes1[5] ^ 0xFF), (byte) (bytes1[4] ^ 0xFF)};
                         bytess = bytes;
                     }
                     final String s = SwitchUtils.byte2HexStr(bytess);
                     LogUtils.a(s);
-                    handler1.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            receivecardid.receiveCardID(s);
-                        }
-                    });
+                    if (receivecardid != null) {
+                        handler1.post(new Runnable() {//是为了将线程切换到主线程
+                            @Override
+                            public void run() {
+                                receivecardid.receiveCardID(s);
+                                if (!stateCallPoliceremove) {//强拆报警
+                                    receivecardid = null;//刷卡快的时候，回调还没有注册，会走之前的回调
+                                }
+                            }
+                        });
+                    }
                     break;
                 } else {
                     if (bytes1[1] == 0x45 && openCallPolice != null) {//强拆报警
+                        LogUtils.i("强拆报警。。。");
+                        stateCallPoliceremove = true;
                         openCallPolice.openCallPolice();
                     }
                 }
                 break;
             case 0x46://上锁成功
                 //LogUtils.a("tagggg", bytes1[1] + "");
-                if (bytes1[1] == 0x46) {
+                if (bytes1[1] == 0x46 && closeLock != null) {
                     closeLock.closedLock("上锁成功");
                 }
                 break;
@@ -450,23 +463,24 @@ public class BlueToothUtils {
             }
         }
     }
-    public void rmoveConnections(){
-        if (null != handler ){
-            if (null != runnable1){
+
+    public void rmoveConnections() {
+        if (null != handler) {
+            if (null != runnable1) {
                 handler.removeCallbacks(runnable1);
             }
-            if (null != runnable2){
+            if (null != runnable2) {
                 handler.removeCallbacks(runnable2);
             }
         }
     }
 
-    public void unregist() {
-        if (mReceiver != null && flag == 2 && mContext != null) {
-            mContext.unregisterReceiver(mReceiver);
-            flag = 1;
-        }
-    }
+//    public void unregist() {
+//        if (mReceiver != null && flag == 2 && mContext != null) {
+//            mContext.unregisterReceiver(mReceiver);
+//            flag = 1;
+//        }
+//    }
 
     public BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -507,7 +521,9 @@ public class BlueToothUtils {
             closeCallPloiceAudio();
             LogUtils.a("开始断开");
             bluetoothGatt.disconnect();
-            mBluetoothAdapter.disable();
+            if (mBluetoothAdapter != null) {
+                mBluetoothAdapter.disable();
+            }
         }
     }
 
@@ -544,6 +560,7 @@ public class BlueToothUtils {
 
     public interface EnquiriesStateListenter {
         void enquiriesState(String str);
+
         void enquiriesPower(long str);
     }
 
@@ -579,47 +596,31 @@ public class BlueToothUtils {
     }
 
     public void checkOpenLock(String msg) {
-        if (null == initDialog) {
-            initDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
-            initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-            initDialog.setCancelable(false);
-            initDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-            initDialog.setCanceledOnTouchOutside(true);
-        }
-        if (!initDialog.isShowing()) {
-            initDialog.setTitleText(msg);
-            initDialog.show();
+        try {
+            if (null == initDialog) {
+                initDialog = new SweetAlertDialog(mContext, SweetAlertDialog.PROGRESS_TYPE);
+                initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                initDialog.setCancelable(false);
+                initDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                initDialog.setCanceledOnTouchOutside(true);
+            }
+            if (!initDialog.isShowing()) {
+                initDialog.setTitleText(msg);
+                initDialog.show();
+            }
+        } catch (Exception e) {
+            LogUtils.a("" + e.getMessage().toString());
         }
     }
 
-    private void regist() {
-        if (flag == 1) {
-            IntentFilter mFilter = new IntentFilter();
-            mFilter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙查询,可以在reciever中接受查询到的蓝牙设备
-            mFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); // 注册搜索完时的receiver
-            mFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//蓝牙连接状态发生改变时,接收状态
-            mContext.registerReceiver(mReceiver, mFilter);
-            flag = 2;
-        }
-    }
-    //    private Runnable runnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            scanning();
-//        }
-//    };
-
-    //    public void scanning() {
-//        handler.removeCallbacks(runnable);
-//        handler.postDelayed(runnable, 5000);
-//        if (mBluetoothAdapter.isEnabled()) { //通过适配器对象调用isEnabled()方法，判断蓝牙是否打开了
-//            if (mBluetoothAdapter.isDiscovering()) {
-//                mBluetoothAdapter.cancelDiscovery();
-//            }
-//            Toast.makeText(mContext, "开始扫描", Toast.LENGTH_SHORT).show();
-//            mBluetoothAdapter.startDiscovery();
-//        } else {
-//            openBluetooth();
+//    private void regist() {
+//        if (flag == 1) {
+//            IntentFilter mFilter = new IntentFilter();
+//            mFilter.addAction(BluetoothDevice.ACTION_FOUND);//蓝牙查询,可以在reciever中接受查询到的蓝牙设备
+//            mFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); // 注册搜索完时的receiver
+//            mFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);//蓝牙连接状态发生改变时,接收状态
+//            mContext.registerReceiver(mReceiver, mFilter);
+//            flag = 2;
 //        }
 //    }
 }

@@ -1,5 +1,6 @@
 package com.zxdz.car.main.view;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.zxdz.car.main.model.domain.CardInfo;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +43,46 @@ public class InitReturnActivity extends BaseActivity {
         }
     }
 
+    private long str;
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (str>30){
+                initReturnElectricity.setText("智能锁剩余电量："+str+"%");
+            }else if (str >= 0 && str <= 30){
+                initReturnElectricity.setText("智能锁电量不足："+str+"%");
+                initReturnElectricity.setTextColor(Color.RED);
+                AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdlbz_qjscd).play();
+            }else {
+                initReturnElectricity.setText("智能锁电池损坏，请及时更换");
+                initReturnElectricity.setTextColor(Color.RED);
+                AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdcsh_qjsgh).play();
+            }
+            BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+                @Override
+                public void receiveCardID(String str) {
+                    LogUtils.i("111刷卡返回");
+                    if (CardHelper.isAvailableInDB(str)){//如果数据库中存在
+                        LogUtils.i("111数据库存在该管理员");
+                        closePolice();
+                        if ( CarTravelHelper.carTravelRecord!=null){
+                            CarTravelHelper.carTravelRecord.setGLY_GHQRSJ(new Date());
+                            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+                        }
+                        BlueToothHelper.getBlueHelp().closeAll();
+                        Intent intent = new Intent(InitReturnActivity.this, MainActivity.class);
+                        intent.putExtra("end",1);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
+            //ToastUtils.showShort(str);
+        }
+    };
+    private void closePolice() {
+        AudioPlayUtils.getAudio(this,0).stop();
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -51,38 +93,18 @@ public class InitReturnActivity extends BaseActivity {
             }
 
             @Override
-            public void enquiriesPower(final long str) {
-                LogUtils.i("车锁电压11", str);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (str>30){
-                            initReturnElectricity.setText("智能锁剩余电量："+str+"%");
-                        }else if (str >= 0 && str <= 30){
-                            initReturnElectricity.setText("智能锁电量不足："+str+"%");
-                            initReturnElectricity.setTextColor(Color.RED);
-                            AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdlbz_qjscd).play();
-                        }else {
-                            initReturnElectricity.setText("智能锁电池损坏，请及时更换");
-                            initReturnElectricity.setTextColor(Color.RED);
-                            AudioPlayUtils.getAudio(InitReturnActivity.this,R.raw.znsdcsh_qjsgh).play();
-                        }
-                        //ToastUtils.showShort(str);
-                    }
-                });
+            public void enquiriesPower(final long str1) {
+                str = str1;
+                LogUtils.i("车锁电压11", str1);
+                runOnUiThread(runnable);
             }
         });
-        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
-            @Override
-            public void receiveCardID(String str) {
-                LogUtils.i("111刷卡返回");
-                if (CardHelper.isAvailableInDB(str)){//如果数据库中存在
-                    LogUtils.i("111数据库存在该管理员");
-                    startact(InitReturnActivity.this,MainActivity.class);
-                    finish();
-                }
-            }
-        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        runnable = null;
     }
 
     @Override

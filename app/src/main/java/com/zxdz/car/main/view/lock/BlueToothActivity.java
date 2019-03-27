@@ -270,16 +270,14 @@ public class BlueToothActivity extends BaseActivity {
 
     public void checkOpenLock(String msg) {
         try {
-           // LogUtils.a("准备开锁弹窗");
             if (initDialog == null){
                 initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                initDialog.setTitleText(msg);
                 initDialog.setCancelable(false);
                 initDialog.setCanceledOnTouchOutside(true);
             }
             if (!initDialog.isShowing()) {
-               // LogUtils.a("准备开锁弹窗开启");
+                initDialog.setTitleText(msg);
                 initDialog.show();
             }
         } catch (Exception e) {
