@@ -72,6 +72,17 @@ public class InitReturnActivity extends BaseActivity {
                 });
             }
         });
+        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+            @Override
+            public void receiveCardID(String str) {
+                LogUtils.i("111刷卡返回");
+                if (CardHelper.isAvailableInDB(str)){//如果数据库中存在
+                    LogUtils.i("111数据库存在该管理员");
+                    startact(InitReturnActivity.this,MainActivity.class);
+                    finish();
+                }
+            }
+        });
     }
 
     @Override

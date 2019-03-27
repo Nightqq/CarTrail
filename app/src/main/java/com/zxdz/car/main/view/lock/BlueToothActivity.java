@@ -187,7 +187,7 @@ public class BlueToothActivity extends BaseActivity {
     }
 
     private void closelock() {
-        checkOpenLock("锁车中");//阻塞线程
+        checkOpenLock("锁车中");
         //mHandler.postDelayed(runnable2, 8000);//这个开锁是用来
         BlueToothHelper.getBlueHelp().closeLock(new BlueToothUtils.CloseLockListener() {
             @Override

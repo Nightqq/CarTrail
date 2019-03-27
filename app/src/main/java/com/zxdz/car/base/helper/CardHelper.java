@@ -55,6 +55,15 @@ public class CardHelper {
         return (ArrayList<CardInfo>) cardInfoDao.queryBuilder().list();
     }
 
+    //判断管理员卡号是否在数据库中存在
+    public static boolean isAvailableInDB(String cardnumber){
+        List<CardInfo> list = cardInfoDao.queryBuilder().where(CardInfoDao.Properties.AdminCardNumber.eq(cardnumber)).list();
+        if (list.size()>0 && list != null){
+            return true;
+        }
+        return false;
+    }
+
     public static void saveCardInfoToDB(CardInfo cardInfo) {
         if (cardInfo != null) {
             cardInfoDao.insertOrReplace(cardInfo);
