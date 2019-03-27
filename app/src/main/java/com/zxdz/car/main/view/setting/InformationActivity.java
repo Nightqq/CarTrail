@@ -1,6 +1,7 @@
 package com.zxdz.car.main.view.setting;
 
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.zxdz.car.App;
@@ -27,5 +28,9 @@ public class InformationActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_information;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

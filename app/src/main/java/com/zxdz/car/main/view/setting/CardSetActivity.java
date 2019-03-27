@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -189,5 +190,9 @@ public class CardSetActivity extends BaseActivity<CardSetPresenter> implements C
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

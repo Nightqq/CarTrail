@@ -63,6 +63,7 @@ public class SwipeCardActivity extends BaseActivity {
         }
     }
     public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+        return false;
     }
+
 }

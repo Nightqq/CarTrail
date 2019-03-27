@@ -19,6 +19,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,7 +51,12 @@ import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.utils.ToastUtil;
+import com.zxdz.car.main.view.InitReturnActivity;
 import com.zxdz.car.main.view.MainActivity;
+import com.zxdz.car.main.view.ReturnRefreshCardActivity;
+import com.zxdz.car.main.view.lock.BlueToothActivity;
+import com.zxdz.car.main.view.lock.CameraActivity;
+import com.zxdz.car.main.view.lock.OpenCardActivity;
 
 import java.util.Date;
 import java.util.List;
@@ -178,6 +184,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
                                 callPolice(1, "移动报警");
                             }
+                           // AudioPlayUtils.getAudio(BaseActivity.this,0).stop();
                             AudioPlayUtils.getAudio(BaseActivity.this, R.raw.ydbj).play(true);
                         }
                     } else {
@@ -418,24 +425,90 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     //Toolbar返回键设置
 
-
-    /*@Override//toolbar右上角Menu
+    @Override//toolbar右上角Menu
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_back,menu);
         return true;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_restart:
-                passwardValidata();
+            case R.id.toolbar_back:
+                back();
                 break;
             case android.R.id.home:
                 this.finish();
                 break;
         }
         return true;
+    }
+
+    private void back(){
+        if ( CarTravelHelper.carTravelRecord != null) {
+            Intent intent=null;
+            switch (CarTravelHelper.carTravelRecord.getZT()){
+                case 0:
+                    App.UPLOAD_STEP = 1;
+                    App.SWIPE_STEP = 1;
+
+                    break;
+                case 10:
+                    App.UPLOAD_STEP = 1;
+                    App.SWIPE_STEP = 2;
+
+                    break;
+                case 11:
+                    App.UPLOAD_STEP = 2;
+                    App.SWIPE_STEP = 3;
+                    App.GravityListener_type = 0;//关闭手持机移动报警
+
+                    break;
+                case 20:
+                    App.UPLOAD_STEP = 3;
+                    App.SWIPE_STEP = 4;
+                    App.GravityListener_type = 1;//开启手持机移动报警
+
+                    break;
+                case 30:
+                    //暂无
+                    break;
+                case 40://到达目的地刷卡进人锁车页面
+                    App.UPLOAD_STEP = 4;
+                    App.SWIPE_STEP = 5;
+                    App.GravityListener_type = 1;//开启手持机移动报警
+
+                    break;
+                case 43://锁车成功还没拍照
+                  //开锁重新锁车，远程开锁
+
+                    break;
+                case 45://拍完照片上传之后状态值45
+                    App.GravityListener_type = 0;//关闭手持机移动报警
+                    intent = new Intent(this, CameraActivity.class);
+                    intent.putExtra("blue_step", 1);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 50://刷卡开锁后状态值为50
+                    App.GravityListener_type = 1;//开启手持机移动报警
+                    App.UPLOAD_STEP = 5;
+                    intent = new Intent(this, OpenCardActivity.class);
+                    intent.putExtra("blue_step", 1);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 70://民警刷完卡，状态值为70
+
+                    break;
+                case 80://进人等待初始化页面，状态值为80
+                    AudioPlayUtils.getAudio(this, R.raw.gclcjs_qjsbjhgly).play();//该次流程结束，请将设备交还管理员
+                    startActivity(new Intent(this, InitReturnActivity.class));
+                    finish();
+                    break;
+
+            }
+        }
     }
 
     private PasswardView passwardView;

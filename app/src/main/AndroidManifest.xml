@@ -42,9 +42,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 允许修改 WIFI 状态的权限。 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -157,7 +156,7 @@
         </receiver>
 
         <activity android:name=".main.view.setting.InformationActivity" />
-        <activity android:name=".main.view.InitReturnActivity"></activity>
+        <activity android:name=".main.view.InitReturnActivity" />
     </application>
 
 </manifest>

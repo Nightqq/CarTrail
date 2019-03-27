@@ -2,6 +2,7 @@ package com.zxdz.car.main.view.setting;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Looper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -9,20 +10,36 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
+import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.ServerIPHelper;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.bean.PingNetEntity;
 import com.zxdz.car.main.model.domain.ServerIP;
+import com.zxdz.car.main.model.domain.SettingInfo;
+import com.zxdz.car.main.model.domain.URLConfig;
+import com.zxdz.car.main.model.engin.CardInfoEngin;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.NetWorkUtils;
+import com.zxdz.car.main.utils.ToastUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
 
 public class SettingActivity extends BaseActivity {
 
@@ -92,7 +109,9 @@ public class SettingActivity extends BaseActivity {
                             initDialog.dismiss();
                         }
                         if (pingNetEntity.isResult()){
-                            Toast.makeText(this, "ping "+server_IP.getIp()+"成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "ping "+server_IP.getIp()+"连接成功", Toast.LENGTH_SHORT).show();
+                            //重新初始化，测试服务器是否正常连接
+                            initInfo();
                         }else {
                             Toast.makeText(this, "服务器连接失败", Toast.LENGTH_SHORT).show();
                         }
@@ -112,7 +131,56 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
+    private void initInfo() {
+        checkOpenLock("连接服务器中");
+        final int[] i = {1};
+        if (App.ZDJID==null){
+            Toast.makeText(this, "设备未注册", Toast.LENGTH_SHORT).show();
+            if (initDialog!=null){
+                initDialog.dismiss();
+            }
+            return;
+        }
+        Subscription subscribe = loadSettingInfo(App.ZDJID).subscribe(new Subscriber<ResultInfo<SettingInfo>>() {
+            @Override
+            public void onCompleted() {
+                initDialog.dismiss();
+                if (i[0]==0){
+                    ToastUtils.showShort("连接服务器成功");
+                }else {
+                    ToastUtils.showShort("连接服务器失败");
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<SettingInfo> resultInfo) {
+                if (resultInfo!=null){
+                    i[0] =0;
+                }
+            }
+        });
+
+
+    }
+
+    public Observable<ResultInfo<SettingInfo>> loadSettingInfo(String zdjId) {
+        Map<String, String> params = new HashMap<>();
+        //TODO,值暂时写固定，后面修改
+        params.put("ZDJID", zdjId);
+        return HttpCoreEngin.get(this).rxpost(URLConfig.getinstance().getEQU_INFO_URL(), new TypeReference<ResultInfo<SettingInfo>>() {
+                }.getType(), params,
+                false, false,
+                false);
+    }
+
     public void checkOpenLock(String msg) {
+        try {
         if (null == initDialog) {
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -123,7 +191,10 @@ public class SettingActivity extends BaseActivity {
         if (!initDialog.isShowing()) {
             initDialog.setTitleText(msg);
             initDialog.show();
+        } } catch (Exception e) {
+            LogUtils.a("" + e.getMessage().toString());
         }
+
     }
 
 

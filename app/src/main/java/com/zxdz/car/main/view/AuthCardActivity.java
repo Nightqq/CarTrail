@@ -131,7 +131,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         intentService = new Intent(getApplicationContext(), UploadDataService.class);
         setSupportActionBar(mToolBar);
        /* mToolBar.setNavigationIcon(R.mipmap.back_icon);
-        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+       mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

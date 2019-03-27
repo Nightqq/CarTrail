@@ -67,7 +67,7 @@ public class BlueToothActivity extends BaseActivity {
                     intent.putExtra("blue_step", step);
                     startActivity(intent);
                     //后期添加：状态值43，锁车完成后更改
-                    CarTravelHelper.carTravelRecord.setZT(45);
+                    CarTravelHelper.carTravelRecord.setZT(43);
                     CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
                     finish();
                 }
