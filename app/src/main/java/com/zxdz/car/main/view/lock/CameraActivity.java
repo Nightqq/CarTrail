@@ -208,6 +208,13 @@ public class CameraActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBitmap.recycle();
+        System.gc();
+    }
+
     private void save(String inputText) {
         FileOutputStream out = null;
         BufferedWriter writer = null;
