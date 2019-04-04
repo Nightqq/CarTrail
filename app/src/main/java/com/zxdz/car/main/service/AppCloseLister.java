@@ -44,6 +44,7 @@ public class AppCloseLister extends Service {
     Handler handler_listen = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
+                LogUtils.a("msg.what == 1");
                 am = (ActivityManager) AppCloseLister.this.getSystemService(Context.ACTIVITY_SERVICE);
                 List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = am.getRunningAppProcesses();
                 for (ActivityManager.RunningAppProcessInfo runningAppProcess : runningAppProcesses) {
@@ -56,7 +57,10 @@ public class AppCloseLister extends Service {
                 PackageManager packageManager = AppCloseLister.this.getPackageManager();
                 Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage("com.zxdz.car");
                 if (launchIntentForPackage != null) {
+                    LogUtils.a("自启动开始");
                     AppCloseLister.this.startActivity(launchIntentForPackage);
+                }else {
+                    LogUtils.a("launchIntentForPackage空");
                 }
             }
             super.handleMessage(msg);
@@ -64,14 +68,21 @@ public class AppCloseLister extends Service {
 
         ;
     };
+
     public static void startoneself(Context context) {
-       Intent intent = new Intent(context, AppCloseLister.class);
+        Intent intent = new Intent(context, AppCloseLister.class);
+        if (context!=null){
+            LogUtils.a("准备自启动");
+        }else {
+            LogUtils.a("context空");
+        }
         context.startService(intent);
     }
+
     @Override
     public void onDestroy() {
         LogUtils.a("onDestroy");
-        if (timer!=null){
+        if (timer != null) {
             timer.cancel();
         }
         super.onDestroy();

@@ -1,5 +1,7 @@
 package com.zxdz.car.main.view.setting;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Looper;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.kk.securityhttp.domain.ResultInfo;
@@ -21,6 +24,7 @@ import com.zxdz.car.R;
 import com.zxdz.car.base.helper.ServerIPHelper;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.bean.PingNetEntity;
+import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.ServerIP;
 import com.zxdz.car.main.model.domain.SettingInfo;
 import com.zxdz.car.main.model.domain.URLConfig;
@@ -28,6 +32,8 @@ import com.zxdz.car.main.model.engin.CardInfoEngin;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.NetWorkUtils;
 import com.zxdz.car.main.utils.ToastUtil;
+import com.zxdz.car.main.view.InitActivity;
+import com.zxdz.car.main.view.MainActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +74,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     public static int i=0;
-    @OnClick({R.id.setting_information,R.id.setting_admin, R.id.setting_area, R.id.setting_swipe_card, R.id.setting_server_ip, R.id.setting_change, R.id.layout_gps_upload_interval,R.id.layout_networt_status})
+    @OnClick({R.id.layout_open_lock,R.id.Setting_init_again,R.id.exit,R.id.setting_information,R.id.setting_admin, R.id.setting_area, R.id.setting_swipe_card, R.id.setting_server_ip, R.id.setting_change, R.id.layout_gps_upload_interval,R.id.layout_networt_status})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_admin:
@@ -85,6 +91,9 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.setting_server_ip:
                 startact(this, ServerIPActivity.class);
+                break;
+            case R.id.layout_open_lock:
+               
                 break;
             case R.id.setting_change:
                 startact(this, StartSettingActivity.class);
@@ -125,6 +134,15 @@ public class SettingActivity extends BaseActivity {
                     Toast.makeText(this, "服务器ip没有设置", Toast.LENGTH_SHORT).show();
                 }
 
+                break;
+            case R.id.Setting_init_again:
+                SPUtils.getInstance().put(Constant.INIT_DEVICE, false);
+                startActivity(new Intent(this, InitActivity.class));
+                break;
+            case R.id.exit:
+                Intent intent1 = new Intent(this,MainActivity.class);
+                intent1.putExtra(MainActivity.TAG_EXIT, true);
+                startActivity(intent1);
                 break;
             default:
                 break;

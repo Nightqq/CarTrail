@@ -111,7 +111,7 @@ public class App extends Application {
     public void onTrimMemory(int level) {
         packageName = getPackageName();
         SharedPreferences qq = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
-        boolean startself = qq.getBoolean("start_set_2", true);
+        boolean startself = qq.getBoolean("start_set_2", false);
         if (startself) {
             AppCloseLister.startoneself(Utils.getContext());
         }

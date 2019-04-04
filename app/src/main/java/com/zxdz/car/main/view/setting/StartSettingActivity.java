@@ -39,8 +39,8 @@ public class StartSettingActivity extends BaseActivity {
 
         sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
         boolean startself = sp.getBoolean("startself", true);
-        boolean start_set_2 = sp.getBoolean("start_set_2", true);
-        boolean start_set_3 = sp.getBoolean("start_set_3", true);
+        boolean start_set_2 = sp.getBoolean("start_set_2", false);
+        boolean start_set_3 = sp.getBoolean("start_set_3", false);
         LogUtils.a("qweqq获取", start_set_2);
         startSet1.setChecked(startself);
         startSet2.setChecked(start_set_2);

@@ -66,6 +66,7 @@ public class UploadInfoUtil {
             @Override
             public void onCompleted() {
                 LogUtils.a("上传数据—上传主信息onCompleted");
+                uploadover();
             }
 
             @Override
@@ -126,7 +127,7 @@ public class UploadInfoUtil {
                             }
                             //主信息上传完成
                             LogUtils.a("主信息上传完成,发送广播");
-                            uploadover();
+
                         } else {
                             LogUtils.e("主信息上传 error");
                         }

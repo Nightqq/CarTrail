@@ -167,8 +167,7 @@ public class Rfid {
 	public static native boolean iso14443aCosS5(byte[] pCosCmd, int cosCmdLength,byte[] pCosResponse,int[] pBufLength);
 
 
-	public class AdditionalFileSettings
-	{
+	public class AdditionalFileSettings {
 
 		public long    eFileSize;  //文件类型为0,1的文件
 

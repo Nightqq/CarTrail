@@ -1,9 +1,12 @@
 package com.zxdz.car.main.view;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +42,7 @@ import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.QrCodeToMAC;
 import com.zxdz.car.main.model.domain.TerminalInfo;
 import com.zxdz.car.main.presenter.UploadInfoPresenter;
+import com.zxdz.car.main.service.AppCloseLister;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
@@ -61,6 +65,7 @@ import rx.functions.Action1;
  */
 
 public class MainActivity extends BaseActivity<UploadInfoPresenter> implements UploadInfoContract.View {
+    public static final String TAG_EXIT = "exit";
     @BindView(R.id.title_text)
     TextView titleText;
     @BindView(R.id.layout_setting)
@@ -100,6 +105,30 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     Intent intentService;
     private int end;
 
+    //结束程序
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
+            if (isExit) {
+               /* ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                manager.killBackgroundProcesses (getPackageName());*/
+                // this.finish();
+                int currentVersion = android.os.Build.VERSION.SDK_INT;
+                if (currentVersion > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                    Intent startMain = new Intent(Intent.ACTION_MAIN);
+                    startMain.addCategory(Intent.CATEGORY_HOME);
+                    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(startMain);
+                    System.exit(0);
+                } else {// android2.1
+                    ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+                    am.restartPackage(getPackageName());
+                }
+            }
+        }
+    }
 
     @Override
     public void init() {
@@ -112,7 +141,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         mPresenter = new UploadInfoPresenter(this, this);
         intentService = new Intent(MainActivity.this, UploadDataService.class);
         //设置是否继续任务
-       // setLastStep();
+        // setLastStep();
         setCardType();
         String androidID = DeviceUtils.getAndroidID();
         Log.e("串口号", androidID);
@@ -403,6 +432,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         }
     }
 
+
     /**
      * 设置读卡的类型
      */
@@ -439,8 +469,6 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     }
 
 
-
-
     /**
      * 数据上传
      */
@@ -458,83 +486,84 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         }
     }
 
-            @Override
-            protected void onCreate (Bundle savedInstanceState){
-                super.onCreate(savedInstanceState);
-                // TODO: add setContentView(...) invocation
-                ButterKnife.bind(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
 
 
+    }
+
+    /**
+     * 定义广播接收器
+     */
+    private class UpdateInfoBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //更新数据上传结果
+            int resultCode = intent.getExtras().getInt("result_code");
+            LogUtils.e("uploadResult --->" + resultCode);
+            //同步完成
+            if (resultCode == 0) {
+                //ToastUtils.showLong("数据上传完成");
+                mUploadLoadingImageView.setVisibility(View.GONE);
+                mUploadDoneImageView.setVisibility(View.VISIBLE);
+                mUploadHitTextView.setText("数据上传完成");
             }
-
-            /**
-             * 定义广播接收器
-             */
-            private class UpdateInfoBroadcastReceiver extends BroadcastReceiver {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    //更新数据上传结果
-                    int resultCode = intent.getExtras().getInt("result_code");
-                    LogUtils.e("uploadResult --->" + resultCode);
-                    //同步完成
-                    if (resultCode == 0) {
-                        //ToastUtils.showLong("数据上传完成");
-                        mUploadLoadingImageView.setVisibility(View.GONE);
-                        mUploadDoneImageView.setVisibility(View.VISIBLE);
-                        mUploadHitTextView.setText("数据上传完成");
-                    }
-                    //同步中
-                    if (resultCode == 1) {
-                        mUploadLoadingImageView.setVisibility(View.VISIBLE);
-                        mUploadDoneImageView.setVisibility(View.GONE);
-                        mUploadHitTextView.setText("数据正在上传···");
-                    }
-                }
-            }
-
-            @Override
-            public void hideStateView () {
-
-            }
-
-            @Override
-            public void showNoNet () {
-
-            }
-
-            @Override
-            public void loadCarRecordUpload (ResultInfo resultInfo){
-                ToastUtils.showLong("数据上传成功");
-            }
-
-            @Override
-            public void loadTrailUpload (ResultInfo resultInfo){
-                ToastUtils.showLong("数据上传成功");
-            }
-
-            @Override
-            public void loadWarnUpload (ResultInfo resultInfo){
-                ToastUtils.showLong("数据上传成功");
-            }
-
-            @Override
-            public void loadChangeUpload (ResultInfo resultInfo){
-                ToastUtils.showLong("数据上传成功");
-            }
-
-            @Override
-            protected void onDestroy () {
-                super.onDestroy();
-                if (updateInfoBroadcastReceiver != null) {
-                    unregisterReceiver(updateInfoBroadcastReceiver);
-                }
-            }
-            public void checkOpenLock (String msg){
-                initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-                initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                initDialog.setTitleText(msg);
-                initDialog.setCancelable(false);
-                initDialog.show();
-                initDialog.setCanceledOnTouchOutside(true);
+            //同步中
+            if (resultCode == 1) {
+                mUploadLoadingImageView.setVisibility(View.VISIBLE);
+                mUploadDoneImageView.setVisibility(View.GONE);
+                mUploadHitTextView.setText("数据正在上传···");
             }
         }
+    }
+
+    @Override
+    public void hideStateView() {
+
+    }
+
+    @Override
+    public void showNoNet() {
+
+    }
+
+    @Override
+    public void loadCarRecordUpload(ResultInfo resultInfo) {
+        ToastUtils.showLong("数据上传成功");
+    }
+
+    @Override
+    public void loadTrailUpload(ResultInfo resultInfo) {
+        ToastUtils.showLong("数据上传成功");
+    }
+
+    @Override
+    public void loadWarnUpload(ResultInfo resultInfo) {
+        ToastUtils.showLong("数据上传成功");
+    }
+
+    @Override
+    public void loadChangeUpload(ResultInfo resultInfo) {
+        ToastUtils.showLong("数据上传成功");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (updateInfoBroadcastReceiver != null) {
+            unregisterReceiver(updateInfoBroadcastReceiver);
+        }
+    }
+
+    public void checkOpenLock(String msg) {
+        initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        initDialog.setTitleText(msg);
+        initDialog.setCancelable(false);
+        initDialog.show();
+        initDialog.setCanceledOnTouchOutside(true);
+    }
+}

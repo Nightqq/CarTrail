@@ -173,7 +173,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         //上传主信息记录
         //App.UPLOAD_STEP = 5;
         //startService(intentService);
-        RxView.clicks(btnNextSuccess).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+       /* RxView.clicks(btnNextSuccess).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 ToastUtils.showLong("刷卡成功，开始开锁");
@@ -182,7 +182,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                 OpenCardActivity.this.setResult(RESULT_OK, intent);
                 OpenCardActivity.this.finish();
             }
-        });
+        });*/
 
         //模拟测试步骤，后期删除
         // layoutNext.setVisibility(View.VISIBLE);

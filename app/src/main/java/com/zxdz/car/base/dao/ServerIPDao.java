@@ -31,8 +31,9 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
         public final static Property Wifi_name_2 = new Property(4, String.class, "wifi_name_2", false, "WIFI_NAME_2");
         public final static Property Ip_2 = new Property(5, String.class, "ip_2", false, "IP_2");
         public final static Property Dk_2 = new Property(6, String.class, "dk_2", false, "DK_2");
-        public final static Property PersonID = new Property(7, String.class, "personID", false, "PERSON_ID");
-        public final static Property Personfactory = new Property(8, String.class, "personfactory", false, "PERSONFACTORY");
+        public final static Property Dakjda = new Property(7, String.class, "dakjda", false, "DAKJDA");
+        public final static Property PersonID = new Property(8, String.class, "personID", false, "PERSON_ID");
+        public final static Property Personfactory = new Property(9, String.class, "personfactory", false, "PERSONFACTORY");
     }
 
 
@@ -55,8 +56,9 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
                 "\"WIFI_NAME_2\" TEXT," + // 4: wifi_name_2
                 "\"IP_2\" TEXT," + // 5: ip_2
                 "\"DK_2\" TEXT," + // 6: dk_2
-                "\"PERSON_ID\" TEXT," + // 7: personID
-                "\"PERSONFACTORY\" TEXT);"); // 8: personfactory
+                "\"DAKJDA\" TEXT," + // 7: dakjda
+                "\"PERSON_ID\" TEXT," + // 8: personID
+                "\"PERSONFACTORY\" TEXT);"); // 9: personfactory
     }
 
     /** Drops the underlying database table. */
@@ -104,14 +106,19 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
             stmt.bindString(7, dk_2);
         }
  
+        String dakjda = entity.getDakjda();
+        if (dakjda != null) {
+            stmt.bindString(8, dakjda);
+        }
+ 
         String personID = entity.getPersonID();
         if (personID != null) {
-            stmt.bindString(8, personID);
+            stmt.bindString(9, personID);
         }
  
         String personfactory = entity.getPersonfactory();
         if (personfactory != null) {
-            stmt.bindString(9, personfactory);
+            stmt.bindString(10, personfactory);
         }
     }
 
@@ -154,14 +161,19 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
             stmt.bindString(7, dk_2);
         }
  
+        String dakjda = entity.getDakjda();
+        if (dakjda != null) {
+            stmt.bindString(8, dakjda);
+        }
+ 
         String personID = entity.getPersonID();
         if (personID != null) {
-            stmt.bindString(8, personID);
+            stmt.bindString(9, personID);
         }
  
         String personfactory = entity.getPersonfactory();
         if (personfactory != null) {
-            stmt.bindString(9, personfactory);
+            stmt.bindString(10, personfactory);
         }
     }
 
@@ -180,8 +192,9 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // wifi_name_2
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ip_2
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // dk_2
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // personID
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // personfactory
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // dakjda
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // personID
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // personfactory
         );
         return entity;
     }
@@ -195,8 +208,9 @@ public class ServerIPDao extends AbstractDao<ServerIP, Long> {
         entity.setWifi_name_2(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setIp_2(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setDk_2(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setPersonID(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setPersonfactory(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setDakjda(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setPersonID(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setPersonfactory(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     
     @Override

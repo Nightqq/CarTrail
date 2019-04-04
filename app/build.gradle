@@ -43,7 +43,7 @@ android {
 }
 
 greendao {
-    schemaVersion 1
+    schemaVersion 3
     daoPackage 'com.zxdz.car.base.dao'
     targetGenDir 'src/main/java'
 }

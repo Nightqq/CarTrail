@@ -82,18 +82,16 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     }
 
     @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        super.startActivityForResult(intent, requestCode);
-        if (requestCode==1){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1111){
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#48D9B2"));
             initDialog.setTitleText("控制器初始化");
             initDialog.setCancelable(false);
             initDialog.show();
-
             //请求接口
             mPresenter.initEquipment(DeviceUtils.getAndroidID());
-
             //TODO,测试代码
             //把本机的编号手动加入，便于测试
             CardInfo cardInfo = new CardInfo();
@@ -120,7 +118,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     public void initEquInfo() {
         boolean isInitDevice = SPUtils.getInstance().getBoolean(Constant.INIT_DEVICE, false);
         if (!isInitDevice) {
-            startActivityForResult(new Intent(this, ServerIPActivity.class),1);
+            startActivityForResult(new Intent(this, ServerIPActivity.class),1111);
         } else {
             App.ZDJID = DeviceUtils.getAndroidID();
             isInitEquSuccess = true;
@@ -248,6 +246,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             terminalInfo.setRemark(settingInfo.getRemark());
             TerminalInfoHelper.saveTerminalInfoToDB(terminalInfo);
             //保存管理员卡号
+            LogUtils.a("保存管理员卡号开始");
             if (settingInfo.getAdmins() != null && settingInfo.getAdmins().size() > 0) {
                 CardHelper.deleteAllCardInfoList();
                 CardHelper.saveCardInfoListToDB(settingInfo.getAdmins());

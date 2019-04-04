@@ -51,7 +51,10 @@ import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
 import com.zxdz.car.main.utils.ToastUtil;
+import com.zxdz.car.main.view.AuthCardActivity;
+import com.zxdz.car.main.view.CarTrailActivity;
 import com.zxdz.car.main.view.InitReturnActivity;
+import com.zxdz.car.main.view.InstallConfirmActivity;
 import com.zxdz.car.main.view.MainActivity;
 import com.zxdz.car.main.view.ReturnRefreshCardActivity;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
@@ -219,7 +222,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             LogUtils.a("开始储存报警数据");
             WarnInfo warnInfo = new WarnInfo();
             warnInfo.setLsId(App.LSID.intValue());
-            warnInfo.setId(CarTravelHelper.carTravelRecord.getId());
+            if (CarTravelHelper.carTravelRecord.getId()!=null){
+                warnInfo.setId(CarTravelHelper.carTravelRecord.getId());
+            }
             warnInfo.setWarnContent(content);
             warnInfo.setWarnDate(new Date());
             warnInfo.setWarnType(0);
@@ -304,7 +309,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onStop();
         //程序不可见判断程序是否处于前台
         SharedPreferences sp = getApplicationContext().getSharedPreferences("qq", Context.MODE_PRIVATE);
-        boolean start_set_3 = sp.getBoolean("start_set_3", true);
+        boolean start_set_3 = sp.getBoolean("start_set_3", false);
         KeyguardManager manager = (KeyguardManager) Utils.getContext().getSystemService(Utils.getContext().KEYGUARD_SERVICE);
         boolean b = manager.inKeyguardRestrictedInputMode();//屏幕是否黑屏
         if (start_flag && start_set_3 && !b && !isAppOnForeground()) {
@@ -446,7 +451,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     private void back(){
         if ( CarTravelHelper.carTravelRecord != null) {
-            Intent intent=null;
+            Intent intent=new Intent();
+            LogUtils.a("状态值",CarTravelHelper.carTravelRecord.getZT());
             switch (CarTravelHelper.carTravelRecord.getZT()){
                 case 0:
                     App.UPLOAD_STEP = 1;
@@ -467,21 +473,25 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                 case 20:
                     App.UPLOAD_STEP = 3;
                     App.SWIPE_STEP = 4;
-                    App.GravityListener_type = 1;//开启手持机移动报警
-
+                    App.GravityListener_type = 0;//开启手持机移动报警
+                    startActivity(new Intent(this, AuthCardActivity.class));
                     break;
                 case 30:
                     //暂无
                     break;
                 case 40://到达目的地刷卡进人锁车页面
-                    App.UPLOAD_STEP = 4;
-                    App.SWIPE_STEP = 5;
                     App.GravityListener_type = 1;//开启手持机移动报警
-
+                    App.SWIPE_STEP = 4;
+                    App.UPLOAD_STEP = 3;
+                    intent.putExtra("car_trail", 1);//进入时记录路线
+                    startActivity(new Intent(this, CarTrailActivity.class));
+                    //开锁？
                     break;
                 case 43://锁车成功还没拍照
                   //开锁重新锁车，远程开锁
-
+                    intent = new Intent(this, BlueToothActivity.class);
+                    intent.putExtra("blue_step", 1);
+                    startActivity(intent);
                     break;
                 case 45://拍完照片上传之后状态值45
                     App.GravityListener_type = 0;//关闭手持机移动报警
@@ -503,7 +513,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     break;
                 case 80://进人等待初始化页面，状态值为80
                     AudioPlayUtils.getAudio(this, R.raw.gclcjs_qjsbjhgly).play();//该次流程结束，请将设备交还管理员
-                    startActivity(new Intent(this, InitReturnActivity.class));
+                    intent = new Intent(this, InstallConfirmActivity.class);
+                    startActivity(intent);
                     finish();
                     break;
 

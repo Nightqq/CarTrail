@@ -25,6 +25,9 @@ public class PoliceInfoAll {
     @JSONField(name = "DLGJ_JH")
     private String DLGJ_JH;
 
+
+
+
     @Generated(hash = 1456627152)
     public PoliceInfoAll(String DLGJ_KH, String DLGJ_XM, String DLGJ_BMMC,
             String DLGJ_JH) {

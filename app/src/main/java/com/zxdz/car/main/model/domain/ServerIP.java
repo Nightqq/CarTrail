@@ -19,15 +19,15 @@ public class ServerIP {
     private String ip_2;
     private String dk_2;
 
+    private String dakjda;
 
-    
     private String personID;
     private String personfactory;
 
-    @Generated(hash = 1259737333)
+    @Generated(hash = 280340405)
     public ServerIP(Long id, String wifi_name, String ip, String dk,
-            String wifi_name_2, String ip_2, String dk_2, String personID,
-            String personfactory) {
+            String wifi_name_2, String ip_2, String dk_2, String dakjda,
+            String personID, String personfactory) {
         this.id = id;
         this.wifi_name = wifi_name;
         this.ip = ip;
@@ -35,6 +35,7 @@ public class ServerIP {
         this.wifi_name_2 = wifi_name_2;
         this.ip_2 = ip_2;
         this.dk_2 = dk_2;
+        this.dakjda = dakjda;
         this.personID = personID;
         this.personfactory = personfactory;
     }
@@ -94,5 +95,11 @@ public class ServerIP {
     }
     public void setDk_2(String dk_2) {
         this.dk_2 = dk_2;
+    }
+    public String getDakjda() {
+        return this.dakjda;
+    }
+    public void setDakjda(String dakjda) {
+        this.dakjda = dakjda;
     }
 }

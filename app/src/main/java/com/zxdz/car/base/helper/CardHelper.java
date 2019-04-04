@@ -1,5 +1,6 @@
 package com.zxdz.car.base.helper;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.base.dao.CardInfoDao;
 import com.zxdz.car.main.model.domain.CardInfo;
 
@@ -57,35 +58,34 @@ public class CardHelper {
 
     //判断管理员卡号是否在数据库中存在
     public static boolean isAvailableInDB(String cardnumber){
-        List<CardInfo> list = cardInfoDao.queryBuilder().where(CardInfoDao.Properties.AdminCardNumber.eq(cardnumber)).list();
-        if (list.size()>0 && list != null){
+        QueryBuilder queryBuilder = cardInfoDao.queryBuilder();
+        queryBuilder.where(CardInfoDao.Properties.AdminCardNumber.eq(cardnumber));
+        //List<CardInfo> list = cardInfoDao.queryBuilder().where(CardInfoDao.Properties.AdminCardNumber.eq(cardnumber)).list();
+        if (queryBuilder.list().size()>0 && queryBuilder.list() != null){
             return true;
         }
         return false;
     }
-
     public static void saveCardInfoToDB(CardInfo cardInfo) {
         if (cardInfo != null) {
             cardInfoDao.insertOrReplace(cardInfo);
         }
     }
-
     public static void saveCardInfoListToDB(List<CardInfo> list) {
         if (list != null) {
             for (CardInfo info : list) {
                 cardInfoDao.insertOrReplace(info);
+                LogUtils.a("管理员卡号：",info.getAdminCardNumber());
             }
         }
+        LogUtils.a("保存管理员卡号结束");
     }
-
     public static void deleteCardInfoInDB(CardInfo cardInfo) {
         cardInfoDao.delete(cardInfo);
     }
-
     public static void deleteAllCardInfoList() {
         cardInfoDao.deleteAll();
     }
-
     /**
      * 根据人员类型及刷卡卡号，判断卡号是否符合要求
      *

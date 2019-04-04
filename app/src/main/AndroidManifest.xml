@@ -45,6 +45,8 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -157,6 +159,7 @@
 
         <activity android:name=".main.view.setting.InformationActivity" />
         <activity android:name=".main.view.InitReturnActivity" />
+        <activity android:name=".main.view.setting.OpenLockSettingActivity"></activity>
     </application>
 
 </manifest>
