@@ -1,6 +1,7 @@
 package com.zxdz.car.main.utils;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import com.zxdz.car.App;
@@ -93,11 +94,16 @@ public class BlueToothHelper extends BlueToothUtils {
 
     //注销广播
     public void unRegister() {
-        unregist();
+        //unregist();
     }
 
     //开启强拆报警
     public void openCallPolices(openCallPoliceListener listener) {
         openCallPolice(listener);
+    }
+
+    //刷卡跳转成功就不要监听了
+    public void setListenerNull(){
+        setListenerNullQ();
     }
 }

@@ -73,6 +73,7 @@ public class InitReturnActivity extends BaseActivity {
                         Intent intent = new Intent(InitReturnActivity.this, MainActivity.class);
                         intent.putExtra("end",1);
                         startActivity(intent);
+                        BlueToothHelper.getBlueHelp().setListenerNull();//成功后置空回调
                         finish();
                     }
                 }
@@ -89,7 +90,6 @@ public class InitReturnActivity extends BaseActivity {
         BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
             @Override
             public void enquiriesState(String str) {
-
             }
 
             @Override

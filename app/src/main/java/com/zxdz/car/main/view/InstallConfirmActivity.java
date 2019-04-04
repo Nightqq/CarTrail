@@ -229,6 +229,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 Intent intent = new Intent(InstallConfirmActivity.this, BlueToothActivity.class);
                 intent.putExtra("blue_step", 1);
                 startActivity(intent);
+                BlueToothHelper.getBlueHelp().setListenerNull();//成功后置空回调
                 finish();
             }
             if (step == 3) {

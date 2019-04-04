@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.PopupWindow;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 
 /**
  * Created by admin on 2017/11/19.
@@ -47,7 +48,7 @@ public class AudioPlayUtils {
 
     public static AudioPlayUtils getAudio(Context context, int rawId) {
         mRawId = rawId;
-        mContext = context;
+        mContext = Utils.getContext();
         if (audioPlayUtils == null) {
             audioPlayUtils = new AudioPlayUtils();
         }

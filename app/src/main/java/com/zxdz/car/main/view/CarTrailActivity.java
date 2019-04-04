@@ -149,6 +149,7 @@ public class CarTrailActivity extends BaseActivity {
                         intent.putExtra("blue_step", 1);
                         startActivity(intent);
                         startService(intentService);
+                        BlueToothHelper.getBlueHelp().setListenerNull();//成功后置空回调
                         finish();
                     }
                 });

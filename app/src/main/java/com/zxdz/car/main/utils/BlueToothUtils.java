@@ -60,7 +60,6 @@ public class BlueToothUtils {
     private boolean stateCallPolice = false;
     private SweetAlertDialog initDialog;
     private boolean isLoop = true;//是否在循环连接中
-    private boolean stateCallPoliceremove = false;
 
     BlueToothUtils() {
         mContext = Utils.getContext();
@@ -91,8 +90,6 @@ public class BlueToothUtils {
         flagbyte[0] = 0x46;
     }
 
-    ;
-
     //报警模式不接受锁消息
     public void giveupCardID(CloseCallPolice closeCall, boolean state) {
         this.closeCall = closeCall;
@@ -106,12 +103,12 @@ public class BlueToothUtils {
     //连接设备
     public void ConnectedDevice(String address, ConnectedDevicesListenter devicesListenter, boolean isScaning) {
         isLoop = true;
-        if (isScaning) {
+        if (isScaning) {//是否是新连接设备
             mAddress = address;
             SharedPreferences.Editor edit = sp.edit();
             edit.putString("macaddress", address);
             edit.commit();
-        } else {
+        } else {//自动重连
             mAddress = sp.getString("macaddress", "111");
         }
         connectedDevicesListenter = devicesListenter;
@@ -424,9 +421,6 @@ public class BlueToothUtils {
                             @Override
                             public void run() {
                                 receivecardid.receiveCardID(s);
-                                if (!stateCallPoliceremove) {//强拆报警
-                                    receivecardid = null;//刷卡快的时候，回调还没有注册，会走之前的回调
-                                }
                             }
                         });
                     }
@@ -434,7 +428,6 @@ public class BlueToothUtils {
                 } else {
                     if (bytes1[1] == 0x45 && openCallPolice != null) {//强拆报警
                         LogUtils.i("强拆报警。。。");
-                        stateCallPoliceremove = true;
                         openCallPolice.openCallPolice();
                     }
                 }
@@ -446,6 +439,9 @@ public class BlueToothUtils {
                 }
                 break;
         }
+    }
+    public void setListenerNullQ(){
+        receivecardid = null;
     }
 
 
@@ -485,6 +481,7 @@ public class BlueToothUtils {
     public BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
             String action = intent.getAction();
             if (action.equals(BluetoothDevice.ACTION_FOUND)) {
                 device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//通过此方法获取搜索到的蓝牙设备
