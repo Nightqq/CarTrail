@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
@@ -89,7 +90,11 @@ public class WifiUtils {
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
                 ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo mWifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
                 if (mWifiInfo.isConnected()) {
+                    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                    int ipAddress = wifiInfo.getIpAddress();
+                    App.phoneIP = intToIp(ipAddress);
                     String ssid = wifiManager.getConnectionInfo().getSSID();
                     Toast.makeText(context, "wifi名称：" +ssid, Toast.LENGTH_SHORT).show();
                     List<ServerIP> areaInfoListFromDB = ServerIPHelper.getAreaInfoListFromDB();
@@ -128,6 +133,13 @@ public class WifiUtils {
 //                }
 //            }
         }
+    }
+
+    private String intToIp(int i) {
+        return (i & 0xFF ) + "." +
+                ((i >> 8 ) & 0xFF) + "." +
+                ((i >> 16 ) & 0xFF) + "." +
+                ( i >> 24 & 0xFF) ;
     }
 
     public void unRegistBroadcast() {

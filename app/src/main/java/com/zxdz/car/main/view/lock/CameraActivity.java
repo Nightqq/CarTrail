@@ -139,13 +139,10 @@ public class CameraActivity extends BaseActivity {
         bitmap.recycle();
         return newBitmap;
     }
-
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_camera;
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,7 +155,6 @@ public class CameraActivity extends BaseActivity {
             cameraImg.setImageBitmap(mBitmap);
         }
     }
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @OnClick({R.id.camera_ok, R.id.camera_again})
     public void onViewClicked(View view) {
@@ -190,7 +186,6 @@ public class CameraActivity extends BaseActivity {
                 break;
         }
     }
-
     private void alarm(int i) {
         switch (i) {
             case 1://关闭报警
@@ -207,14 +202,12 @@ public class CameraActivity extends BaseActivity {
                 break;
         }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mBitmap.recycle();
         System.gc();
     }
-
     private void save(String inputText) {
         FileOutputStream out = null;
         BufferedWriter writer = null;
@@ -234,7 +227,6 @@ public class CameraActivity extends BaseActivity {
             }
         }
     }
-
     /**
      * 保存图片信息到本地
      *

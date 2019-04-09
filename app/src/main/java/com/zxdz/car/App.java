@@ -33,6 +33,8 @@ public class App extends Application {
 
     public static String ZDJID;//此处的值现在为设备标识
 
+    public static String phoneIP;
+
     public static int QYID;//所属区域
 
     public static int ADMIN_SWIPE;//管理员是否刷卡

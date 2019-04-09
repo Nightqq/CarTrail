@@ -12,8 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -86,6 +88,9 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     ImageView mUploadDoneImageView;
     @BindView(R.id.tv_upload_hit)
     TextView mUploadHitTextView;
+
+    @BindView(R.id.main_specification)
+    ImageView specificationIMG;
 
     private AreaInfo areaInfo;
 
@@ -231,6 +236,14 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                 startActivity(intent);
             }
         });
+        RxView.clicks(specificationIMG).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {//点击图片放大
+                showdkdialog();
+            }
+        });
+
+
         // 动态注册广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constant.UPLOAD_INFO_RESULT);
@@ -566,4 +579,32 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         initDialog.show();
         initDialog.setCanceledOnTouchOutside(true);
     }
+
+    @SuppressLint("ResourceType")
+    private void showdkdialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog dialog = builder.create();
+        View view = View.inflate(this, R.layout.specification_dialog, null);
+        dialog.setView(view, 0, 0, 0, 0);
+        ImageView img = (ImageView) view.findViewById(R.id.diolag_specification);
+        dialog.setCanceledOnTouchOutside(true);
+        Window window = dialog.getWindow();
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        // 设置宽度
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(layoutParams);
+        // 给 DecorView 设置背景颜色，很重要，不然导致 Dialog 内容显示不全，有一部分内容会充当 padding，上面例子有举出
+        window.getDecorView().setBackgroundColor(Color.GREEN);
+        img.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog.show();
+    }
+
+
 }
