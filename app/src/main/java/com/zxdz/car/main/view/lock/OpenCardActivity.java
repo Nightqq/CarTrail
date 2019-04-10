@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -319,5 +320,9 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         } else {
             startService(intentService);
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

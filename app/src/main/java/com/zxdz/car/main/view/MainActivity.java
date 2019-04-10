@@ -2,11 +2,12 @@ package com.zxdz.car.main.view;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,18 +38,16 @@ import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.helper.TerminalInfoHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
-import com.zxdz.car.main.bean.PingNetEntity;
 import com.zxdz.car.main.contract.UploadInfoContract;
 import com.zxdz.car.main.model.domain.AreaInfo;
 import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.QrCodeToMAC;
 import com.zxdz.car.main.model.domain.TerminalInfo;
 import com.zxdz.car.main.presenter.UploadInfoPresenter;
-import com.zxdz.car.main.service.AppCloseLister;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
-import com.zxdz.car.main.utils.NetWorkUtils;
+import com.zxdz.car.main.utils.WifiUtils;
 import com.zxdz.car.main.view.lock.AuthBlueLinkActivity;
 import com.zxdz.car.main.view.lock.BlueToothActivity;
 import com.zxdz.car.main.view.lock.CameraActivity;
@@ -68,6 +67,7 @@ import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity<UploadInfoPresenter> implements UploadInfoContract.View {
     public static final String TAG_EXIT = "exit";
+    public static final String TAG_RESTART = "restart";
     @BindView(R.id.title_text)
     TextView titleText;
     @BindView(R.id.layout_setting)
@@ -114,12 +114,11 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        WifiUtils.getWifiUtils().unRegistBroadcast();
+        WifiUtils.getWifiUtils().closeWifi();
         if (intent != null) {
-            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
-            if (isExit) {
-               /* ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                manager.killBackgroundProcesses (getPackageName());*/
-                // this.finish();
+            String isExit = intent.getStringExtra(TAG_EXIT);
+            if (isExit.equals(TAG_EXIT)) {//退出
                 int currentVersion = android.os.Build.VERSION.SDK_INT;
                 if (currentVersion > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                     Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -127,10 +126,15 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                     startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(startMain);
                     System.exit(0);
-                } else {// android2.1
-                    ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-                    am.restartPackage(getPackageName());
                 }
+            } else if (isExit.equals(TAG_RESTART)) {//重启
+                Intent intent2 = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                PendingIntent restartIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent2, PendingIntent.FLAG_ONE_SHOT);
+                AlarmManager mgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent); // 1秒钟后重启应用
+                System.exit(0);
+
             }
         }
     }
@@ -605,6 +609,4 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                 });
         dialog.show();
     }
-
-
 }

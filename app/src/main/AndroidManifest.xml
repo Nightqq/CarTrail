@@ -44,7 +44,6 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
 
     <application
@@ -138,7 +137,7 @@
 
         <service android:name=".main.service.UploadDataService" />
         <service android:name=".main.service.AppCloseLister" />
-
+        <service android:name=".main.service.RemindService"/>
         <activity android:name=".main.view.lock.OpenLockActivity" />
         <activity android:name=".main.view.lock.CameraActivity" />
         <activity android:name=".main.view.lock.BlueInteractionActivity" />
@@ -156,7 +155,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
+        <receiver android:name=".main.service.RestartReceiver"/>
         <activity android:name=".main.view.setting.InformationActivity" />
         <activity android:name=".main.view.InitReturnActivity" />
         <activity android:name=".main.view.setting.OpenLockSettingActivity"></activity>

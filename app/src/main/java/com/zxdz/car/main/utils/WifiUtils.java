@@ -157,6 +157,15 @@ public class WifiUtils {
         Toast.makeText(context, "wifi已经打开,正在连接中", Toast.LENGTH_SHORT).show();
     }
 
+    public void closeWifi(){
+        if (wifiManager == null) {
+            wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        }
+        wifiManager.setWifiEnabled(false);
+        Toast.makeText(context, "wifi关闭中", Toast.LENGTH_SHORT).show();
+    }
+
+
 
     /**
      * 判断WIFI网络是否开启

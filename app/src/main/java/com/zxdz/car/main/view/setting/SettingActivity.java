@@ -1,10 +1,7 @@
 package com.zxdz.car.main.view.setting;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Looper;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -16,7 +13,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.Utils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.zxdz.car.App;
@@ -28,10 +24,8 @@ import com.zxdz.car.main.model.domain.Constant;
 import com.zxdz.car.main.model.domain.ServerIP;
 import com.zxdz.car.main.model.domain.SettingInfo;
 import com.zxdz.car.main.model.domain.URLConfig;
-import com.zxdz.car.main.model.engin.CardInfoEngin;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.NetWorkUtils;
-import com.zxdz.car.main.utils.ToastUtil;
 import com.zxdz.car.main.view.InitActivity;
 import com.zxdz.car.main.view.MainActivity;
 
@@ -141,7 +135,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.exit:
                 Intent intent1 = new Intent(this,MainActivity.class);
-                intent1.putExtra(MainActivity.TAG_EXIT, true);
+                intent1.putExtra(MainActivity.TAG_EXIT, MainActivity.TAG_EXIT);
                 startActivity(intent1);
                 break;
             default:

@@ -16,7 +16,9 @@ import org.greenrobot.greendao.annotation.Convert;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.crypto.Cipher;
@@ -112,39 +114,43 @@ public class SwitchUtils {
         }
         return sb.toString().toUpperCase().trim();
     }
+
     //单个元素转换为字符串
     public static String byte2HexStr1(byte b) {
         String stmp = Integer.toHexString(b & 0xFF);
         return stmp.toUpperCase().trim();
     }
+
     /**
      * 将byte转换为一个长度为8的byte数组，数组每个值代表bit
      */
     public static byte[] getBooleanArray(byte b) {
         byte[] array = new byte[8];
         for (int i = 7; i >= 0; i--) {
-            array[i] = (byte)(b & 1);
+            array[i] = (byte) (b & 1);
             b = (byte) (b >> 1);
         }
         return array;
     }
+
     //16进制字符串转10进制字符串
-    public static String string2Hexstr(String s){
-        s = s.replaceAll(" ","");
+    public static String string2Hexstr(String s) {
+        s = s.replaceAll(" ", "");
         StringBuilder stringBuffer = new StringBuilder();
-        for (int i = 0; i <s.length() - 1 ; i+=2) {
+        for (int i = 0; i < s.length() - 1; i += 2) {
             int p = Integer.parseInt(s.substring(i, i + 2), 16);
             stringBuffer.append(p);
         }
         return stringBuffer.toString();
     }
+
     //异或运算
-    public static byte[] xor(byte[] old){
+    public static byte[] xor(byte[] old) {
         byte temp = 0;
-        for (int i = 0; i <old.length ; i++) {
+        for (int i = 0; i < old.length; i++) {
             temp ^= old[i];
         }
-        old[old.length-1] = temp;
+        old[old.length - 1] = temp;
         return old;
     }
 
@@ -241,10 +247,10 @@ public class SwitchUtils {
     //设置设备参数
     public static byte[] setParameters(int i) {
         byte[] bytes = new byte[6];
-        if (i == 1){//id卡
-            bytes = new byte[]{0X00, 0x50, 0x02, 0x00, 0x00,0x00};
-        }else if (i == 2){
-            bytes = new byte[]{0X00, 0x50, 0x02, 0x01, (byte) 0xFF,0x00};
+        if (i == 1) {//id卡
+            bytes = new byte[]{0X00, 0x50, 0x02, 0x00, 0x00, 0x00};
+        } else if (i == 2) {
+            bytes = new byte[]{0X00, 0x50, 0x02, 0x01, (byte) 0xFF, 0x00};
         }
         byte[] xor = xor(bytes);
         return xor;
@@ -362,11 +368,11 @@ public class SwitchUtils {
         return ((ucCRCHi & 0x00FF) << 8) | (ucCRCLo & 0x00FF) & 0xFFFF;
     }
 
-//转换为base64字符串，在这之前给图片添加水印
+    //转换为base64字符串，在这之前给图片添加水印
     public static String getBitmapByte(Bitmap bitmap) {
         bitmap = addTimeFlag(bitmap);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        LogUtils.a("图片尺寸"+bitmap.getWidth(),bitmap.getHeight());
+        LogUtils.a("图片尺寸" + bitmap.getWidth(), bitmap.getHeight());
         bitmap.compress(Bitmap.CompressFormat.WEBP, 100, out);
         try {
             out.flush();
@@ -382,21 +388,22 @@ public class SwitchUtils {
 
     /**
      * 添加时间水印
+     *
      * @param bitmap
      * @return
      */
-    private static Bitmap addTimeFlag(Bitmap bitmap){
+    private static Bitmap addTimeFlag(Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         Bitmap newbitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(newbitmap);
-        canvas.drawBitmap(bitmap,0,0,null);
+        canvas.drawBitmap(bitmap, 0, 0, null);
         Paint paint = new Paint();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String time = sdf.format(new Date(System.currentTimeMillis()));
         paint.setColor(Color.RED);
         paint.setTextSize(25);
-        canvas.drawText(time,(float) (width*1)/19,(float) (height*2)/19,paint);
+        canvas.drawText(time, (float) (width * 1) / 19, (float) (height * 2) / 19, paint);
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
         return newbitmap;
@@ -413,5 +420,35 @@ public class SwitchUtils {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    /**
+     * 获取时间差
+     */
+    public static Long getSecondsNextEarlyMorning(int h, int m, int s) {
+        Calendar caleEnd = Calendar.getInstance();
+        caleEnd.set(caleEnd.get(Calendar.YEAR), caleEnd.get(Calendar.MONTH), caleEnd.get(Calendar.DAY_OF_MONTH), h, m, s);
+        Date dateEnd = caleEnd.getTime();
+        long timeEnd = dateEnd.getTime();
+        long l = System.currentTimeMillis();
+        if (timeEnd - l >= 0) {
+            return timeEnd;
+        } else {
+            caleEnd.add(Calendar.DATE, 1);
+            return caleEnd.getTime().getTime();
+        }
+      /*  Calendar cal = Calendar.getInstance();
+        if (cal.get(Calendar.HOUR_OF_DAY) - num >= 0) {
+            //如果当前时间大于等于8点 就计算第二天的8点的
+            cal.add(Calendar.DAY_OF_YEAR, 1);
+        } else {
+            cal.add(Calendar.DAY_OF_YEAR, 0);
+        }
+        cal.set(Calendar.HOUR_OF_DAY, num);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Long seconds = (cal.getTimeInMillis() - System.currentTimeMillis());
+        return seconds.longValue();*/
     }
 }

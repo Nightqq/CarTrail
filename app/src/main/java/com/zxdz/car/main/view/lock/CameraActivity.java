@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -245,5 +246,9 @@ public class CameraActivity extends BaseActivity {
         //后期添加状态值45，照片上传后更改
         CarTravelHelper.carTravelRecord.setZT(45);
         CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

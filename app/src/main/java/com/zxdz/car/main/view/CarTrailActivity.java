@@ -355,6 +355,7 @@ public class CarTrailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        timer.cancel();
         timer = null;
     }
 }

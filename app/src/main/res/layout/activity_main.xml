@@ -91,14 +91,12 @@
                 android:orientation="vertical">
                 <ImageView
                     android:layout_marginTop="@dimen/dp_10"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:src="@mipmap/car_in_icon"
-                    android:background="@drawable/main_layout_bg"/>
+                    android:layout_width="108dp"
+                    android:layout_height="108dp"
+                    android:src="@mipmap/scan" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:text="扫描连接"
                     android:textColor="@color/card_info_color"
                     android:textSize="@dimen/setting_item_text" />
@@ -151,9 +149,9 @@
                 android:id="@+id/main_specification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="28dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="39dp"
                 android:src="@mipmap/specification" />
         </RelativeLayout>

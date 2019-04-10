@@ -13,6 +13,7 @@ import com.zxdz.car.base.helper.CardDBUtil;
 import com.zxdz.car.base.utils.LocationService;
 import com.zxdz.car.main.service.AppCloseLister;
 import com.zxdz.car.main.service.ElectricityListener;
+import com.zxdz.car.main.service.RemindService;
 import com.zxdz.car.main.utils.WifiUtils;
 
 /**
@@ -100,7 +101,12 @@ public class App extends Application {
         locationService = new LocationService(getApplicationContext());
         WifiUtils.getWifiUtils().openBroadcast();//wifi关闭自动开启
         ElectricityListener.getElectricityListener(getApplicationContext()).openElectricityListener();//充电广播
+        Intent intent = new Intent(this, RemindService.class);
+        startService(intent);
     }
+
+
+
 
     @Override// 程序终止的时候执行
     public void onTerminate() {

@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -298,5 +299,8 @@ public class BlueToothActivity extends BaseActivity {
         mHandler = null;
         AudioPlayUtils.getAudio(Utils.getContext(), 0).stop();
 
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

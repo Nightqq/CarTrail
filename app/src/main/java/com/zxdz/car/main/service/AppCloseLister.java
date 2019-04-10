@@ -44,7 +44,6 @@ public class AppCloseLister extends Service {
     Handler handler_listen = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                LogUtils.a("msg.what == 1");
                 am = (ActivityManager) AppCloseLister.this.getSystemService(Context.ACTIVITY_SERVICE);
                 List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = am.getRunningAppProcesses();
                 for (ActivityManager.RunningAppProcessInfo runningAppProcess : runningAppProcesses) {
