@@ -170,6 +170,9 @@ public class CarTrailActivity extends BaseActivity {
         Intent intent = new Intent(CarTrailActivity.this, InstallConfirmActivity.class);
         intent.putExtra("confirm_step", 2);
         startActivity(intent);
+        if (timer != null){
+            timer.cancel();//如果是直接点击，则不延迟
+        }
         finish();
     }
 
