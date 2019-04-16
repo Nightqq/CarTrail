@@ -6,11 +6,9 @@ import android.os.IBinder;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.zxdz.car.App;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.utils.UploadInfoUtil;
-import com.zxdz.car.main.view.setting.SettingActivity;
 
 import java.util.List;
 

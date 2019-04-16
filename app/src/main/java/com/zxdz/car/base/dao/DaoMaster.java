@@ -27,7 +27,6 @@ public class DaoMaster extends AbstractDaoMaster {
         CarTravelRecordDao.createTable(db, ifNotExists);
         ChangePoliceDao.createTable(db, ifNotExists);
         ChangePoliceInfoDao.createTable(db, ifNotExists);
-        DriverInfoDao.createTable(db, ifNotExists);
         PictureInfoDao.createTable(db, ifNotExists);
         PoliceInfoDao.createTable(db, ifNotExists);
         PoliceInfoAllDao.createTable(db, ifNotExists);
@@ -47,7 +46,6 @@ public class DaoMaster extends AbstractDaoMaster {
         CarTravelRecordDao.dropTable(db, ifExists);
         ChangePoliceDao.dropTable(db, ifExists);
         ChangePoliceInfoDao.dropTable(db, ifExists);
-        DriverInfoDao.dropTable(db, ifExists);
         PictureInfoDao.dropTable(db, ifExists);
         PoliceInfoDao.dropTable(db, ifExists);
         PoliceInfoAllDao.dropTable(db, ifExists);
@@ -81,7 +79,6 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(CarTravelRecordDao.class);
         registerDaoClass(ChangePoliceDao.class);
         registerDaoClass(ChangePoliceInfoDao.class);
-        registerDaoClass(DriverInfoDao.class);
         registerDaoClass(PictureInfoDao.class);
         registerDaoClass(PoliceInfoDao.class);
         registerDaoClass(PoliceInfoAllDao.class);

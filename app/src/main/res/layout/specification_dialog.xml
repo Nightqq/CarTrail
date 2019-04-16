@@ -7,8 +7,8 @@
     android:layout_gravity="center">
     <ImageView
         android:layout_gravity="center"
-        android:background="@mipmap/specification"
+        android:background="@mipmap/specification2"
         android:id="@+id/diolag_specification"
         android:layout_width="360dp"
-        android:layout_height="187dp" />
+        android:layout_height="430dp" />
 </RelativeLayout>

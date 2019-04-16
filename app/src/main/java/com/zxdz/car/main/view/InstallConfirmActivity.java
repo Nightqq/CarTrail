@@ -27,6 +27,7 @@ import com.zxdz.car.base.utils.SwipingCardUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
 import com.zxdz.car.main.model.domain.CarTravelRecord;
+import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
@@ -344,6 +345,11 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
                 CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
             }
         }
+    }
+
+    @Override
+    public void showdriverInfo(DriverInfo driverInfo) {
+
     }
 
     @Override

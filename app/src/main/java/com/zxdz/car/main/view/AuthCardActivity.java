@@ -28,6 +28,7 @@ import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
 import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.CardInfo;
+import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
@@ -207,13 +208,14 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     /**
      * 显示读取到的卡号
      */
+    private String car_num="";
     public void showCardNumber(String carNumber) {
         if (StringUtils.isEmpty(carNumber)) {
             ToastUtils.showLong("卡号读取错误，请重试");
             return;
         }
         //去除卡号中的空格
-        carNumber = carNumber.replaceAll(" ", "");
+        car_num=carNumber = carNumber.replaceAll(" ", "");
         LogUtils.a("卡号--->" + carNumber);
         //公共方法，后面很多步骤需要判断，都可用到
         //判断卡号是否存在
@@ -277,38 +279,9 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             mCardNumberTextView.setText(carNumber);
             App.DRIVER_SWIPE = 1;
             saveAdminCard(carNumber, 3);
-            mPresenter.getPersionInfo(carNumber);
+            mPresenter.getDriverInfo(carNumber);
             handler.postDelayed(runnable, 1500);
         }
-
-        //判断是否是更换干警时的管理员确认刷卡
-//                if (changPolice == 1) {//跟换干警刷卡
-//                    LogUtils.a("即将更换干警");
-//                    jumpNextAct();
-//                } else {
-//                    saveAdminCard(carNumber);
-//                    mSuccessButton.callOnClick();
-//                }
-           /* if (App.POLICE_SWIPE == 0) {
-                //播放音频提示文件
-                //audioPlayUtils = new AudioPlayUtils(this, R.raw.qdlgjsk);
-                //audioPlayUtils.play();
-                swipeCard(2);
-                return;
-            } else {
-                if (App.DRIVER_SWIPE == 0) {
-                    audioPlayUtils = new AudioPlayUtils(this, R.raw.qjsysk);
-                    audioPlayUtils.play();
-                    swipeCard(3);
-                    return;
-                } else {
-                    ToastUtils.showLong("认证成功，请输入车辆信息");
-                    Intent intent = new Intent(AuthCardActivity.this, InputCarInfoActivity.class);
-                    startActivity(intent);
-                }
-            }*/
-//        }
-
     }
 
 
@@ -446,6 +419,24 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             App.UPLOAD_STEP = 1;
             startService(intentService);
         }
+    }
+
+    @Override
+    public void showdriverInfo(DriverInfo driverInfo) {
+        if (driverInfo!=null){
+            if (CarTravelHelper.carTravelRecord != null) {
+                CarTravelHelper.carTravelRecord.setWLJSYKH(car_num);
+                CarTravelHelper.carTravelRecord.setWLJSYSJ(new Date());
+                CarTravelHelper.carTravelRecord.setJSYXM(driverInfo.getName());
+                CarTravelHelper.carTravelRecord.setCLHP(driverInfo.getCar_number());
+                CarTravelHelper.carTravelRecord.setCLLX(driverInfo.getCar_type());
+                CarTravelHelper.carTravelRecord.setJSYSQBM(driverInfo.getPrison_area());
+                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+            }
+        }
+        //上传主信息记录
+        App.UPLOAD_STEP = 1;
+        startService(intentService);
     }
 
     Runnable runnable = new Runnable() {

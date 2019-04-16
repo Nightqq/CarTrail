@@ -46,25 +46,23 @@ public class CarTravelRecord {
     @JSONField(name = "DLGJ_LYBM")
     private String DLGJ_LYBM;
 
-    @JSONField(name = "WLJSYKH")
+    @JSONField(name = "WLJSYKH")//卡号
     private String WLJSYKH = "";
-    @JSONField(name = "WLJSYSJ")
+    @JSONField(name = "WLJSYSJ")//时间
     private Date WLJSYSJ = new Date();
-    @JSONField(name = "CLHP")
+    @JSONField(name = "CLHP")//车辆号牌
     private String CLHP = "";
-    @JSONField(name = "CLLX")
+    @JSONField(name = "CLLX")//车辆类型
     private String CLLX ="";
-    @JSONField(name = "JSYXM")
+    @JSONField(name = "JSYXM")//姓名
     private String JSYXM ="";
-    @JSONField(name = "JSYXB")
+    @JSONField(name = "JSYXB")//性别
     private String JSYXB ="";
-    @JSONField(name = "JRSY")
+    @JSONField(name = "JRSY")//进入事由
     private String JRSY ="";
-
-    @JSONField(name = "JSYSFZ")
+    @JSONField(name = "JSYSFZ")//驾驶员身份证
     private String JSYSFZ ="";
-
-    @JSONField(name = "JSYSQBM")
+    @JSONField(name = "JSYSQBM")//驾驶员所去部门
     private String JSYSQBM ="";
 
     //安装

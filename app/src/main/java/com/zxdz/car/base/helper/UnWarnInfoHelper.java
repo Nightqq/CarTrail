@@ -39,6 +39,14 @@ public class UnWarnInfoHelper {
         }
     }
 
+    public static void setTrue(){
+        List<UnWarnInfo> warnInfoListFromDB = getWarnInfoListFromDB();
+        for (UnWarnInfo unWarnInfo : warnInfoListFromDB) {
+            unWarnInfo.setFlag(true);
+            saveWarnInfoToDB(unWarnInfo);
+        }
+    }
+
     public static void saveWarnInfoListToDB(List<UnWarnInfo> list) {
         if (list != null) {
             for (UnWarnInfo info : list) {

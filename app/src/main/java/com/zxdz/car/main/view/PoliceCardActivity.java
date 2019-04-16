@@ -22,6 +22,7 @@ import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
+import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
 import com.zxdz.car.main.service.UploadDataService;
@@ -275,6 +276,11 @@ public class PoliceCardActivity extends BaseActivity<PersionInfoPresenter> imple
                 handler.postDelayed(runnable, 2000);
             }
         }
+    }
+
+    @Override
+    public void showdriverInfo(DriverInfo driverInfo) {
+
     }
 
     Runnable runnable = new Runnable() {

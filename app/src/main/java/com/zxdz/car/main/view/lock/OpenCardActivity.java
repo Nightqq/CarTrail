@@ -24,6 +24,7 @@ import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
+import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
@@ -301,6 +302,11 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         }
         startService(intentService);
         finish();
+    }
+
+    @Override
+    public void showdriverInfo(DriverInfo driverInfo) {
+
     }
 
     @Override

@@ -85,12 +85,14 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==1111){
+            LogUtils.a("开始初始化");
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#48D9B2"));
             initDialog.setTitleText("控制器初始化");
             initDialog.setCancelable(false);
             initDialog.show();
             //请求接口
+            LogUtils.a("getAndroidID",DeviceUtils.getAndroidID());
             mPresenter.initEquipment(DeviceUtils.getAndroidID());
             //TODO,测试代码
             //把本机的编号手动加入，便于测试

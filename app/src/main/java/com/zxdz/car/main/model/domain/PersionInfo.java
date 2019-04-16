@@ -105,4 +105,19 @@ public class PersionInfo implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "PersionInfo{" +
+                "type=" + type +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", depName='" + depName + '\'' +
+                ", alarm='" + alarm + '\'' +
+                ", sfz='" + sfz + '\'' +
+                ", cph='" + cph + '\'' +
+                ", fwbmmc='" + fwbmmc + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

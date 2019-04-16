@@ -98,8 +98,12 @@ public class URLConfig {
         return baseUrl() + "";
     }
 
-    //根据卡号获取人员信息
+    //根据卡号获取民警信息
     public String getGET_PERSION_INFO() {
         return baseUrl() + "action=getinfobykh";
+    }
+    //根据卡号获取民警信息
+    public String getGET_Driver_INFO() {
+        return baseUrl() + "action=getDriverInfoByCard";
     }
 }

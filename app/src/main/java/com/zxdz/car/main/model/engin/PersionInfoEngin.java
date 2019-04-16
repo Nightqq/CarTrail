@@ -6,6 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.zxdz.car.base.model.BaseEngin;
+import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PersionInfoWrapper;
 import com.zxdz.car.main.model.domain.TerminalInfo;
@@ -43,6 +44,13 @@ public class PersionInfoEngin extends BaseEngin {
                 false, false,
                 false);
     }
-
+    public Observable<DriverInfo> getDriverInfo(String cardNumber) {
+        Map<String, String> params = new HashMap<>();
+        params.put("kh", cardNumber);
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.getinstance().getGET_Driver_INFO(), new TypeReference<DriverInfo>() {
+                }.getType(), params,
+                false, false,
+                false);
+    }
 
 }

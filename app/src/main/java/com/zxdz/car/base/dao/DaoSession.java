@@ -14,7 +14,6 @@ import com.zxdz.car.main.model.domain.CardInfo;
 import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.ChangePolice;
 import com.zxdz.car.main.model.domain.ChangePoliceInfo;
-import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PictureInfo;
 import com.zxdz.car.main.model.domain.PoliceInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
@@ -31,7 +30,6 @@ import com.zxdz.car.base.dao.CardInfoDao;
 import com.zxdz.car.base.dao.CarTravelRecordDao;
 import com.zxdz.car.base.dao.ChangePoliceDao;
 import com.zxdz.car.base.dao.ChangePoliceInfoDao;
-import com.zxdz.car.base.dao.DriverInfoDao;
 import com.zxdz.car.base.dao.PictureInfoDao;
 import com.zxdz.car.base.dao.PoliceInfoDao;
 import com.zxdz.car.base.dao.PoliceInfoAllDao;
@@ -57,7 +55,6 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig carTravelRecordDaoConfig;
     private final DaoConfig changePoliceDaoConfig;
     private final DaoConfig changePoliceInfoDaoConfig;
-    private final DaoConfig driverInfoDaoConfig;
     private final DaoConfig pictureInfoDaoConfig;
     private final DaoConfig policeInfoDaoConfig;
     private final DaoConfig policeInfoAllDaoConfig;
@@ -74,7 +71,6 @@ public class DaoSession extends AbstractDaoSession {
     private final CarTravelRecordDao carTravelRecordDao;
     private final ChangePoliceDao changePoliceDao;
     private final ChangePoliceInfoDao changePoliceInfoDao;
-    private final DriverInfoDao driverInfoDao;
     private final PictureInfoDao pictureInfoDao;
     private final PoliceInfoDao policeInfoDao;
     private final PoliceInfoAllDao policeInfoAllDao;
@@ -106,9 +102,6 @@ public class DaoSession extends AbstractDaoSession {
 
         changePoliceInfoDaoConfig = daoConfigMap.get(ChangePoliceInfoDao.class).clone();
         changePoliceInfoDaoConfig.initIdentityScope(type);
-
-        driverInfoDaoConfig = daoConfigMap.get(DriverInfoDao.class).clone();
-        driverInfoDaoConfig.initIdentityScope(type);
 
         pictureInfoDaoConfig = daoConfigMap.get(PictureInfoDao.class).clone();
         pictureInfoDaoConfig.initIdentityScope(type);
@@ -143,7 +136,6 @@ public class DaoSession extends AbstractDaoSession {
         carTravelRecordDao = new CarTravelRecordDao(carTravelRecordDaoConfig, this);
         changePoliceDao = new ChangePoliceDao(changePoliceDaoConfig, this);
         changePoliceInfoDao = new ChangePoliceInfoDao(changePoliceInfoDaoConfig, this);
-        driverInfoDao = new DriverInfoDao(driverInfoDaoConfig, this);
         pictureInfoDao = new PictureInfoDao(pictureInfoDaoConfig, this);
         policeInfoDao = new PoliceInfoDao(policeInfoDaoConfig, this);
         policeInfoAllDao = new PoliceInfoAllDao(policeInfoAllDaoConfig, this);
@@ -160,7 +152,6 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(CarTravelRecord.class, carTravelRecordDao);
         registerDao(ChangePolice.class, changePoliceDao);
         registerDao(ChangePoliceInfo.class, changePoliceInfoDao);
-        registerDao(DriverInfo.class, driverInfoDao);
         registerDao(PictureInfo.class, pictureInfoDao);
         registerDao(PoliceInfo.class, policeInfoDao);
         registerDao(PoliceInfoAll.class, policeInfoAllDao);
@@ -179,7 +170,6 @@ public class DaoSession extends AbstractDaoSession {
         carTravelRecordDaoConfig.clearIdentityScope();
         changePoliceDaoConfig.clearIdentityScope();
         changePoliceInfoDaoConfig.clearIdentityScope();
-        driverInfoDaoConfig.clearIdentityScope();
         pictureInfoDaoConfig.clearIdentityScope();
         policeInfoDaoConfig.clearIdentityScope();
         policeInfoAllDaoConfig.clearIdentityScope();
@@ -213,10 +203,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public ChangePoliceInfoDao getChangePoliceInfoDao() {
         return changePoliceInfoDao;
-    }
-
-    public DriverInfoDao getDriverInfoDao() {
-        return driverInfoDao;
     }
 
     public PictureInfoDao getPictureInfoDao() {

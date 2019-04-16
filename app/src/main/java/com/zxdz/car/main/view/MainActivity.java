@@ -36,6 +36,7 @@ import com.zxdz.car.R;
 import com.zxdz.car.base.helper.AreaHelper;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.helper.TerminalInfoHelper;
+import com.zxdz.car.base.helper.UnWarnInfoHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.UploadInfoContract;
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         WifiUtils.getWifiUtils().closeWifi();
         if (intent != null) {
             String isExit = intent.getStringExtra(TAG_EXIT);
-            if (isExit.equals(TAG_EXIT)) {//退出
+            if (isExit!=null&&isExit.equals(TAG_EXIT)) {//退出
                 int currentVersion = android.os.Build.VERSION.SDK_INT;
                 if (currentVersion > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                     Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -127,7 +128,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                     startActivity(startMain);
                     System.exit(0);
                 }
-            } else if (isExit.equals(TAG_RESTART)) {//重启
+            } else if (isExit!=null&&isExit.equals(TAG_RESTART)) {//重启
                 Intent intent2 = getBaseContext().getPackageManager()
                         .getLaunchIntentForPackage(getBaseContext().getPackageName());
                 PendingIntent restartIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent2, PendingIntent.FLAG_ONE_SHOT);
@@ -303,6 +304,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
         super.onStart();
         App.GravityListener_type = 0;//关闭手持机移动报警
         App.IsNewLS = false;
+        UnWarnInfoHelper.setTrue();//设置所有取消报警为可以上传状态
         uploadDataInfo();
     }
 

@@ -14,114 +14,158 @@ import org.greenrobot.greendao.annotation.Generated;
  * 驾驶员信息
  */
 
-@Entity
+
 public class DriverInfo implements Serializable {
 
     private static final long serialVersionUID = -7060210233212444481L;
 
-    @Id
-    private Long id;
 
-    @JSONField(name = "WLJSYKH")
-    private String WLJSYKH = "";
+    @JSONField(name = "sp_id")
+    private String sp_id = "";
 
-    @JSONField(name = "WLJSYSJ")
-    private Date WLJSYSJ = new Date();
+    @JSONField(name = "外来人员姓名")
+    private String name="";
 
-    @JSONField(name = "JSYXM")
-    private String JSYXM ="";
+    @JSONField(name = "前往监区")
+    private String prison_area ="";
 
-    @JSONField(name = "JSYXB")
-    private String JSYXB ="";
+    @JSONField(name = "进监事由")
+    private String in_reason ="";
 
-    @JSONField(name = "JRSY")
-    private String JRSY ="";
+    @JSONField(name = "dl_emp_id")
+    private String dl_emp_id ="";
 
-    @JSONField(name = "JSYSFZ")
-    private String JSYSFZ ="";
+    @JSONField(name = "带领民警")
+    private String person_name ="";
 
-    @JSONField(name = "JSYSQBM")
-    private String JSYSQBM ="";
+    @JSONField(name = "带领民警警号")
+    private String prison_JH ="";
 
-    @Generated(hash = 1543798845)
-    public DriverInfo(Long id, String WLJSYKH, Date WLJSYSJ, String JSYXM,
-            String JSYXB, String JRSY, String JSYSFZ, String JSYSQBM) {
-        this.id = id;
-        this.WLJSYKH = WLJSYKH;
-        this.WLJSYSJ = WLJSYSJ;
-        this.JSYXM = JSYXM;
-        this.JSYXB = JSYXB;
-        this.JRSY = JRSY;
-        this.JSYSFZ = JSYSFZ;
-        this.JSYSQBM = JSYSQBM;
+    @JSONField(name = "民警部门")
+    private String prison_BM ="";
+    @JSONField(name = "采集时间")
+    private String CJ_time ="";
+
+    @JSONField(name = "审批时间")
+    private String XP_time ="";
+    @JSONField(name = "车辆类型")
+    private String car_type ="";
+    @JSONField(name = "车牌号码")
+    private String car_number ="";
+
+
+    public String getSp_id() {
+        return this.sp_id;
     }
 
-    @Generated(hash = 2077275369)
-    public DriverInfo() {
+    public void setSp_id(String sp_id) {
+        this.sp_id = sp_id;
     }
 
-    public Long getId() {
-        return this.id;
+    public String getName() {
+        return this.name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getWLJSYKH() {
-        return this.WLJSYKH;
+    public String getPrison_area() {
+        return this.prison_area;
     }
 
-    public void setWLJSYKH(String WLJSYKH) {
-        this.WLJSYKH = WLJSYKH;
+    public void setPrison_area(String prison_area) {
+        this.prison_area = prison_area;
     }
 
-    public Date getWLJSYSJ() {
-        return this.WLJSYSJ;
+    public String getIn_reason() {
+        return this.in_reason;
     }
 
-    public void setWLJSYSJ(Date WLJSYSJ) {
-        this.WLJSYSJ = WLJSYSJ;
+    public void setIn_reason(String in_reason) {
+        this.in_reason = in_reason;
     }
 
-    public String getJSYXM() {
-        return this.JSYXM;
+    public String getDl_emp_id() {
+        return this.dl_emp_id;
     }
 
-    public void setJSYXM(String JSYXM) {
-        this.JSYXM = JSYXM;
+    public void setDl_emp_id(String dl_emp_id) {
+        this.dl_emp_id = dl_emp_id;
     }
 
-    public String getJSYXB() {
-        return this.JSYXB;
+    public String getPerson_name() {
+        return this.person_name;
     }
 
-    public void setJSYXB(String JSYXB) {
-        this.JSYXB = JSYXB;
+    public void setPerson_name(String person_name) {
+        this.person_name = person_name;
     }
 
-    public String getJRSY() {
-        return this.JRSY;
+    public String getPrison_JH() {
+        return this.prison_JH;
     }
 
-    public void setJRSY(String JRSY) {
-        this.JRSY = JRSY;
+    public void setPrison_JH(String prison_JH) {
+        this.prison_JH = prison_JH;
     }
 
-    public String getJSYSFZ() {
-        return this.JSYSFZ;
+    public String getPrison_BM() {
+        return this.prison_BM;
     }
 
-    public void setJSYSFZ(String JSYSFZ) {
-        this.JSYSFZ = JSYSFZ;
+    public void setPrison_BM(String prison_BM) {
+        this.prison_BM = prison_BM;
     }
 
-    public String getJSYSQBM() {
-        return this.JSYSQBM;
+    public String getCJ_time() {
+        return this.CJ_time;
     }
 
-    public void setJSYSQBM(String JSYSQBM) {
-        this.JSYSQBM = JSYSQBM;
+    public void setCJ_time(String CJ_time) {
+        this.CJ_time = CJ_time;
     }
 
+    public String getXP_time() {
+        return this.XP_time;
+    }
+
+    public void setXP_time(String XP_time) {
+        this.XP_time = XP_time;
+    }
+
+    public String getCar_type() {
+        return this.car_type;
+    }
+
+    public void setCar_type(String car_type) {
+        this.car_type = car_type;
+    }
+
+    public String getCar_number() {
+        return this.car_number;
+    }
+
+    public void setCar_number(String car_number) {
+        this.car_number = car_number;
+    }
+
+
+    @Override
+    public String toString() {
+        return "DriverInfo{" +
+                ", sp_id='" + sp_id + '\'' +
+                ", name='" + name + '\'' +
+                ", prison_area='" + prison_area + '\'' +
+                ", in_reason='" + in_reason + '\'' +
+                ", dl_emp_id='" + dl_emp_id + '\'' +
+                ", person_name='" + person_name + '\'' +
+                ", prison_JH='" + prison_JH + '\'' +
+                ", prison_BM='" + prison_BM + '\'' +
+                ", CJ_time='" + CJ_time + '\'' +
+                ", XP_time='" + XP_time + '\'' +
+                ", car_type='" + car_type + '\'' +
+                ", car_number='" + car_number + '\'' +
+                '}';
+    }
 }

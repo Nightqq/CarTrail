@@ -3,7 +3,7 @@ package com.zxdz.car.base.helper;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
-
+import com.zxdz.car.main.model.domain.DriverInfo;
 
 
 public class ResultInfoHelper {
@@ -12,7 +12,6 @@ public class ResultInfoHelper {
             callback.resultInfoEmpty(HttpConfig.NET_ERROR);
             return;
         }
-
         if (resultInfo.code == HttpConfig.STATUS_OK) {
             callback.resultInfoOk();
         } else {

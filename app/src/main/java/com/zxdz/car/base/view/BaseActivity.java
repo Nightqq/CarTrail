@@ -503,8 +503,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                 case 50://刷卡开锁后状态值为50
                     App.GravityListener_type = 1;//开启手持机移动报警
                     App.UPLOAD_STEP = 5;
-                    intent = new Intent(this, OpenCardActivity.class);
-                    intent.putExtra("blue_step", 1);
+                    intent = new Intent(this, InstallConfirmActivity.class);
+                    intent.putExtra("confirm_step", 2);
                     startActivity(intent);
                     finish();
                     break;
@@ -517,7 +517,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     startActivity(intent);
                     finish();
                     break;
-
             }
         }
     }

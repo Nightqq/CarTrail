@@ -40,8 +40,11 @@ public class SettingInfoPresenter extends BasePresenter<SettingInfoEngin, Settin
             @Override
             public void onNext(final ResultInfo<TerminalInfo> resultInfo) {
                 if (resultInfo != null) {
+                    LogUtils.a(resultInfo.message);
+                    LogUtils.a(resultInfo.data.toString());
                     mView.loadInitInfo(resultInfo.data);
                 }else{
+                    LogUtils.a("返回空");
                     mView.showNoNet();
                 }
             }

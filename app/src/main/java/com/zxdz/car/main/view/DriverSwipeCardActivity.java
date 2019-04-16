@@ -21,6 +21,7 @@ import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
+import com.zxdz.car.main.model.domain.DriverInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
@@ -223,6 +224,11 @@ public class DriverSwipeCardActivity extends BaseActivity<PersionInfoPresenter> 
 
     @Override
     public void showPoliceInfoAll(PoliceInfoAll persionInfo) {
+
+    }
+
+    @Override
+    public void showdriverInfo(DriverInfo driverInfo) {
 
     }
 
