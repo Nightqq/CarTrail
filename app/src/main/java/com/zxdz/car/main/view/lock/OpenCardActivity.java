@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.jakewharton.rxbinding.view.RxView;
 import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
@@ -25,22 +23,24 @@ import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.contract.PersionInfoContract;
 import com.zxdz.car.main.model.domain.DriverInfo;
+import com.zxdz.car.main.model.domain.OpenLockInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PoliceInfoAll;
 import com.zxdz.car.main.presenter.PersionInfoPresenter;
+import com.zxdz.car.main.service.RequestOpenLockService;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
-import com.zxdz.car.main.utils.ToastUtil;
+import com.zxdz.car.main.utils.UploadInfoUtil;
 import com.zxdz.car.main.view.CarTrailActivity;
 import com.zxdz.car.main.view.RemoveEquipmentActivity;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import rx.functions.Action1;
+
+import static com.zxdz.car.main.service.RequestOpenLockService.port;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> implements PersionInfoContract.View {
@@ -78,14 +78,13 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             LogUtils.a("mHandler" + obj);
             if (obj.equals("开锁成功")) {
                 if (msg.what == 2) {
-                    mHandler.removeCallbacks(runnable3);
                     if (step == 1) {
                         App.GravityListener_type = 1;//开启手持机移动报警
                         Intent intent2 = new Intent(OpenCardActivity.this, CarTrailActivity.class);
                         intent2.putExtra("car_trail", 2);
                         startActivity(intent2);
                         //根据读取的卡号查询人员信息
-                        if (App.Lock_car_num==1){//第一次离开装卸区
+                        if (App.Lock_car_num == 1) {//第一次离开装卸区
                             savedate(2);
                             Log.e("requestinfo", "请求干警信息");
                             mPresenter.getPersionInfo(cardNum);
@@ -113,11 +112,11 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     openWorking.setText("非法开锁，报警中");
                 }*/
             } else if (obj.equals("上锁成功")) {
-                    openWorking.setText("工作中,工作完成后请刷卡");
-                    if (tag) {
-                        callPolice(2,"强拆锁");
-                    }
-                    flag = true;
+                openWorking.setText("工作中,工作完成后请刷卡");
+                if (tag) {
+                    callPolice(2, "强拆锁");
+                }
+                flag = true;
             } else if (obj.equals("失败成功")) {
                 openlock(2);
             }
@@ -126,6 +125,8 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
     private int step;
     private boolean statecallpolice = false;
+    private UploadInfoUtil uploadInfoUtil;
+    private Intent intent = null;
 
     @Override
     public int getLayoutId() {
@@ -142,22 +143,11 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         if (bundle != null) {
             step = bundle.getInt("blue_step");
         }
-        if (step==2){
+        if (step == 2) {
             openWorking.setText("滞留区等待中，结束后请刷卡开锁");
         }
         AudioPlayUtils.getAudio(this, R.raw.zpscwc_qdcmjjkzqfhyc).play();//照片上传完成，请带车民警将控制器放回原处
-        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
-            @Override
-            public void receiveCardID(String str) {
-                if (statecallpolice) {//刷完卡解除报警
-                    AudioPlayUtils.getAudio(OpenCardActivity.this,0).stop();
-                    statecallpolice = false;
-                    callPolice(2,"强拆锁");
-                }else {
-                    showCardNumber(str);
-                }
-            }
-        });
+        requestOpenLock(true);//true为使用远程开锁
         //开启强拆报警监测
         BlueToothHelper.getBlueHelp().openCallPolices(new BlueToothUtils.openCallPoliceListener() {
             @Override
@@ -166,38 +156,75 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     statecallpolice = true;
                     //policeingunclick();
                     AudioPlayUtils.getAudio(OpenCardActivity.this, R.raw.baojing).play(true);
-                    callPolice(1,"强拆锁");
+                    callPolice(1, "强拆锁");
                 }
             }
         });
         mPresenter = new PersionInfoPresenter(this, this);
         intentService = new Intent(this, UploadDataService.class);
-        //上传主信息记录
-        //App.UPLOAD_STEP = 5;
-        //startService(intentService);
-       /* RxView.clicks(btnNextSuccess).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                ToastUtils.showLong("刷卡成功，开始开锁");
-                Intent intent = new Intent(OpenCardActivity.this, BlueToothActivity.class);
-                intent.putExtra("car_trail", cardNum);
-                OpenCardActivity.this.setResult(RESULT_OK, intent);
-                OpenCardActivity.this.finish();
-            }
-        });*/
-
-        //模拟测试步骤，后期删除
-        // layoutNext.setVisibility(View.VISIBLE);
     }
+
+    private void requestOpenLock(final boolean isrequest) {//请求开锁
+        BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
+            @Override
+            public void receiveCardID(final String str) {
+                if (statecallpolice) {//刷完卡解除报警
+                    AudioPlayUtils.getAudio(OpenCardActivity.this, 0).stop();
+                    statecallpolice = false;
+                    callPolice(2, "强拆锁");
+                } else {
+                    if (isrequest) {
+                        checkOpenLock("请求远程开锁中。。。");
+                        RequestOpenLockService.listener = new RequestOpenLockService.RequestOpenLockListenerserve() {
+                            @Override
+                            public void successful() {
+                                checkOpenLock("请求远程开锁成功！");
+                                showCardNumber(str);
+                            }
+                        };
+                        if (intent == null) {
+                            intent = new Intent(OpenCardActivity.this, RequestOpenLockService.class);
+                        }
+                        startService(intent);
+                        final OpenLockInfo openLockInfo = new OpenLockInfo();
+                        openLockInfo.setIP(App.phoneIP);
+                        openLockInfo.setPort(port + "");
+                        if (uploadInfoUtil == null) {
+                            uploadInfoUtil = new UploadInfoUtil(OpenCardActivity.this);
+                        }
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                uploadInfoUtil
+                                        .uploadRequestOpenLock(openLockInfo, new UploadInfoUtil.RequestOpenLockListener() {
+                                            @Override
+                                            public void successful() {
+//                                    RequestOpenLockService.listener = new RequestOpenLockService.RequestOpenLockListenerserve() {
+//                                        @Override
+//                                        public void successful() {
+//                                            showCardNumber(str);
+//                                        }
+//                                    };
+                                                //startService( new Intent(OpenCardActivity.this,RequestOpenLockService.class));
+                                            }
+                                        });
+                            }
+                        }, 1000);
+                    } else {
+                        showCardNumber(str);
+                    }
+                }
+            }
+        });
+    }
+
+    ;
 
     public void showCardNumber(String carNumber) {
         carNumber = carNumber.replaceAll(" ", "");
         if (judgment()) {
             return;
         }
-//        if (audioPlayUtils != null) {
-//            audioPlayUtils.stop();
-//
         tvCarNumber.setText(carNumber);
         /*String getname = getname(carNumber);
         tvCarName.setText(getname);*/
@@ -229,14 +256,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             }
         });
     }
-
-    Runnable runnable3 = new Runnable() {
-        @Override
-        public void run() {
-            LogUtils.a("定时重新开锁");
-            openlock(2);
-        }
-    };
 
     public void checkOpenLock(String msg) {
         try {
@@ -279,6 +298,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         // TODO: 2017\12\22 0022  //是否已经安装设备，没有则语音提示请安装
         return false;
     }
+
     @Override
     public void hideStateView() {
 
@@ -291,7 +311,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
     @Override
     public void showPoliceInfoAll(PoliceInfoAll persionInfo) {
-        //mHandler.removeCallbacks(mRunnable);
         if (persionInfo != null) {
             if (CarTravelHelper.carTravelRecord != null) {
                 CarTravelHelper.carTravelRecord.setDLGJ_KSXM(persionInfo.getDLGJ_XM());
@@ -330,5 +349,12 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        intent = null;
+        initDialog.dismiss();
     }
 }

@@ -138,6 +138,8 @@
         <service android:name=".main.service.UploadDataService" />
         <service android:name=".main.service.AppCloseLister" />
         <service android:name=".main.service.RemindService" />
+        <service android:name=".main.service.RequestOpenLockService"/>
+
 
         <activity android:name=".main.view.lock.OpenLockActivity" />
         <activity android:name=".main.view.lock.CameraActivity" />

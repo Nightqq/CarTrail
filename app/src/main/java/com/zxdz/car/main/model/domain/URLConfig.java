@@ -94,6 +94,11 @@ public class URLConfig {
         return baseUrl() + "action=canelbj&BJ_ID=";
     }
 
+    //请求远程开锁
+    public String getUPDATE_OPENLOCK_INFO_URL(){
+        return baseUrl() + "action=remoteunlock";
+    }
+
     public String getUPDATE_CHANGE_INFO_URL() {
         return baseUrl() + "";
     }

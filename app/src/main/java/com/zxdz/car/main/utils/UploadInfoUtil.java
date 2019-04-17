@@ -20,6 +20,7 @@ import com.zxdz.car.base.helper.WarnInfoHelper;
 import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.ChangePoliceInfo;
 import com.zxdz.car.main.model.domain.Constant;
+import com.zxdz.car.main.model.domain.OpenLockInfo;
 import com.zxdz.car.main.model.domain.PictureInfo;
 import com.zxdz.car.main.model.domain.TrailPointInfo;
 import com.zxdz.car.main.model.domain.TrailPointInfoWrapper;
@@ -84,6 +85,7 @@ public class UploadInfoUtil {
 
                     @Override
                     public void resultInfoNotOk(String message) {
+                        LogUtils.a("上传数据-resultInfoNotOk", message);
                         LogUtils.a("上传数据-resultInfoNotOk",message);
                         if (CarTravelHelper.carTravelRecord != null && carTravelRecord != CarTravelHelper.carTravelRecord) {
                             CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);
@@ -101,7 +103,7 @@ public class UploadInfoUtil {
                                 LogUtils.a("删除之前的流水数据", carTravelRecord.toString());
                             } else {
                                 App.LSID = new Long(resultInfo.data.getLS_ID());
-                                LogUtils.a("上传返回的流水id", App.LSID );
+                                LogUtils.a("上传返回的流水id", App.LSID);
                             }
                             if (carTravelRecord.getLS_ID() == 0L) {
                                 carTravelRecord.setLS_ID(resultInfo.data.getLS_ID());
@@ -162,7 +164,7 @@ public class UploadInfoUtil {
         if (pictureInfos != null && pictureInfos.size() > 0) {//上传所有有流水id是数据
             LogUtils.a("上传数据-未上传照片个数" + pictureInfos.size());
             for (final PictureInfo pictureInfo1 : pictureInfos) {
-                LogUtils.a("上传数据—准备上传照片",pictureInfo1.toString());
+                LogUtils.a("上传数据—准备上传照片", pictureInfo1.toString());
                 Subscription subscribe = mEngin.uploadPicture(pictureInfo1).subscribe(new Subscriber<ResultInfo>() {
                     @Override
                     public void onCompleted() {
@@ -171,7 +173,7 @@ public class UploadInfoUtil {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e!=null){
+                        if (e != null) {
                             LogUtils.a("上传数据-准备上传照片失败", e.getMessage().toString());
                         }
                     }
@@ -179,7 +181,7 @@ public class UploadInfoUtil {
                     @Override
                     public void onNext(ResultInfo resultInfo) {
                         if (resultInfo != null && resultInfo.message.equals("拍照成功")) {
-                            LogUtils.a("上传数据-照片成功"+resultInfo.message);
+                            LogUtils.a("上传数据-照片成功" + resultInfo.message);
                             TakePictureHelper.deleteWarnInfoInDB(pictureInfo1);
                             List<PictureInfo> pictureInfoii = TakePictureHelper.getpictureInfoListHaveLSID();
                             if (pictureInfoii != null && pictureInfoii.size() > 0) {
@@ -287,7 +289,7 @@ public class UploadInfoUtil {
                     @Override
                     public void onNext(final ResultInfo resultInfo) {
                         LogUtils.a("取消报警信息上传完成--->" + resultInfo.message);
-                        if (resultInfo!=null&&resultInfo.message.equals("更新成功")){
+                        if (resultInfo != null && resultInfo.message.equals("更新成功")) {
                             LogUtils.a(resultInfo.message);
                             UnWarnInfoHelper.deleteWarnInfoInDB(warnInfos);
                         }
@@ -296,6 +298,36 @@ public class UploadInfoUtil {
                 mSubscriptions.add(subscribe);
             }
         }
+    }
+    //远程开锁
+    public void uploadRequestOpenLock(OpenLockInfo openLockInfo, RequestOpenLockListener lockListener) {
+        listener = lockListener;
+        Subscription subscribe = mEngin.uploadRequestOpenLock(openLockInfo).subscribe(new Subscriber<ResultInfo>() {
+            @Override
+            public void onCompleted() {
+                LogUtils.e(TAG, "请求远程开锁上传完成--->");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.e(TAG, "onerror"+e.getMessage());
+            }
+
+            @Override
+            public void onNext(ResultInfo resultInfo) {
+                if (resultInfo.code == HttpConfig.STATUS_OK) {
+                    LogUtils.e(TAG, "请求远程开锁上传完成--->");
+                    listener.successful();
+                }
+            }
+        });
+        mSubscriptions.add(subscribe);
+
+    }
+
+    private RequestOpenLockListener listener = null;
+    public interface RequestOpenLockListener{
+        void successful();
     }
 
     public void uploadChangePoliceInfo(List<ChangePoliceInfo> changePoliceInfos) {

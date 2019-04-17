@@ -13,6 +13,7 @@ import com.zxdz.car.App;
 import com.zxdz.car.base.model.BaseEngin;
 import com.zxdz.car.main.model.domain.CarTravelRecord;
 import com.zxdz.car.main.model.domain.ChangePoliceInfo;
+import com.zxdz.car.main.model.domain.OpenLockInfo;
 import com.zxdz.car.main.model.domain.PersionInfo;
 import com.zxdz.car.main.model.domain.PictureInfo;
 import com.zxdz.car.main.model.domain.TrailPointInfoWrapper;
@@ -98,6 +99,18 @@ public class UploadInfoEngin extends BaseEngin {
                 }.getType(), params,
                 false, false,
                 false);
+    }
+    //远程开锁
+    public Observable<ResultInfo> uploadRequestOpenLock(OpenLockInfo openLockInfo){
+        Map<String, String> params = new HashMap<>();
+//        if (openLockInfo != null) {
+//            params.put("remoteunlock", JSON.toJSONString(openLockInfo));
+//
+//            LogUtils.a("远程开锁", JSON.toJSONString(openLockInfo));
+//            LogUtils.a("远程开锁", openLockInfo.getIP()+openLockInfo.getPort());
+//        }
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.getinstance().getUPDATE_OPENLOCK_INFO_URL()+"&IP="+openLockInfo.getIP()+"&port="+openLockInfo.getPort(),new TypeReference<ResultInfo>(){
+        }.getType(),params,false,false,false);
     }
 
     public Observable<ResultInfo> uploadChangePoliceInfo(List<ChangePoliceInfo> changePoliceInfos) {
