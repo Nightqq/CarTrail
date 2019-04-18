@@ -1,8 +1,11 @@
 package com.zxdz.car.main.view.setting;
 
 import android.content.SharedPreferences;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+
 
 import com.blankj.utilcode.util.LogUtils;
 import com.suke.widget.SwitchButton;
@@ -27,6 +30,8 @@ public class RemoteOpenLockActivity extends BaseActivity implements SwitchButton
         set_1 = (SwitchButton) findViewById(R.id.start_set_1);
         set_2 = (SwitchButton) findViewById(R.id.start_set_2);
         set_3 = (SwitchButton) findViewById(R.id.start_set_3);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.open_lock_toolbar);
+        basetoobar(toolbar,"开锁设置");
 
         set_1.setOnCheckedChangeListener(this);
         set_2.setOnCheckedChangeListener(this);
@@ -115,5 +120,8 @@ public class RemoteOpenLockActivity extends BaseActivity implements SwitchButton
             }
         }
         return false;
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

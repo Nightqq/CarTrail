@@ -63,7 +63,6 @@ public class InitReturnActivity extends BaseActivity {
                 public void receiveCardID(String str) {
                     LogUtils.i("111管理员刷卡返回",str);
                     //调用刷卡刷管理员卡开锁
-                    List<CardInfo> cardInfoListFromDB = CardHelper.getCardInfoListFromDB();
                     if (CardHelper.isAvailableInDB(str.replaceAll(" " ,""))){//如果数据库中存在
                         LogUtils.i("111数据库存在该管理员");
                         closePolice();

@@ -8,7 +8,7 @@
     tools:context="com.zxdz.car.main.view.setting.RemoteOpenLockActivity"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar
-        android:id="@+id/server_ip_toolbar"
+        android:id="@+id/open_lock_toolbar"
         style="@style/Base.Widget.AppCompat.SearchView.ActionBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_high"

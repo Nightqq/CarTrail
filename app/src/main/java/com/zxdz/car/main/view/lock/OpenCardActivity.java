@@ -1,6 +1,7 @@
 package com.zxdz.car.main.view.lock;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -127,6 +128,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     private boolean statecallpolice = false;
     private UploadInfoUtil uploadInfoUtil;
     private Intent intent = null;
+    private boolean isOpenAble = true;
 
     @Override
     public int getLayoutId() {
@@ -147,7 +149,10 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             openWorking.setText("滞留区等待中，结束后请刷卡开锁");
         }
         AudioPlayUtils.getAudio(this, R.raw.zpscwc_qdcmjjkzqfhyc).play();//照片上传完成，请带车民警将控制器放回原处
-        requestOpenLock(true);//true为使用远程开锁
+
+        SharedPreferences sp = getSharedPreferences("OpenLockStyle", MODE_PRIVATE);
+        int open_style = sp.getInt("open_style", 2);
+        requestOpenLock(open_style);
         //开启强拆报警监测
         BlueToothHelper.getBlueHelp().openCallPolices(new BlueToothUtils.openCallPoliceListener() {
             @Override
@@ -164,7 +169,17 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         intentService = new Intent(this, UploadDataService.class);
     }
 
-    private void requestOpenLock(final boolean isrequest) {//true为请求远程开锁
+    private void requestOpenLock(final int isrequest) {//true为请求远程开锁
+        if (isrequest == 3 && step == 1){
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isOpenAble = false;
+                }
+            }, 300000);
+        }else {
+            isOpenAble = false;
+        }
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(final String str) {
@@ -173,7 +188,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     statecallpolice = false;
                     callPolice(2, "强拆锁");
                 } else {
-                    if (isrequest) {
+                    if (isrequest == 1) {
                         checkOpenLock("请求远程开锁中。。。");
                         RequestOpenLockService.listener = new RequestOpenLockService.RequestOpenLockListenerserve() {
                             @Override
@@ -210,7 +225,10 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                                         });
                             }
                         }, 1000);
-                    } else {
+                    } else if (isrequest == 2){
+                        showCardNumber(str);
+                    }else {
+                        AudioPlayUtils.getAudio(OpenCardActivity.this,R.raw.qdcmjsc).play();
                         showCardNumber(str);
                     }
                 }
@@ -296,7 +314,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
 
     private boolean judgment() {
         // TODO: 2017\12\22 0022  //是否已经安装设备，没有则语音提示请安装
-        return false;
+        return isOpenAble;
     }
 
     @Override
