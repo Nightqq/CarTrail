@@ -60,7 +60,7 @@ public class AudioPlayUtils {
     class PlayThread implements Runnable {
         @Override
         public void run() {
-            if (isPLayComplete) {
+            if (audioManager!=null&&isPLayComplete) {
                 if (audioManager.isSpeakerphoneOn()) {
                     //  LogUtils.e("扬声器打开了1");
                 } else {

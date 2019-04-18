@@ -68,7 +68,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     public static int i=0;
-    @OnClick({R.id.layout_open_lock,R.id.Setting_init_again,R.id.exit,R.id.setting_information,R.id.setting_admin, R.id.setting_area, R.id.setting_swipe_card, R.id.setting_server_ip, R.id.setting_change, R.id.layout_gps_upload_interval,R.id.layout_networt_status})
+    @OnClick({R.id.layout_open_lock, R.id.layout_unload_area,R.id.Setting_init_again,R.id.exit,R.id.setting_information,R.id.setting_admin, R.id.setting_area, R.id.setting_swipe_card, R.id.setting_server_ip, R.id.setting_change, R.id.layout_gps_upload_interval,R.id.layout_networt_status})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_admin:
@@ -87,7 +87,10 @@ public class SettingActivity extends BaseActivity {
                 startact(this, ServerIPActivity.class);
                 break;
             case R.id.layout_open_lock:
-               
+
+                break;
+            case R.id.layout_unload_area:
+                startact(this, LoadingAreaActivity.class);
                 break;
             case R.id.setting_change:
                 startact(this, StartSettingActivity.class);

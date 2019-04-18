@@ -57,23 +57,24 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         public final static Property DLGJ_SCXM = new Property(30, String.class, "DLGJ_SCXM", false, "DLGJ__SCXM");
         public final static Property DLGJ_SCJH = new Property(31, String.class, "DLGJ_SCJH", false, "DLGJ__SCJH");
         public final static Property DLGJ_SCBM = new Property(32, String.class, "DLGJ_SCBM", false, "DLGJ__SCBM");
-        public final static Property GJPZSJ = new Property(33, java.util.Date.class, "GJPZSJ", false, "GJPZSJ");
-        public final static Property GJPZPNG = new Property(34, String.class, "GJPZPNG", false, "GJPZPNG");
-        public final static Property DLGJ_KSKH = new Property(35, String.class, "DLGJ_KSKH", false, "DLGJ__KSKH");
-        public final static Property DLGJ_KSSJ = new Property(36, java.util.Date.class, "DLGJ_KSSJ", false, "DLGJ__KSSJ");
-        public final static Property KS_ADDRESS = new Property(37, String.class, "KS_ADDRESS", false, "KS__ADDRESS");
-        public final static Property DLGJ_KSXM = new Property(38, String.class, "DLGJ_KSXM", false, "DLGJ__KSXM");
-        public final static Property DLGJ_KSJH = new Property(39, String.class, "DLGJ_KSJH", false, "DLGJ__KSJH");
-        public final static Property DLGJ_KSBM = new Property(40, String.class, "DLGJ_KSBM", false, "DLGJ__KSBM");
-        public final static Property DLGJ_JHKH = new Property(41, String.class, "DLGJ_JHKH", false, "DLGJ__JHKH");
-        public final static Property DLGJ_JHSJ = new Property(42, java.util.Date.class, "DLGJ_JHSJ", false, "DLGJ__JHSJ");
-        public final static Property DLGJ_JHXM = new Property(43, String.class, "DLGJ_JHXM", false, "DLGJ__JHXM");
-        public final static Property DLGJ_JHJH = new Property(44, String.class, "DLGJ_JHJH", false, "DLGJ__JHJH");
-        public final static Property DLGJ_JHBM = new Property(45, String.class, "DLGJ_JHBM", false, "DLGJ__JHBM");
-        public final static Property GLY_GHQRSJ = new Property(46, java.util.Date.class, "GLY_GHQRSJ", false, "GLY__GHQRSJ");
-        public final static Property SJJHBZ = new Property(47, int.class, "SJJHBZ", false, "SJJHBZ");
-        public final static Property BZ = new Property(48, String.class, "BZ", false, "BZ");
-        public final static Property ImageUrl = new Property(49, String.class, "imageUrl", false, "IMAGE_URL");
+        public final static Property UnloadArea = new Property(33, String.class, "UnloadArea", false, "UNLOAD_AREA");
+        public final static Property GJPZSJ = new Property(34, java.util.Date.class, "GJPZSJ", false, "GJPZSJ");
+        public final static Property GJPZPNG = new Property(35, String.class, "GJPZPNG", false, "GJPZPNG");
+        public final static Property DLGJ_KSKH = new Property(36, String.class, "DLGJ_KSKH", false, "DLGJ__KSKH");
+        public final static Property DLGJ_KSSJ = new Property(37, java.util.Date.class, "DLGJ_KSSJ", false, "DLGJ__KSSJ");
+        public final static Property KS_ADDRESS = new Property(38, String.class, "KS_ADDRESS", false, "KS__ADDRESS");
+        public final static Property DLGJ_KSXM = new Property(39, String.class, "DLGJ_KSXM", false, "DLGJ__KSXM");
+        public final static Property DLGJ_KSJH = new Property(40, String.class, "DLGJ_KSJH", false, "DLGJ__KSJH");
+        public final static Property DLGJ_KSBM = new Property(41, String.class, "DLGJ_KSBM", false, "DLGJ__KSBM");
+        public final static Property DLGJ_JHKH = new Property(42, String.class, "DLGJ_JHKH", false, "DLGJ__JHKH");
+        public final static Property DLGJ_JHSJ = new Property(43, java.util.Date.class, "DLGJ_JHSJ", false, "DLGJ__JHSJ");
+        public final static Property DLGJ_JHXM = new Property(44, String.class, "DLGJ_JHXM", false, "DLGJ__JHXM");
+        public final static Property DLGJ_JHJH = new Property(45, String.class, "DLGJ_JHJH", false, "DLGJ__JHJH");
+        public final static Property DLGJ_JHBM = new Property(46, String.class, "DLGJ_JHBM", false, "DLGJ__JHBM");
+        public final static Property GLY_GHQRSJ = new Property(47, java.util.Date.class, "GLY_GHQRSJ", false, "GLY__GHQRSJ");
+        public final static Property SJJHBZ = new Property(48, int.class, "SJJHBZ", false, "SJJHBZ");
+        public final static Property BZ = new Property(49, String.class, "BZ", false, "BZ");
+        public final static Property ImageUrl = new Property(50, String.class, "imageUrl", false, "IMAGE_URL");
     }
 
 
@@ -122,23 +123,24 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
                 "\"DLGJ__SCXM\" TEXT," + // 30: DLGJ_SCXM
                 "\"DLGJ__SCJH\" TEXT," + // 31: DLGJ_SCJH
                 "\"DLGJ__SCBM\" TEXT," + // 32: DLGJ_SCBM
-                "\"GJPZSJ\" INTEGER," + // 33: GJPZSJ
-                "\"GJPZPNG\" TEXT," + // 34: GJPZPNG
-                "\"DLGJ__KSKH\" TEXT," + // 35: DLGJ_KSKH
-                "\"DLGJ__KSSJ\" INTEGER," + // 36: DLGJ_KSSJ
-                "\"KS__ADDRESS\" TEXT," + // 37: KS_ADDRESS
-                "\"DLGJ__KSXM\" TEXT," + // 38: DLGJ_KSXM
-                "\"DLGJ__KSJH\" TEXT," + // 39: DLGJ_KSJH
-                "\"DLGJ__KSBM\" TEXT," + // 40: DLGJ_KSBM
-                "\"DLGJ__JHKH\" TEXT," + // 41: DLGJ_JHKH
-                "\"DLGJ__JHSJ\" INTEGER," + // 42: DLGJ_JHSJ
-                "\"DLGJ__JHXM\" TEXT," + // 43: DLGJ_JHXM
-                "\"DLGJ__JHJH\" TEXT," + // 44: DLGJ_JHJH
-                "\"DLGJ__JHBM\" TEXT," + // 45: DLGJ_JHBM
-                "\"GLY__GHQRSJ\" INTEGER," + // 46: GLY_GHQRSJ
-                "\"SJJHBZ\" INTEGER NOT NULL ," + // 47: SJJHBZ
-                "\"BZ\" TEXT," + // 48: BZ
-                "\"IMAGE_URL\" TEXT);"); // 49: imageUrl
+                "\"UNLOAD_AREA\" TEXT," + // 33: UnloadArea
+                "\"GJPZSJ\" INTEGER," + // 34: GJPZSJ
+                "\"GJPZPNG\" TEXT," + // 35: GJPZPNG
+                "\"DLGJ__KSKH\" TEXT," + // 36: DLGJ_KSKH
+                "\"DLGJ__KSSJ\" INTEGER," + // 37: DLGJ_KSSJ
+                "\"KS__ADDRESS\" TEXT," + // 38: KS_ADDRESS
+                "\"DLGJ__KSXM\" TEXT," + // 39: DLGJ_KSXM
+                "\"DLGJ__KSJH\" TEXT," + // 40: DLGJ_KSJH
+                "\"DLGJ__KSBM\" TEXT," + // 41: DLGJ_KSBM
+                "\"DLGJ__JHKH\" TEXT," + // 42: DLGJ_JHKH
+                "\"DLGJ__JHSJ\" INTEGER," + // 43: DLGJ_JHSJ
+                "\"DLGJ__JHXM\" TEXT," + // 44: DLGJ_JHXM
+                "\"DLGJ__JHJH\" TEXT," + // 45: DLGJ_JHJH
+                "\"DLGJ__JHBM\" TEXT," + // 46: DLGJ_JHBM
+                "\"GLY__GHQRSJ\" INTEGER," + // 47: GLY_GHQRSJ
+                "\"SJJHBZ\" INTEGER NOT NULL ," + // 48: SJJHBZ
+                "\"BZ\" TEXT," + // 49: BZ
+                "\"IMAGE_URL\" TEXT);"); // 50: imageUrl
     }
 
     /** Drops the underlying database table. */
@@ -304,85 +306,90 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             stmt.bindString(33, DLGJ_SCBM);
         }
  
+        String UnloadArea = entity.getUnloadArea();
+        if (UnloadArea != null) {
+            stmt.bindString(34, UnloadArea);
+        }
+ 
         java.util.Date GJPZSJ = entity.getGJPZSJ();
         if (GJPZSJ != null) {
-            stmt.bindLong(34, GJPZSJ.getTime());
+            stmt.bindLong(35, GJPZSJ.getTime());
         }
  
         String GJPZPNG = entity.getGJPZPNG();
         if (GJPZPNG != null) {
-            stmt.bindString(35, GJPZPNG);
+            stmt.bindString(36, GJPZPNG);
         }
  
         String DLGJ_KSKH = entity.getDLGJ_KSKH();
         if (DLGJ_KSKH != null) {
-            stmt.bindString(36, DLGJ_KSKH);
+            stmt.bindString(37, DLGJ_KSKH);
         }
  
         java.util.Date DLGJ_KSSJ = entity.getDLGJ_KSSJ();
         if (DLGJ_KSSJ != null) {
-            stmt.bindLong(37, DLGJ_KSSJ.getTime());
+            stmt.bindLong(38, DLGJ_KSSJ.getTime());
         }
  
         String KS_ADDRESS = entity.getKS_ADDRESS();
         if (KS_ADDRESS != null) {
-            stmt.bindString(38, KS_ADDRESS);
+            stmt.bindString(39, KS_ADDRESS);
         }
  
         String DLGJ_KSXM = entity.getDLGJ_KSXM();
         if (DLGJ_KSXM != null) {
-            stmt.bindString(39, DLGJ_KSXM);
+            stmt.bindString(40, DLGJ_KSXM);
         }
  
         String DLGJ_KSJH = entity.getDLGJ_KSJH();
         if (DLGJ_KSJH != null) {
-            stmt.bindString(40, DLGJ_KSJH);
+            stmt.bindString(41, DLGJ_KSJH);
         }
  
         String DLGJ_KSBM = entity.getDLGJ_KSBM();
         if (DLGJ_KSBM != null) {
-            stmt.bindString(41, DLGJ_KSBM);
+            stmt.bindString(42, DLGJ_KSBM);
         }
  
         String DLGJ_JHKH = entity.getDLGJ_JHKH();
         if (DLGJ_JHKH != null) {
-            stmt.bindString(42, DLGJ_JHKH);
+            stmt.bindString(43, DLGJ_JHKH);
         }
  
         java.util.Date DLGJ_JHSJ = entity.getDLGJ_JHSJ();
         if (DLGJ_JHSJ != null) {
-            stmt.bindLong(43, DLGJ_JHSJ.getTime());
+            stmt.bindLong(44, DLGJ_JHSJ.getTime());
         }
  
         String DLGJ_JHXM = entity.getDLGJ_JHXM();
         if (DLGJ_JHXM != null) {
-            stmt.bindString(44, DLGJ_JHXM);
+            stmt.bindString(45, DLGJ_JHXM);
         }
  
         String DLGJ_JHJH = entity.getDLGJ_JHJH();
         if (DLGJ_JHJH != null) {
-            stmt.bindString(45, DLGJ_JHJH);
+            stmt.bindString(46, DLGJ_JHJH);
         }
  
         String DLGJ_JHBM = entity.getDLGJ_JHBM();
         if (DLGJ_JHBM != null) {
-            stmt.bindString(46, DLGJ_JHBM);
+            stmt.bindString(47, DLGJ_JHBM);
         }
  
         java.util.Date GLY_GHQRSJ = entity.getGLY_GHQRSJ();
         if (GLY_GHQRSJ != null) {
-            stmt.bindLong(47, GLY_GHQRSJ.getTime());
+            stmt.bindLong(48, GLY_GHQRSJ.getTime());
         }
-        stmt.bindLong(48, entity.getSJJHBZ());
+        stmt.bindLong(49, entity.getSJJHBZ());
  
         String BZ = entity.getBZ();
         if (BZ != null) {
-            stmt.bindString(49, BZ);
+            stmt.bindString(50, BZ);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(50, imageUrl);
+            stmt.bindString(51, imageUrl);
         }
     }
 
@@ -543,85 +550,90 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             stmt.bindString(33, DLGJ_SCBM);
         }
  
+        String UnloadArea = entity.getUnloadArea();
+        if (UnloadArea != null) {
+            stmt.bindString(34, UnloadArea);
+        }
+ 
         java.util.Date GJPZSJ = entity.getGJPZSJ();
         if (GJPZSJ != null) {
-            stmt.bindLong(34, GJPZSJ.getTime());
+            stmt.bindLong(35, GJPZSJ.getTime());
         }
  
         String GJPZPNG = entity.getGJPZPNG();
         if (GJPZPNG != null) {
-            stmt.bindString(35, GJPZPNG);
+            stmt.bindString(36, GJPZPNG);
         }
  
         String DLGJ_KSKH = entity.getDLGJ_KSKH();
         if (DLGJ_KSKH != null) {
-            stmt.bindString(36, DLGJ_KSKH);
+            stmt.bindString(37, DLGJ_KSKH);
         }
  
         java.util.Date DLGJ_KSSJ = entity.getDLGJ_KSSJ();
         if (DLGJ_KSSJ != null) {
-            stmt.bindLong(37, DLGJ_KSSJ.getTime());
+            stmt.bindLong(38, DLGJ_KSSJ.getTime());
         }
  
         String KS_ADDRESS = entity.getKS_ADDRESS();
         if (KS_ADDRESS != null) {
-            stmt.bindString(38, KS_ADDRESS);
+            stmt.bindString(39, KS_ADDRESS);
         }
  
         String DLGJ_KSXM = entity.getDLGJ_KSXM();
         if (DLGJ_KSXM != null) {
-            stmt.bindString(39, DLGJ_KSXM);
+            stmt.bindString(40, DLGJ_KSXM);
         }
  
         String DLGJ_KSJH = entity.getDLGJ_KSJH();
         if (DLGJ_KSJH != null) {
-            stmt.bindString(40, DLGJ_KSJH);
+            stmt.bindString(41, DLGJ_KSJH);
         }
  
         String DLGJ_KSBM = entity.getDLGJ_KSBM();
         if (DLGJ_KSBM != null) {
-            stmt.bindString(41, DLGJ_KSBM);
+            stmt.bindString(42, DLGJ_KSBM);
         }
  
         String DLGJ_JHKH = entity.getDLGJ_JHKH();
         if (DLGJ_JHKH != null) {
-            stmt.bindString(42, DLGJ_JHKH);
+            stmt.bindString(43, DLGJ_JHKH);
         }
  
         java.util.Date DLGJ_JHSJ = entity.getDLGJ_JHSJ();
         if (DLGJ_JHSJ != null) {
-            stmt.bindLong(43, DLGJ_JHSJ.getTime());
+            stmt.bindLong(44, DLGJ_JHSJ.getTime());
         }
  
         String DLGJ_JHXM = entity.getDLGJ_JHXM();
         if (DLGJ_JHXM != null) {
-            stmt.bindString(44, DLGJ_JHXM);
+            stmt.bindString(45, DLGJ_JHXM);
         }
  
         String DLGJ_JHJH = entity.getDLGJ_JHJH();
         if (DLGJ_JHJH != null) {
-            stmt.bindString(45, DLGJ_JHJH);
+            stmt.bindString(46, DLGJ_JHJH);
         }
  
         String DLGJ_JHBM = entity.getDLGJ_JHBM();
         if (DLGJ_JHBM != null) {
-            stmt.bindString(46, DLGJ_JHBM);
+            stmt.bindString(47, DLGJ_JHBM);
         }
  
         java.util.Date GLY_GHQRSJ = entity.getGLY_GHQRSJ();
         if (GLY_GHQRSJ != null) {
-            stmt.bindLong(47, GLY_GHQRSJ.getTime());
+            stmt.bindLong(48, GLY_GHQRSJ.getTime());
         }
-        stmt.bindLong(48, entity.getSJJHBZ());
+        stmt.bindLong(49, entity.getSJJHBZ());
  
         String BZ = entity.getBZ();
         if (BZ != null) {
-            stmt.bindString(49, BZ);
+            stmt.bindString(50, BZ);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(50, imageUrl);
+            stmt.bindString(51, imageUrl);
         }
     }
 
@@ -666,23 +678,24 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // DLGJ_SCXM
             cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31), // DLGJ_SCJH
             cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32), // DLGJ_SCBM
-            cursor.isNull(offset + 33) ? null : new java.util.Date(cursor.getLong(offset + 33)), // GJPZSJ
-            cursor.isNull(offset + 34) ? null : cursor.getString(offset + 34), // GJPZPNG
-            cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35), // DLGJ_KSKH
-            cursor.isNull(offset + 36) ? null : new java.util.Date(cursor.getLong(offset + 36)), // DLGJ_KSSJ
-            cursor.isNull(offset + 37) ? null : cursor.getString(offset + 37), // KS_ADDRESS
-            cursor.isNull(offset + 38) ? null : cursor.getString(offset + 38), // DLGJ_KSXM
-            cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39), // DLGJ_KSJH
-            cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40), // DLGJ_KSBM
-            cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41), // DLGJ_JHKH
-            cursor.isNull(offset + 42) ? null : new java.util.Date(cursor.getLong(offset + 42)), // DLGJ_JHSJ
-            cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43), // DLGJ_JHXM
-            cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44), // DLGJ_JHJH
-            cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45), // DLGJ_JHBM
-            cursor.isNull(offset + 46) ? null : new java.util.Date(cursor.getLong(offset + 46)), // GLY_GHQRSJ
-            cursor.getInt(offset + 47), // SJJHBZ
-            cursor.isNull(offset + 48) ? null : cursor.getString(offset + 48), // BZ
-            cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49) // imageUrl
+            cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33), // UnloadArea
+            cursor.isNull(offset + 34) ? null : new java.util.Date(cursor.getLong(offset + 34)), // GJPZSJ
+            cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35), // GJPZPNG
+            cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36), // DLGJ_KSKH
+            cursor.isNull(offset + 37) ? null : new java.util.Date(cursor.getLong(offset + 37)), // DLGJ_KSSJ
+            cursor.isNull(offset + 38) ? null : cursor.getString(offset + 38), // KS_ADDRESS
+            cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39), // DLGJ_KSXM
+            cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40), // DLGJ_KSJH
+            cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41), // DLGJ_KSBM
+            cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42), // DLGJ_JHKH
+            cursor.isNull(offset + 43) ? null : new java.util.Date(cursor.getLong(offset + 43)), // DLGJ_JHSJ
+            cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44), // DLGJ_JHXM
+            cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45), // DLGJ_JHJH
+            cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46), // DLGJ_JHBM
+            cursor.isNull(offset + 47) ? null : new java.util.Date(cursor.getLong(offset + 47)), // GLY_GHQRSJ
+            cursor.getInt(offset + 48), // SJJHBZ
+            cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49), // BZ
+            cursor.isNull(offset + 50) ? null : cursor.getString(offset + 50) // imageUrl
         );
         return entity;
     }
@@ -722,23 +735,24 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         entity.setDLGJ_SCXM(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
         entity.setDLGJ_SCJH(cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31));
         entity.setDLGJ_SCBM(cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32));
-        entity.setGJPZSJ(cursor.isNull(offset + 33) ? null : new java.util.Date(cursor.getLong(offset + 33)));
-        entity.setGJPZPNG(cursor.isNull(offset + 34) ? null : cursor.getString(offset + 34));
-        entity.setDLGJ_KSKH(cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35));
-        entity.setDLGJ_KSSJ(cursor.isNull(offset + 36) ? null : new java.util.Date(cursor.getLong(offset + 36)));
-        entity.setKS_ADDRESS(cursor.isNull(offset + 37) ? null : cursor.getString(offset + 37));
-        entity.setDLGJ_KSXM(cursor.isNull(offset + 38) ? null : cursor.getString(offset + 38));
-        entity.setDLGJ_KSJH(cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39));
-        entity.setDLGJ_KSBM(cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40));
-        entity.setDLGJ_JHKH(cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41));
-        entity.setDLGJ_JHSJ(cursor.isNull(offset + 42) ? null : new java.util.Date(cursor.getLong(offset + 42)));
-        entity.setDLGJ_JHXM(cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43));
-        entity.setDLGJ_JHJH(cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44));
-        entity.setDLGJ_JHBM(cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45));
-        entity.setGLY_GHQRSJ(cursor.isNull(offset + 46) ? null : new java.util.Date(cursor.getLong(offset + 46)));
-        entity.setSJJHBZ(cursor.getInt(offset + 47));
-        entity.setBZ(cursor.isNull(offset + 48) ? null : cursor.getString(offset + 48));
-        entity.setImageUrl(cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49));
+        entity.setUnloadArea(cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33));
+        entity.setGJPZSJ(cursor.isNull(offset + 34) ? null : new java.util.Date(cursor.getLong(offset + 34)));
+        entity.setGJPZPNG(cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35));
+        entity.setDLGJ_KSKH(cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36));
+        entity.setDLGJ_KSSJ(cursor.isNull(offset + 37) ? null : new java.util.Date(cursor.getLong(offset + 37)));
+        entity.setKS_ADDRESS(cursor.isNull(offset + 38) ? null : cursor.getString(offset + 38));
+        entity.setDLGJ_KSXM(cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39));
+        entity.setDLGJ_KSJH(cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40));
+        entity.setDLGJ_KSBM(cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41));
+        entity.setDLGJ_JHKH(cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42));
+        entity.setDLGJ_JHSJ(cursor.isNull(offset + 43) ? null : new java.util.Date(cursor.getLong(offset + 43)));
+        entity.setDLGJ_JHXM(cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44));
+        entity.setDLGJ_JHJH(cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45));
+        entity.setDLGJ_JHBM(cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46));
+        entity.setGLY_GHQRSJ(cursor.isNull(offset + 47) ? null : new java.util.Date(cursor.getLong(offset + 47)));
+        entity.setSJJHBZ(cursor.getInt(offset + 48));
+        entity.setBZ(cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49));
+        entity.setImageUrl(cursor.isNull(offset + 50) ? null : cursor.getString(offset + 50));
      }
     
     @Override

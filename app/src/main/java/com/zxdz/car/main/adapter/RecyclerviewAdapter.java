@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.R;
+import com.zxdz.car.main.model.domain.UnloadAreaInfo;
 
 import java.util.List;
 
@@ -17,13 +19,18 @@ import java.util.List;
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.ViewHolder> {
     private Context context;
-    private List<String> data;
+    private List<UnloadAreaInfo> UnloadAreaInfo;
     private int checkedposition = -1;
 
-    public RecyclerviewAdapter(Context context, List<String> data, checkedChangedListener listener) {
+    public RecyclerviewAdapter(Context context, List<UnloadAreaInfo> data, checkedChangedListener listener) {
         this.context = context;
-        this.data = data;
+        this.UnloadAreaInfo = data;
         this.listener = listener;
+    }
+
+    public void addUnload(List<UnloadAreaInfo> mUnloadAreaInfo){
+        UnloadAreaInfo=mUnloadAreaInfo;
+        notifyDataSetChanged();
     }
 
 
@@ -35,7 +42,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.name.setText(data.get(position));
+        holder.name.setText(UnloadAreaInfo.get(position).getArea_name());
         //holder.name.setPadding();//设置间距
         if (checkedposition != position) {
             holder.name.setChecked(false);
@@ -45,7 +52,8 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             public void onClick(View view) {
                 holder.name.setChecked(true);
                 checkedposition = position;
-                listener.changedlistener();
+                listener.changedlistener(holder.name.getText()+"");
+                notifyDataSetChanged();
             }
         });
     }
@@ -56,7 +64,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         if (!payloads.isEmpty()) {
             onBindViewHolder(holder, position);
         } else {
-            holder.name.setText(data.get(position));
+            holder.name.setText(UnloadAreaInfo.get(position).getArea_name());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -72,7 +80,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if (UnloadAreaInfo!=null){
+            return UnloadAreaInfo.size();
+        }else {
+            return 0;
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -88,6 +101,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private checkedChangedListener listener = null;
 
     public interface checkedChangedListener {
-        void changedlistener();
+        void changedlistener(String text);
     }
 }

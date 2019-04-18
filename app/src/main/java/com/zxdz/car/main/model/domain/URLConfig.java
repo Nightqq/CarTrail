@@ -64,6 +64,11 @@ public class URLConfig {
         return baseUrl() + "action=getzdglry";
     }
 
+    //获取设备的系统设置信息
+    public String getunload_area_URL() {
+        return baseUrl() + "action=getunloadarea";
+    }
+
     //修改设定值
     public String getUPDATE_CARD_STATE_URL() {
         return baseUrl() + "action=updateqyxx";

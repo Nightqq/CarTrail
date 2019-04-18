@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.zxdz.car.main.view.setting.LoadingAreaActivity"
     android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/common_action_bar"></include>
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/primary"
@@ -33,7 +38,7 @@
         android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="确认选择"
+        android:text="更新装卸区列表"
         android:clickable="true"
         android:textSize="28sp"
         android:background="@drawable/blue_button_background"

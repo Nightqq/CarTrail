@@ -95,6 +95,10 @@ public class CarTravelRecord {
     @JSONField(name = "DLGJ_SCBM")
     private String DLGJ_SCBM ="";
 
+
+    @JSONField(name = "VIDEOAREAID")//装卸区id
+    private String UnloadArea ="";
+
     //拍照时间
     @JSONField(name = "GJPZSJ")
     private Date GJPZSJ = new Date();//后添加字段
@@ -150,7 +154,7 @@ public class CarTravelRecord {
     public CarTravelRecord() {
 
     }
-    @Generated(hash = 754780892)
+    @Generated(hash = 1372223626)
     public CarTravelRecord(Long id, int LS_ID, String ZDJ_ID, int QY_ID, Date RIQI,
             int ZT, String GLRY, Date GLRYSJ, String DLGJ_LYKH, Date DLGJ_LYSJ,
             String DLGJ_LYXM, String DLGJ_LYJH, String DLGJ_LYBM, String WLJSYKH,
@@ -158,11 +162,11 @@ public class CarTravelRecord {
             String JRSY, String JSYSFZ, String JSYSQBM, String DLGJ_AZKH,
             Date DLGJ_AZSJ, String DLGJ_AZXM, String DLGJ_AZJH, String DLGJ_AZBM,
             String DLGJ_SCKH, Date DLGJ_SCSJ, String SC_ADDRESS, String DLGJ_SCXM,
-            String DLGJ_SCJH, String DLGJ_SCBM, Date GJPZSJ, String GJPZPNG,
-            String DLGJ_KSKH, Date DLGJ_KSSJ, String KS_ADDRESS, String DLGJ_KSXM,
-            String DLGJ_KSJH, String DLGJ_KSBM, String DLGJ_JHKH, Date DLGJ_JHSJ,
-            String DLGJ_JHXM, String DLGJ_JHJH, String DLGJ_JHBM, Date GLY_GHQRSJ,
-            int SJJHBZ, String BZ, String imageUrl) {
+            String DLGJ_SCJH, String DLGJ_SCBM, String UnloadArea, Date GJPZSJ,
+            String GJPZPNG, String DLGJ_KSKH, Date DLGJ_KSSJ, String KS_ADDRESS,
+            String DLGJ_KSXM, String DLGJ_KSJH, String DLGJ_KSBM, String DLGJ_JHKH,
+            Date DLGJ_JHSJ, String DLGJ_JHXM, String DLGJ_JHJH, String DLGJ_JHBM,
+            Date GLY_GHQRSJ, int SJJHBZ, String BZ, String imageUrl) {
         this.id = id;
         this.LS_ID = LS_ID;
         this.ZDJ_ID = ZDJ_ID;
@@ -196,6 +200,7 @@ public class CarTravelRecord {
         this.DLGJ_SCXM = DLGJ_SCXM;
         this.DLGJ_SCJH = DLGJ_SCJH;
         this.DLGJ_SCBM = DLGJ_SCBM;
+        this.UnloadArea = UnloadArea;
         this.GJPZSJ = GJPZSJ;
         this.GJPZPNG = GJPZPNG;
         this.DLGJ_KSKH = DLGJ_KSKH;
@@ -559,5 +564,11 @@ public class CarTravelRecord {
     }
     public void setGLY_GHQRSJ(Date GLY_GHQRSJ) {
         this.GLY_GHQRSJ = GLY_GHQRSJ;
+    }
+    public String getUnloadArea() {
+        return this.UnloadArea;
+    }
+    public void setUnloadArea(String UnloadArea) {
+        this.UnloadArea = UnloadArea;
     }
 }

@@ -163,8 +163,8 @@
         <activity android:name=".main.view.setting.InformationActivity" />
         <activity android:name=".main.view.InitReturnActivity" />
         <activity android:name=".main.view.setting.OpenLockSettingActivity" />
-        <activity android:name=".main.view.setting.LoadingAreaActivity">
-        </activity>
+        <activity android:name=".main.view.setting.LoadingAreaActivity"></activity>
+        <activity android:name=".main.view.lock.UnloadAreaActivity"></activity>
     </application>
 
 </manifest>

@@ -251,4 +251,5 @@ public class CameraActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
 }
