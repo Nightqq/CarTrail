@@ -164,7 +164,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         intentService = new Intent(this, UploadDataService.class);
     }
 
-    private void requestOpenLock(final boolean isrequest) {//请求开锁
+    private void requestOpenLock(final boolean isrequest) {//true为请求远程开锁
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
             @Override
             public void receiveCardID(final String str) {

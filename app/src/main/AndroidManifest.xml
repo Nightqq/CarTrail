@@ -138,8 +138,7 @@
         <service android:name=".main.service.UploadDataService" />
         <service android:name=".main.service.AppCloseLister" />
         <service android:name=".main.service.RemindService" />
-        <service android:name=".main.service.RequestOpenLockService"/>
-
+        <service android:name=".main.service.RequestOpenLockService" />
 
         <activity android:name=".main.view.lock.OpenLockActivity" />
         <activity android:name=".main.view.lock.CameraActivity" />
@@ -164,6 +163,7 @@
         <activity android:name=".main.view.InitReturnActivity" />
         <activity android:name=".main.view.setting.OpenLockSettingActivity" />
         <activity android:name=".main.view.setting.LoadingAreaActivity"></activity>
+        <activity android:name=".main.view.setting.RemoteOpenLockActivity"></activity>
         <activity android:name=".main.view.lock.UnloadAreaActivity"></activity>
     </application>
 
