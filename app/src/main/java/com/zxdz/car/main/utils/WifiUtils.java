@@ -143,7 +143,13 @@ public class WifiUtils {
     }
 
     public void unRegistBroadcast() {
-        context.unregisterReceiver(wifiBroadcast);
+       try {
+           context.unregisterReceiver(wifiBroadcast);
+       }catch (IllegalArgumentException e){
+           LogUtils.a(e.getMessage());
+       }
+
+
     }
 
     /**

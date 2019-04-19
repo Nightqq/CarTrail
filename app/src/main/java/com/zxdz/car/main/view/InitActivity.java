@@ -118,11 +118,11 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
      * 初始化设备信息(理论上新设备只需要执行一次)
      */
     public void initEquInfo() {
+        App.ZDJID = DeviceUtils.getAndroidID();
         boolean isInitDevice = SPUtils.getInstance().getBoolean(Constant.INIT_DEVICE, false);
         if (!isInitDevice) {
             startActivityForResult(new Intent(this, ServerIPActivity.class),1111);
         } else {
-            App.ZDJID = DeviceUtils.getAndroidID();
             isInitEquSuccess = true;
             ToastUtils.showLong("控制器初始化完成");
             App.readCardType = SPUtils.getInstance().getInt(Constant.READ_CARD_TYPE, Constant.NOT_SELECT_TYPE_ID);
@@ -209,7 +209,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     @Override
     public void loadInitInfo(TerminalInfo terminalInfo) {
         isInitEquSuccess = true;
-        App.ZDJID = terminalInfo.getZdjId();
+      //  App.ZDJID = terminalInfo.getZdjId();
         ToastUtils.showLong("初始化控制器信息成功");
         LogUtils.e("初始化控制器信息成功--->" + terminalInfo.getZdjId());
         SPUtils.getInstance().put(Constant.INIT_DEVICE, true);
@@ -223,7 +223,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         SPUtils.getInstance().put(Constant.INIT_SETTING_DATE, true);
         if (settingInfo != null) {
             App.QYID = settingInfo.getAreaId();
-            App.ZDJID = settingInfo.getZdjId();
+           // App.ZDJID = settingInfo.getZdjId();
             new Thread(new Runnable() {//保存民警卡号
                 @Override
                 public void run() {

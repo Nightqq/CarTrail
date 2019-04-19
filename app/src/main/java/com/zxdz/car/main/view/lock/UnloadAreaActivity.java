@@ -28,8 +28,10 @@ public class UnloadAreaActivity extends BaseActivity {
     private RecyclerView recyclerview;
     private RecyclerviewAdapter mAdapter;
     private int step;
-    private String unLoadArea="";
-  private Intent intentService;
+    private String unLoadArea = "";
+    private Intent intentService;
+    private int tag = 0;
+
     @Override
     public void init() {
         toolbar.setTitle("装卸区选择");
@@ -42,43 +44,46 @@ public class UnloadAreaActivity extends BaseActivity {
         Button confirm = (Button) findViewById(R.id.confirm);
         intentService = new Intent(this, com.zxdz.car.main.service.UploadDataService.class);
         recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerview.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerview.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         List<UnloadAreaInfo> warnInfoListFromDB = UnloadAreaHelper.getWarnInfoListFromDB();
-        if (warnInfoListFromDB==null){
+        if (warnInfoListFromDB == null) {
+            tag=1;
             confirm.setText("获取装卸区列表");
-        }else {
+        } else {
+            tag=0;
             confirm.setText("确认");
         }
         mAdapter = new RecyclerviewAdapter(this, warnInfoListFromDB, new RecyclerviewAdapter.checkedChangedListener() {
             @Override
             public void changedlistener(String string) {
-                unLoadArea=string;
+                unLoadArea = string;
             }
         });
         recyclerview.setAdapter(mAdapter);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!unLoadArea.equals("")){
-                    UnloadAreaInfo unloadAreaInfo = UnloadAreaHelper.getWarnInfoListByID(unLoadArea);
-                    if (unloadAreaInfo!=null){
-                        if (CarTravelHelper.carTravelRecord!=null){
-                            CarTravelHelper.carTravelRecord.setUnloadArea(unloadAreaInfo.getArea_id());
-                            CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
-                        }
-                        startService(intentService);
-                        Intent intent = new Intent(UnloadAreaActivity.this, CameraActivity.class);
-                        intent.putExtra("blue_step", step);
-                        startActivity(intent);
-                        finish();
-                    }
+                if ( tag==1){
+
                 }else {
-                    Toast.makeText(UnloadAreaActivity.this, "请选择装卸区", Toast.LENGTH_SHORT).show();
+                    if (!unLoadArea.equals("")) {
+                        UnloadAreaInfo unloadAreaInfo = UnloadAreaHelper.getWarnInfoListByID(unLoadArea);
+                        if (unloadAreaInfo != null) {
+                            if (CarTravelHelper.carTravelRecord != null) {
+                                CarTravelHelper.carTravelRecord.setUnloadArea(unloadAreaInfo.getArea_id());
+                                CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
+                            }
+                            startService(intentService);
+                            Intent intent = new Intent(UnloadAreaActivity.this, CameraActivity.class);
+                            intent.putExtra("blue_step", step);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(UnloadAreaActivity.this, "请选择装卸区", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-
-
 
             }
         });
@@ -87,7 +92,7 @@ public class UnloadAreaActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mAdapter=null;
+        mAdapter = null;
     }
 
     @Override
