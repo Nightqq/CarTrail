@@ -64,6 +64,9 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     LinearLayout layoutNext;
     @BindView(R.id.open_working)
     TextView openWorking;
+    @BindView(R.id.bb_text)
+    TextView bbtext;
+
     private String cardNum = "无";
     private SweetAlertDialog initDialog;
     private boolean flag = true;
@@ -140,6 +143,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         setSupportActionBar(mToolBar);
         mToolBar.setTitle("开锁拆除");
         //step = getIntent().getIntExtra("blue_step", 0);
+        bbtext.setText("开锁：请带车民警刷卡");
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {

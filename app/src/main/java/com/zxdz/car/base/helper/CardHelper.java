@@ -66,6 +66,15 @@ public class CardHelper {
         }
         return false;
     }
+
+   /* public static CardInfo getcardInfoBynum(String num){
+        if (isAvailableInDB(num)){
+
+
+            return ;
+        }else return null;
+    }*/
+
     public static void saveCardInfoToDB(CardInfo cardInfo) {
         if (cardInfo != null) {
             cardInfoDao.insertOrReplace(cardInfo);
@@ -74,6 +83,7 @@ public class CardHelper {
     public static void saveCardInfoListToDB(List<CardInfo> list) {
         if (list != null) {
             for (CardInfo info : list) {
+                info.setCardType(0);
                 cardInfoDao.insertOrReplace(info);
                 LogUtils.a("管理员卡号：",info.getAdminCardNumber());
             }

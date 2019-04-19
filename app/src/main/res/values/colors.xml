@@ -23,4 +23,6 @@
     <color name="input_bg_color">#e8e8e8</color>
     <color name="card_info_color">#404040</color>
     <color name="card_info_top_color">#e6e6e6</color>
+    <color name="text_color_blue">#5CACEE</color>
+
 </resources>

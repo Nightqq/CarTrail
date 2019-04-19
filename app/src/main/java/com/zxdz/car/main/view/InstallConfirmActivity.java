@@ -84,6 +84,9 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
     ImageView installWait;
     @BindView(R.id.refresh_card)
     ImageView refreshCard;
+
+    @BindView(R.id.bb_text)
+    TextView bbtext;
     private int step = 1;//判断是从哪个界面跳转到确认界面
     private String mCarNumber;
     private Intent intentService;
@@ -116,6 +119,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             LogUtils.a(App.UPLOAD_STEP);
             AudioPlayUtils.getAudio(this, R.raw.qdcmjazkzq).play();
             mToolBar.setTitle("带车民警确认安装完成刷卡");
+            bbtext.setText("安装：请带车民警刷卡");
             notMove.setVisibility(View.VISIBLE);
         }
         if (step == 2) {
@@ -123,6 +127,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             App.UPLOAD_STEP = 4;
             AudioPlayUtils.getAudio(this, R.raw.clddzxqqdcmjqrsk).play();
             mToolBar.setTitle("带车民警确认到达刷卡");
+            bbtext.setText("锁车：请带车民警刷卡");
             installWait.setVisibility(View.GONE);
             refreshCard.setVisibility(View.VISIBLE);
         }
@@ -131,6 +136,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             App.UPLOAD_STEP = 6;
             AudioPlayUtils.getAudio(this, R.raw.qdcmjqrjhkzqsc).play();//请带车民警确认交还控制器刷卡
             mToolBar.setTitle("带车民警确认交还控制器");
+            bbtext.setText("归还：请带车民警刷卡");
             installWait.setVisibility(View.GONE);
             refreshCard.setVisibility(View.VISIBLE);
         }

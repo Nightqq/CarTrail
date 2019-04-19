@@ -87,8 +87,7 @@ public class SettingActivity extends BaseActivity {
                 startact(this, ServerIPActivity.class);
                 break;
             case R.id.layout_open_lock:
-                startact(this, RemoteOpenLockActivity.class);
-
+                startact(this,RemoteOpenLockActivity.class);
                 break;
             case R.id.layout_unload_area:
                 startact(this, LoadingAreaActivity.class);

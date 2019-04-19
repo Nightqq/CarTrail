@@ -39,12 +39,17 @@ public class UnloadAreaActivity extends BaseActivity {
         if (bundle != null) {
             step = bundle.getInt("blue_step");
         }
+        Button confirm = (Button) findViewById(R.id.confirm);
         intentService = new Intent(this, com.zxdz.car.main.service.UploadDataService.class);
-        new Intent(this, com.zxdz.car.main.service.UploadDataService.class);
         recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerview.setLayoutManager(new GridLayoutManager(this,2));
         recyclerview.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         List<UnloadAreaInfo> warnInfoListFromDB = UnloadAreaHelper.getWarnInfoListFromDB();
+        if (warnInfoListFromDB==null){
+            confirm.setText("获取装卸区列表");
+        }else {
+            confirm.setText("确认");
+        }
         mAdapter = new RecyclerviewAdapter(this, warnInfoListFromDB, new RecyclerviewAdapter.checkedChangedListener() {
             @Override
             public void changedlistener(String string) {
@@ -52,8 +57,6 @@ public class UnloadAreaActivity extends BaseActivity {
             }
         });
         recyclerview.setAdapter(mAdapter);
-        Button confirm = (Button) findViewById(R.id.confirm);
-        confirm.setText("确认");
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

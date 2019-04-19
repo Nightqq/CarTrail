@@ -90,6 +90,9 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     TextView tvAlarm;
     @BindView(R.id.tv_alarm1)
     LinearLayout tvAlarm1;
+    @BindView(R.id.bb_text)
+    TextView bbtext;
+
     private Intent intentService;
     SwipingCardUtils swipecardhelp;
     private int i = 0;
@@ -116,6 +119,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         if (swipecardhelp.getArray(0, 0) == 1) {
             App.SWIPE_STEP = 1;
             mToolBar.setTitle("刷管理员授权卡");
+            bbtext.setText("领用：请管理员刷卡");
             AudioPlayUtils.getAudio(getApplicationContext(), R.raw.glyqrsbsk).play();
         } else {
             if (swipecardhelp.getArray(0, 1) == 1) {
@@ -147,6 +151,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     App.SWIPE_STEP = 2;
                     AudioPlayUtils.getAudio(getApplicationContext(), R.raw.qdcmjqrlysk).play();
                     mToolBar.setTitle("带车民警刷卡");
+                    bbtext.setText("领用：请带车民警刷卡");
                     return;
                 } else {
                     if (App.DRIVER_SWIPE == 0) {
@@ -154,6 +159,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                         App.SWIPE_STEP = 3;
                         AudioPlayUtils.getAudio(getApplicationContext(), R.raw.qscjsysk).play();
                         mToolBar.setTitle("驾驶员刷卡");
+                        bbtext.setText("领用：请驾驶员刷卡");
                         return;
                     } else {
                         Intent intent = null;
