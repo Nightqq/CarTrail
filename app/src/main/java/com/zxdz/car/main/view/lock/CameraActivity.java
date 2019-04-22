@@ -72,7 +72,7 @@ public class CameraActivity extends BaseActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                AudioPlayUtils.getAudio(CameraActivity.this, R.raw.scwc_qdcmjqxsbpz).play();
+                AudioPlayUtils.getAudio(CameraActivity.this, R.raw.qdcmjpz).play();//请带车民警拍照
             }
         }, 600);
         alarm(1);

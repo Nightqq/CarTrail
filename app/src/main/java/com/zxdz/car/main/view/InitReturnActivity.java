@@ -100,6 +100,8 @@ public class InitReturnActivity extends BaseActivity {
                 runOnUiThread(runnable);
             }
         });
+
+        AudioPlayUtils.getAudio(this,R.raw.gcxcjs).play();//该次行程结束
     }
 
     @Override

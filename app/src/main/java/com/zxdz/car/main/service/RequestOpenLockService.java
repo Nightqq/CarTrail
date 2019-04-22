@@ -79,7 +79,9 @@ public class RequestOpenLockService extends Service {
                 e.printStackTrace();
             } finally {
                 try {
-                    ss.close();
+                    if (ss != null){
+                        ss.close();
+                    }
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

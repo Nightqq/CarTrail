@@ -232,7 +232,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                     } else if (isrequest == 2){
                         showCardNumber(str);
                     }else {
-                        AudioPlayUtils.getAudio(OpenCardActivity.this,R.raw.qdcmjsc).play();
+                        AudioPlayUtils.getAudio(OpenCardActivity.this,R.raw.qwcgzhks).play();//请完成工作后开锁
                         showCardNumber(str);
                     }
                 }

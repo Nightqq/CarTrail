@@ -18,6 +18,7 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.helper.UnloadAreaHelper;
+import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.adapter.RecyclerviewAdapter;
 import com.zxdz.car.main.model.domain.URLConfig;
@@ -121,6 +122,12 @@ public class UnloadAreaActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AudioPlayUtils.getAudio(this,R.raw.scwc_qdcmjxzzxq).play();//锁车完成，请带车民警选择装卸区
     }
 
     @Override

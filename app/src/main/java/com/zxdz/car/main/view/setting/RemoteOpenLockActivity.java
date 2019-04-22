@@ -6,8 +6,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 
-
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.suke.widget.SwitchButton;
 import com.zxdz.car.R;
 import com.zxdz.car.base.view.BaseActivity;
@@ -31,7 +30,7 @@ public class RemoteOpenLockActivity extends BaseActivity implements SwitchButton
         set_2 = (SwitchButton) findViewById(R.id.start_set_2);
         set_3 = (SwitchButton) findViewById(R.id.start_set_3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.open_lock_toolbar);
-        basetoobar(toolbar,"开锁设置");
+        basetoobar(toolbar, "开锁设置");
 
         set_1.setOnCheckedChangeListener(this);
         set_2.setOnCheckedChangeListener(this);
@@ -107,7 +106,7 @@ public class RemoteOpenLockActivity extends BaseActivity implements SwitchButton
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (view.getId() == R.id.start_set_2 && isIntercept == true) {
-            LogUtils.e("拦截了");
+            ToastUtils.showShort("至少要选择一种刷卡方式");
             return true;
         }
         if (view.getId() == R.id.start_set_1) {
@@ -121,6 +120,7 @@ public class RemoteOpenLockActivity extends BaseActivity implements SwitchButton
         }
         return false;
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
