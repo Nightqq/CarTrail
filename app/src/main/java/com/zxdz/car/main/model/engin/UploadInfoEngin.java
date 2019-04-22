@@ -109,7 +109,7 @@ public class UploadInfoEngin extends BaseEngin {
 //            LogUtils.a("远程开锁", JSON.toJSONString(openLockInfo));
 //            LogUtils.a("远程开锁", openLockInfo.getIP()+openLockInfo.getPort());
 //        }
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.getinstance().getUPDATE_OPENLOCK_INFO_URL()+"&IP="+openLockInfo.getIP()+"&port="+openLockInfo.getPort(),new TypeReference<ResultInfo>(){
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.getinstance().getsend_unLOCK_INFO_URL()+"&IP="+openLockInfo.getIP()+"&port="+openLockInfo.getPort()+"&zjdid="+App.ZDJID,new TypeReference<ResultInfo>(){
         }.getType(),params,false,false,false);
     }
 

@@ -103,6 +103,10 @@ public class URLConfig {
     public String getUPDATE_OPENLOCK_INFO_URL(){
         return baseUrl() + "action=remoteunlock";
     }
+    public String getsend_unLOCK_INFO_URL(){
+        return baseUrl() + "action=sendunlock";
+    }
+
 
     public String getUPDATE_CHANGE_INFO_URL() {
         return baseUrl() + "";

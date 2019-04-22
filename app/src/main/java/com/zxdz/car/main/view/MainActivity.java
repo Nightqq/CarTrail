@@ -115,11 +115,11 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        WifiUtils.getWifiUtils().unRegistBroadcast();
-        WifiUtils.getWifiUtils().closeWifi();
         if (intent != null) {
             String isExit = intent.getStringExtra(TAG_EXIT);
             if (isExit!=null&&isExit.equals(TAG_EXIT)) {//退出
+                WifiUtils.getWifiUtils().unRegistBroadcast();
+                WifiUtils.getWifiUtils().closeWifi();
                 int currentVersion = android.os.Build.VERSION.SDK_INT;
                 if (currentVersion > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                     Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -129,6 +129,8 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                     System.exit(0);
                 }
             } else if (isExit!=null&&isExit.equals(TAG_RESTART)) {//重启
+                WifiUtils.getWifiUtils().unRegistBroadcast();
+                WifiUtils.getWifiUtils().closeWifi();
                 Intent intent2 = getBaseContext().getPackageManager()
                         .getLaunchIntentForPackage(getBaseContext().getPackageName());
                 PendingIntent restartIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent2, PendingIntent.FLAG_ONE_SHOT);
