@@ -67,6 +67,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         AudioPlayUtils.getAudio(this, R.raw.init).play();
         LogUtils.e("设备串号--->" + DeviceUtils.getAndroidID());
         mPresenter = new SettingInfoPresenter(this, this);
+        App.ZDJID = DeviceUtils.getAndroidID();
         initEquInfo();
         //初始化系统参数
         RxView.clicks(mInitSettingButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -118,7 +119,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
      * 初始化设备信息(理论上新设备只需要执行一次)
      */
     public void initEquInfo() {
-        App.ZDJID = DeviceUtils.getAndroidID();
+       // App.ZDJID = DeviceUtils.getAndroidID();
         boolean isInitDevice = SPUtils.getInstance().getBoolean(Constant.INIT_DEVICE, false);
         if (!isInitDevice) {
             startActivityForResult(new Intent(this, ServerIPActivity.class),1111);

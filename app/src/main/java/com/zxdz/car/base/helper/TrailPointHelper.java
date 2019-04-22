@@ -1,5 +1,6 @@
 package com.zxdz.car.base.helper;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.zxdz.car.base.dao.TrailPointInfoDao;
 import com.zxdz.car.main.model.domain.TrailPointInfo;
 
@@ -20,6 +21,10 @@ public class TrailPointHelper {
 
     public static void saveTrailPointInfoToDB(TrailPointInfo TrailPointInfo) {
         if (TrailPointInfo != null) {
+            if ((TrailPointInfo.getGJZBWD()+"").equals(4.9E-324)){
+                LogUtils.a(TrailPointInfo.getGJZBWD()+"抛弃");
+                return;
+            }
             if (getTrailPointInfoListFromDB()!=null&&getTrailPointInfoListFromDB().size()>2){
                 com.zxdz.car.main.model.domain.TrailPointInfo trailPointInfo = getTrailPointInfoListFromDB().get(getTrailPointInfoListFromDB().size() - 1);
                 if (trailPointInfo.getGJZBJD()!=TrailPointInfo.getGJZBJD()&&trailPointInfo.getGJZBWD()!=TrailPointInfo.getGJZBWD()){

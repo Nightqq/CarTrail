@@ -114,22 +114,25 @@ public class UploadInfoUtil {
                                 uploadWarnInfo(carTravelRecord.getId(), resultInfo.data.getLS_ID());
                                 uploadUnWarnInfo();
                             }
+                            //上传轨迹
+                            LogUtils.a("准备上传轨迹", App.UPLOAD_STEP);
+                            if (App.UPLOAD_STEP >= 3) {
+                                LogUtils.a("==================准备上传轨迹=============================");
+                                TrailPointInfoWrapper trailPointInfoWrapper = new TrailPointInfoWrapper();
+                                trailPointInfoWrapper.setGid(resultInfo.data.getLS_ID() + "");
+                                if (TrailPointHelper.getTrailPointInfoListFromDB() != null) {
+                                    LogUtils.a("=======准备上传轨迹=轨迹上传中===");
+                                    trailPointInfoWrapper.setPoints(TrailPointHelper.getTrailPointInfoListFromDB());
+                                    uploadTrailPoint(trailPointInfoWrapper);
+                                }else {
+                                    LogUtils.a("=======准备上传轨迹=轨迹为空===");
+                                }
+                            }
                             //信息所有状态上传完成，则删除记录
                             if (carTravelRecord.getZT() == 80 && carTravelRecord == CarTravelHelper.carTravelRecord) {
                                 CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);//上传完成删除该条流水
                                 App.UPLOAD_STEP = 1;
                                 isFinish = true;
-                            }
-                            //上传轨迹
-                            LogUtils.a("准备上传轨迹", App.UPLOAD_STEP);
-                            if (App.UPLOAD_STEP > 3) {
-                                LogUtils.a("==================准备上传轨迹=============================");
-                                TrailPointInfoWrapper trailPointInfoWrapper = new TrailPointInfoWrapper();
-                                trailPointInfoWrapper.setGid(resultInfo.data.getLS_ID() + "");
-                                if (TrailPointHelper.getTrailPointInfoListFromDB() != null) {
-                                    trailPointInfoWrapper.setPoints(TrailPointHelper.getTrailPointInfoListFromDB());
-                                    uploadTrailPoint(trailPointInfoWrapper);
-                                }
                             }
                             //主信息上传完成
                             LogUtils.a("主信息上传完成,发送广播");
@@ -211,6 +214,7 @@ public class UploadInfoUtil {
 
             @Override
             public void onNext(final ResultInfo resultInfo) {
+                LogUtils.a(TAG, "轨迹点上传onNext--->",resultInfo.toString());
                 LogUtils.a(resultInfo.code + resultInfo.message);
                 if (resultInfo.code == HttpConfig.STATUS_OK) {
                     LogUtils.a(TAG, "轨迹点上传完成--->");
