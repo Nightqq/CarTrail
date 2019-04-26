@@ -44,7 +44,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import static com.zxdz.car.main.service.RequestOpenLockService.port;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> implements PersionInfoContract.View {
+public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> implements PersionInfoContract.View{
 
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
@@ -142,7 +142,6 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     public void init() {
         setSupportActionBar(mToolBar);
         mToolBar.setTitle("开锁拆除");
-        //step = getIntent().getIntExtra("blue_step", 0);
         bbtext.setText("开锁：请带车民警刷卡");
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -173,15 +172,15 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         intentService = new Intent(this, UploadDataService.class);
     }
 
-    private void requestOpenLock(final int isrequest) {//true为请求远程开锁
-        if (isrequest == 3 && step == 1){
+    private void requestOpenLock(final int isrequest) {//1为请求远程开锁,2是直接开锁，3为延时开锁
+        if (isrequest == 3 && step == 1) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     isOpenAble = false;
                 }
             }, 300000);
-        }else {
+        } else {
             isOpenAble = false;
         }
         BlueToothHelper.getBlueHelp().setReceiverMode(new BlueToothUtils.receiveCardIDListener() {
@@ -198,41 +197,30 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                             @Override
                             public void successful() {
                                 checkOpenLock("请求远程开锁成功！");
+                                uploadInfoUtil.cancelUploadRequestOpenLock();
                                 showCardNumber(str);
                             }
                         };
-                        if (intent == null) {
+                        if (intent == null) {//开启socket服务端
                             intent = new Intent(OpenCardActivity.this, RequestOpenLockService.class);
                         }
                         startService(intent);
-                        final OpenLockInfo openLockInfo = new OpenLockInfo();
+
+                        OpenLockInfo openLockInfo = new OpenLockInfo();
                         openLockInfo.setIP(App.phoneIP);
                         openLockInfo.setPort(port + "");
                         if (uploadInfoUtil == null) {
                             uploadInfoUtil = new UploadInfoUtil(OpenCardActivity.this);
                         }
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                uploadInfoUtil
-                                        .uploadRequestOpenLock(openLockInfo, new UploadInfoUtil.RequestOpenLockListener() {
-                                            @Override
-                                            public void successful() {
-//                                    RequestOpenLockService.listener = new RequestOpenLockService.RequestOpenLockListenerserve() {
-//                                        @Override
-//                                        public void successful() {
-//                                            showCardNumber(str);
-//                                        }
-//                                    };
-                                                //startService( new Intent(OpenCardActivity.this,RequestOpenLockService.class));
-                                            }
-                                        });
-                            }
-                        }, 1000);
-                    } else if (isrequest == 2){
+                        uploadInfoUtil//发送远程开锁请求
+                                .uploadRequestOpenLock(openLockInfo, new UploadInfoUtil.RequestOpenLockListener() {
+                                    @Override
+                                    public void successful() {
+                                    }
+                                });
+                    } else if (isrequest == 2) {
                         showCardNumber(str);
-                    }else {
-                        AudioPlayUtils.getAudio(OpenCardActivity.this,R.raw.qwcgzhks).play();//请完成工作后开锁
+                    } else {
                         showCardNumber(str);
                     }
                 }
@@ -245,6 +233,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     public void showCardNumber(String carNumber) {
         carNumber = carNumber.replaceAll(" ", "");
         if (judgment()) {
+            AudioPlayUtils.getAudio(OpenCardActivity.this, R.raw.qwcgzhks).play();//请完成工作后开锁
             return;
         }
         tvCarNumber.setText(carNumber);
@@ -377,6 +366,9 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
     protected void onDestroy() {
         super.onDestroy();
         intent = null;
-        initDialog.dismiss();
+        if (initDialog != null && initDialog.isShowing()){
+            initDialog.dismiss();
+        }
+        BlueToothHelper.getBlueHelp().setListenerNull();
     }
 }

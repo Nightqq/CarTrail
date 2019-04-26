@@ -15,6 +15,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.zxdz.car.App;
 import com.zxdz.car.R;
 import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.helper.UnloadAreaHelper;
@@ -45,6 +46,7 @@ public class UnloadAreaActivity extends BaseActivity {
     public void init() {
         toolbar.setTitle("装卸区选择");
         setSupportActionBar(toolbar);
+        App.GravityListener_type = 0;//关闭手持机移动报警
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {

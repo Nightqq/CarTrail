@@ -2,7 +2,6 @@ package com.zxdz.car.main.view;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.widget.Button;
 
 import com.blankj.utilcode.util.DeviceUtils;
@@ -35,7 +34,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.functions.Action1;
@@ -85,7 +83,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1111){
+        if (requestCode == 1111) {
             LogUtils.a("开始初始化");
             initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             initDialog.getProgressHelper().setBarColor(Color.parseColor("#48D9B2"));
@@ -93,7 +91,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
             initDialog.setCancelable(false);
             initDialog.show();
             //请求接口
-            LogUtils.a("getAndroidID",DeviceUtils.getAndroidID());
+            LogUtils.a("getAndroidID", DeviceUtils.getAndroidID());
             mPresenter.initEquipment(DeviceUtils.getAndroidID());
             //TODO,测试代码
             //把本机的编号手动加入，便于测试
@@ -110,7 +108,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     @Override
     protected void onStart() {
         super.onStart();
-        if (isInitEquSuccess){
+        if (isInitEquSuccess) {
             mInitSettingButton.callOnClick();
         }
     }
@@ -119,10 +117,10 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
      * 初始化设备信息(理论上新设备只需要执行一次)
      */
     public void initEquInfo() {
-       // App.ZDJID = DeviceUtils.getAndroidID();
+        // App.ZDJID = DeviceUtils.getAndroidID();
         boolean isInitDevice = SPUtils.getInstance().getBoolean(Constant.INIT_DEVICE, false);
         if (!isInitDevice) {
-            startActivityForResult(new Intent(this, ServerIPActivity.class),1111);
+            startActivityForResult(new Intent(this, ServerIPActivity.class), 1111);
         } else {
             isInitEquSuccess = true;
             ToastUtils.showLong("控制器初始化完成");
@@ -160,12 +158,12 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     @Override
     public void showNoNet() {
         if (initDialog != null && initDialog.isShowing()) {
-            initDialog.dismissWithAnimation();
+            initDialog.dismiss();
             errorDialog(1);
         }
 
         if (initSettingDialog != null && initSettingDialog.isShowing()) {
-            initSettingDialog.dismissWithAnimation();
+            initSettingDialog.dismiss();
             errorDialog(2);
         }
     }
@@ -186,7 +184,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
                         if (type == 1) {
                             initEquInfo();
                         } else {
@@ -197,7 +195,7 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
                         Intent intent = new Intent(InitActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -210,11 +208,11 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     @Override
     public void loadInitInfo(TerminalInfo terminalInfo) {
         isInitEquSuccess = true;
-      //  App.ZDJID = terminalInfo.getZdjId();
+        //  App.ZDJID = terminalInfo.getZdjId();
         ToastUtils.showLong("初始化控制器信息成功");
         LogUtils.e("初始化控制器信息成功--->" + terminalInfo.getZdjId());
         SPUtils.getInstance().put(Constant.INIT_DEVICE, true);
-        initDialog.dismissWithAnimation();
+        initDialog.dismiss();
     }
 
     @Override
@@ -224,13 +222,13 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
         SPUtils.getInstance().put(Constant.INIT_SETTING_DATE, true);
         if (settingInfo != null) {
             App.QYID = settingInfo.getAreaId();
-           // App.ZDJID = settingInfo.getZdjId();
+            // App.ZDJID = settingInfo.getZdjId();
             new Thread(new Runnable() {//保存民警卡号
                 @Override
                 public void run() {
                     PoliceInfoAllHelper.deleteAllPoliceInfoAllList();
                     List<PoliceInfoAll> dlgj = settingInfo.getDlgj();
-                    if (dlgj != null && dlgj.size()>0) {//保存民警卡号到本地
+                    if (dlgj != null && dlgj.size() > 0) {//保存民警卡号到本地
                         LogUtils.a("民警数量" + dlgj.size() + "卡号：" + dlgj.get(0).getDLGJ_KH());
                         PoliceInfoAllHelper.savePoliceInfoAllListToDB(dlgj);
                     }
@@ -274,5 +272,19 @@ public class InitActivity extends BaseActivity<SettingInfoPresenter> implements 
     public void onViewClicked() {
         Intent intent = new Intent(this, PasswordValidataActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (initDialog != null && initDialog.isShowing()) {
+            initDialog.dismiss();
+        }
+        if (errorDialog != null && errorDialog.isShowing()) {
+            errorDialog.dismiss();
+        }
+        if (initSettingDialog != null && initSettingDialog.isShowing()) {
+            initSettingDialog.dismiss();
+        }
     }
 }

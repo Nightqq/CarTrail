@@ -303,6 +303,29 @@ public class UploadInfoUtil {
             }
         }
     }
+   //远程开锁成功后取消远程开锁提示
+    public void cancelUploadRequestOpenLock() {
+        Subscription subscribe = mEngin.cancelUploadRequestOpenLock().subscribe(new Subscriber<ResultInfo>() {
+            @Override
+            public void onCompleted() {
+                LogUtils.e(TAG, "请求取消远程开锁上传完成--->");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.e(TAG, "onerror"+e.getMessage());
+            }
+
+            @Override
+            public void onNext(ResultInfo resultInfo) {
+                if (resultInfo.code == HttpConfig.STATUS_OK) {
+                    LogUtils.e(TAG, "请求取消远程开锁上传完成--->");
+                }
+            }
+        });
+        mSubscriptions.add(subscribe);
+    }
+
     //远程开锁
     public void uploadRequestOpenLock(OpenLockInfo openLockInfo, RequestOpenLockListener lockListener) {
         listener = lockListener;
@@ -326,7 +349,6 @@ public class UploadInfoUtil {
             }
         });
         mSubscriptions.add(subscribe);
-
     }
 
     private RequestOpenLockListener listener = null;

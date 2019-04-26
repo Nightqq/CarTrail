@@ -11,7 +11,6 @@ import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -104,7 +103,11 @@ public class BlueToothUtils {
     public void ConnectedDevice(String address, ConnectedDevicesListenter devicesListenter, boolean isScaning) {
         isLoop = true;
         if (isScaning) {//是否是新连接设备
-            mAddress = address;
+            if (address != null) {
+                mAddress = address;
+            } else {
+                LogUtils.e("获取的address地址为null");
+            }
             SharedPreferences.Editor edit = sp.edit();
             edit.putString("macaddress", address);
             edit.commit();
@@ -119,13 +122,16 @@ public class BlueToothUtils {
                 mBluetoothAdapter.enable();
             } else {
                 selectDevice = mBluetoothAdapter.getRemoteDevice(mAddress);
-                LogUtils.a("开始连接");
+
                 if (bluetoothGatt != null) {
+                    LogUtils.e("之前的连接没有断开");
                     bluetoothGatt.close();
                 }
+                LogUtils.e("开始连接");
                 bluetoothGatt = selectDevice.connectGatt(mContext, false, mGattCallback);//开始连接
             }
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
+            LogUtils.e(e.getMessage());
             return;
         }
     }
@@ -172,9 +178,6 @@ public class BlueToothUtils {
             flagbyte[0] = 0x4C;
             writer_characteristic.setValue(bytes);
             statue = bluetoothGatt.writeCharacteristic(writer_characteristic);
-//            if (statue) {
-//                closeLock.closeable("关锁命令发送成功");
-//            }
         } else {
             closeLock.closeable("请连接控制器");
         }
@@ -216,6 +219,7 @@ public class BlueToothUtils {
     private Runnable runnable1 = new Runnable() {
         @Override
         public void run() {
+            LogUtils.e("没有连接成功，继续重连。。。");
             ConnectedDevice(mAddress, connectedDevicesListenter, false);
         }
     };
@@ -440,7 +444,8 @@ public class BlueToothUtils {
                 break;
         }
     }
-    public void setListenerNullQ(){
+
+    public void setListenerNullQ() {
         receivecardid = null;
     }
 
@@ -512,7 +517,7 @@ public class BlueToothUtils {
 
 
     //close
-    public void closeAlls() {
+    public void closeAlls() {//异常退出时则会失去bluetoothGatt对象导致无法断开连接
         if (bluetoothGatt != null) {
             isLoop = true;
             closeCallPloiceAudio();
@@ -522,6 +527,7 @@ public class BlueToothUtils {
                 mBluetoothAdapter.disable();
             }
         }
+
     }
 
     private void closeCallPloiceAudio() {

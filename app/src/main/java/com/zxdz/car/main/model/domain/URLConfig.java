@@ -100,13 +100,13 @@ public class URLConfig {
     }
 
     //请求远程开锁
-    public String getUPDATE_OPENLOCK_INFO_URL(){
-        return baseUrl() + "action=remoteunlock";
-    }
     public String getsend_unLOCK_INFO_URL(){
         return baseUrl() + "action=sendunlock";
     }
-
+    //取消远程开锁
+    public String getcancel_send_unLOCK_INFO_URL(){
+        return baseUrl() + "action=cancelunlock";
+    }
 
     public String getUPDATE_CHANGE_INFO_URL() {
         return baseUrl() + "";
