@@ -45,6 +45,7 @@ public class UnloadAreaActivity extends BaseActivity {
     @Override
     public void init() {
         toolbar.setTitle("装卸区选择");
+        App.GravityListener_type = 0;//关闭手持机移动报警
         setSupportActionBar(toolbar);
         App.GravityListener_type = 0;//关闭手持机移动报警
         Intent intent = getIntent();
