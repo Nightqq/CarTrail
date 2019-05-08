@@ -64,9 +64,16 @@ public class BlueToothActivity extends BaseActivity {
                 if (flag) {
                     flag = false;
                     //savedate(1);
-                    Intent intent = new Intent(BlueToothActivity.this, UnloadAreaActivity.class);
-                    intent.putExtra("blue_step", step);
-                    startActivity(intent);
+                    if (step==1){
+                        Intent intent = new Intent(BlueToothActivity.this, UnloadAreaActivity.class);
+                        intent.putExtra("blue_step", step);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(BlueToothActivity.this, CameraActivity.class);
+                        intent.putExtra("blue_step", step);
+                        startActivity(intent);
+                    }
+
                     //后期添加：状态值43，锁车完成后更改
                     //CarTravelHelper.carTravelRecord.setZT(43);
                     //CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);

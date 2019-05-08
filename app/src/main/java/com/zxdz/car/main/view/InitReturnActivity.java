@@ -3,6 +3,7 @@ package com.zxdz.car.main.view;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -126,5 +127,10 @@ public class InitReturnActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_init_return;
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

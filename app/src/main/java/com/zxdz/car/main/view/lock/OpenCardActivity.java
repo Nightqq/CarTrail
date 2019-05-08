@@ -41,6 +41,8 @@ import java.util.Date;
 import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.blankj.utilcode.util.ClipboardUtils.getIntent;
 import static com.zxdz.car.main.service.RequestOpenLockService.port;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
