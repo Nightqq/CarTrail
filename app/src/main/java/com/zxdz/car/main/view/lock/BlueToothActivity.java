@@ -5,24 +5,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.zxdz.car.R;
-import com.zxdz.car.base.helper.CarTravelHelper;
 import com.zxdz.car.base.utils.AudioPlayUtils;
 import com.zxdz.car.base.view.BaseActivity;
 import com.zxdz.car.main.service.UploadDataService;
 import com.zxdz.car.main.utils.BlueToothHelper;
 import com.zxdz.car.main.utils.BlueToothUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -111,20 +110,6 @@ public class BlueToothActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        // boolean created = BlueToothHelper.getBlueHelp().isCreated();
-       /* if (created) {
-            openLockTvTitle.setText("已经连接过设备");
-            openLockBluesaomiao.setVisibility(View.GONE);
-            openLockConc1.setVisibility(View.GONE);
-            openLockConc2.setVisibility(View.GONE);
-            openLockEnquir.setVisibility(View.VISIBLE);
-            openLockOpen.setVisibility(View.VISIBLE);
-        }*/
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_open_lock;
     }
@@ -136,14 +121,12 @@ public class BlueToothActivity extends BaseActivity {
             case R.id.open_lock_bluesaomiao:
                 break;
             case R.id.open_lock_enquir:
-                //checkOpenLock("查询中");
                 BlueToothHelper.getBlueHelp().enquiriesState(new BlueToothUtils.EnquiriesStateListenter() {
                     @Override
                     public void enquiriesState(String str) {
                         Message message = new Message();
                         message.obj = str;
                         mHandler.sendMessage(message);
-                        //initDialog.dismissWithAnimation();
                     }
 
                     @Override
@@ -167,36 +150,13 @@ public class BlueToothActivity extends BaseActivity {
         }
     }
 
-    //手动再次发送开锁命令
-    private void openlock(final int i) {
-        checkOpenLock("开锁中");
-//        BluetoothLock.getBlueHelp(BlueToothActivity.this).openLock(new BluetoothLock.OpenLockListenter() {
-//            @Override
-//            public void openLock(final String str) {;
-//                Message message = new Message();
-//                message.obj = str;
-//                message.what = i;
-//                mHandler.sendMessage(message);
-//                initDialog.dismissWithAnimation();
-//            }
-//        });
-        BlueToothHelper.getBlueHelp().openLock(new BlueToothUtils.OpenLockListenter() {
-            @Override
-            public void openable(String str) {
-                // TODO: 2018/5/8 添加可以开锁的语音提示
-            }
-        });
-    }
-
     private void closelock() {
         checkOpenLock("锁车中");
-        //mHandler.postDelayed(runnable2, 8000);//这个开锁是用来
         BlueToothHelper.getBlueHelp().closeLock(new BlueToothUtils.CloseLockListener() {
             @Override
             public void closeable(String str) {
                 LogUtils.a(str);
                 if (flag3) {
-                    //mHandler.removeCallbacks(runnable2);
                     flag3 = false;
                     mHandler.postDelayed(new Runnable() {//如果车锁提前锁好，可以检测到并自动到拍照界面
                         @Override
@@ -220,7 +180,6 @@ public class BlueToothActivity extends BaseActivity {
                             });
                         }
                     }, 500);
-                    //mHandler.postDelayed(runnable3, 15000);
                 }
             }
 
@@ -236,43 +195,9 @@ public class BlueToothActivity extends BaseActivity {
         });
     }
 
-    private void openlock() {
-        checkOpenLock("开锁中");
-        mHandler.postDelayed(runnable2, 8000);
-        BlueToothHelper.getBlueHelp().openLock(new BlueToothUtils.OpenLockListenter() {
-            @Override
-            public void openable(String str) {
-                LogUtils.a(str);
-                mHandler.removeCallbacks(runnable2);
-                AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qdcmjsc).play();
-                Message message = new Message();
-                message.obj = str;
-                message.what = 1;
-                Log.e("kscg....", "291------");
-                mHandler.sendMessage(message);
-                initDialog.dismissWithAnimation();
-            }
-        });
-    }
-
-    Runnable runnable2 = new Runnable() {
-        @Override
-        public void run() {
-            LogUtils.a("定时重新开锁");
-            openlock();
-        }
-    };
-    Runnable runnable3 = new Runnable() {
-        @Override
-        public void run() {
-            AudioPlayUtils.getAudio(BlueToothActivity.this, R.raw.qdcmjsc).play();
-            mHandler.postDelayed(this,3000);
-        }
-    };
-
     public void checkOpenLock(String msg) {
         try {
-            if (initDialog == null){
+            if (initDialog == null) {
                 initDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
                 initDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                 initDialog.setCancelable(false);
@@ -293,14 +218,33 @@ public class BlueToothActivity extends BaseActivity {
             initDialog.dismiss();
         }
         super.onDestroy();
-       // mHandler.removeCallbacks(runnable3);
-        runnable2 = null;
-        //runnable3 = null;
         mHandler = null;
         AudioPlayUtils.getAudio(Utils.getContext(), 0).stop();
 
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    //手动再次发送开锁命令
+    private void openlock(final int i) {
+        checkOpenLock("开锁中");
+//        BluetoothLock.getBlueHelp(BlueToothActivity.this).openLock(new BluetoothLock.OpenLockListenter() {
+//            @Override
+//            public void openLock(final String str) {;
+//                Message message = new Message();
+//                message.obj = str;
+//                message.what = i;
+//                mHandler.sendMessage(message);
+//                initDialog.dismissWithAnimation();
+//            }
+//        });
+        BlueToothHelper.getBlueHelp().openLock(new BlueToothUtils.OpenLockListenter() {
+            @Override
+            public void openable(String str) {
+                // TODO: 2018/5/8 添加可以开锁的语音提示
+            }
+        });
     }
 }
