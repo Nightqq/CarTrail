@@ -399,7 +399,7 @@ public class SwitchUtils {
         Canvas canvas = new Canvas(newbitmap);
         canvas.drawBitmap(bitmap, 0, 0, null);
         Paint paint = new Paint();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//HH大写为24小时制
         String time = sdf.format(new Date(System.currentTimeMillis()));
         paint.setColor(Color.RED);
         paint.setTextSize(25);

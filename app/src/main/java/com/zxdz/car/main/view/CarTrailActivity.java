@@ -93,6 +93,9 @@ public class CarTrailActivity extends BaseActivity {
                 isretention = sp.getBoolean("isretention", false);
                 if (isretention) {//有滞留区
                     mArriveButton.setText("到达滞留区");
+                    btnAgain.setVisibility(View.VISIBLE);
+
+
                 } else {//没有滞留区
                     mArriveButton.setText("出门");
                     btnAgain.setVisibility(View.VISIBLE);
