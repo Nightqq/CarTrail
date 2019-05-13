@@ -34,9 +34,9 @@ public class DaoMaster extends AbstractDaoMaster {
         ServerIPDao.createTable(db, ifNotExists);
         TerminalInfoDao.createTable(db, ifNotExists);
         TrailPointInfoDao.createTable(db, ifNotExists);
+        UnloadAreaInfoDao.createTable(db, ifNotExists);
         UnWarnInfoDao.createTable(db, ifNotExists);
         WarnInfoDao.createTable(db, ifNotExists);
-        UnloadAreaInfoDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -54,9 +54,9 @@ public class DaoMaster extends AbstractDaoMaster {
         ServerIPDao.dropTable(db, ifExists);
         TerminalInfoDao.dropTable(db, ifExists);
         TrailPointInfoDao.dropTable(db, ifExists);
+        UnloadAreaInfoDao.dropTable(db, ifExists);
         UnWarnInfoDao.dropTable(db, ifExists);
         WarnInfoDao.dropTable(db, ifExists);
-        UnloadAreaInfoDao.dropTable(db, ifExists);
     }
 
     /**
@@ -88,9 +88,9 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(ServerIPDao.class);
         registerDaoClass(TerminalInfoDao.class);
         registerDaoClass(TrailPointInfoDao.class);
+        registerDaoClass(UnloadAreaInfoDao.class);
         registerDaoClass(UnWarnInfoDao.class);
         registerDaoClass(WarnInfoDao.class);
-        registerDaoClass(UnloadAreaInfoDao.class);
     }
 
     public DaoSession newSession() {
