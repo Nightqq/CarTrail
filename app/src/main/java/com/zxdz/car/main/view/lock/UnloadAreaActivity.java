@@ -108,7 +108,7 @@ public class UnloadAreaActivity extends BaseActivity {
                         UnloadAreaInfo unloadAreaInfo = UnloadAreaHelper.getWarnInfoListByID(unLoadArea);
                         if (unloadAreaInfo != null) {
                             if (CarTravelHelper.carTravelRecord != null) {
-                                CarTravelHelper.carTravelRecord.setUnloadArea(unloadAreaInfo.getArea_id());
+                                CarTravelHelper.carTravelRecord.setVIDEOAREAID(unloadAreaInfo.getArea_id());
                                 CarTravelHelper.saveCarTravelRecordToDB(CarTravelHelper.carTravelRecord);
                             }
                             startService(intentService);

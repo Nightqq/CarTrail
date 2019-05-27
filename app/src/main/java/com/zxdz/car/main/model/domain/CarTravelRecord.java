@@ -97,7 +97,7 @@ public class CarTravelRecord {
 
 
     @JSONField(name = "VIDEOAREAID")//装卸区id
-    private String UnloadArea ="";
+    private String VIDEOAREAID ="";
 
     //拍照时间
     @JSONField(name = "GJPZSJ")
@@ -154,7 +154,7 @@ public class CarTravelRecord {
     public CarTravelRecord() {
 
     }
-    @Generated(hash = 1372223626)
+    @Generated(hash = 1396828285)
     public CarTravelRecord(Long id, int LS_ID, String ZDJ_ID, int QY_ID, Date RIQI,
             int ZT, String GLRY, Date GLRYSJ, String DLGJ_LYKH, Date DLGJ_LYSJ,
             String DLGJ_LYXM, String DLGJ_LYJH, String DLGJ_LYBM, String WLJSYKH,
@@ -162,7 +162,7 @@ public class CarTravelRecord {
             String JRSY, String JSYSFZ, String JSYSQBM, String DLGJ_AZKH,
             Date DLGJ_AZSJ, String DLGJ_AZXM, String DLGJ_AZJH, String DLGJ_AZBM,
             String DLGJ_SCKH, Date DLGJ_SCSJ, String SC_ADDRESS, String DLGJ_SCXM,
-            String DLGJ_SCJH, String DLGJ_SCBM, String UnloadArea, Date GJPZSJ,
+            String DLGJ_SCJH, String DLGJ_SCBM, String VIDEOAREAID, Date GJPZSJ,
             String GJPZPNG, String DLGJ_KSKH, Date DLGJ_KSSJ, String KS_ADDRESS,
             String DLGJ_KSXM, String DLGJ_KSJH, String DLGJ_KSBM, String DLGJ_JHKH,
             Date DLGJ_JHSJ, String DLGJ_JHXM, String DLGJ_JHJH, String DLGJ_JHBM,
@@ -200,7 +200,7 @@ public class CarTravelRecord {
         this.DLGJ_SCXM = DLGJ_SCXM;
         this.DLGJ_SCJH = DLGJ_SCJH;
         this.DLGJ_SCBM = DLGJ_SCBM;
-        this.UnloadArea = UnloadArea;
+        this.VIDEOAREAID = VIDEOAREAID;
         this.GJPZSJ = GJPZSJ;
         this.GJPZPNG = GJPZPNG;
         this.DLGJ_KSKH = DLGJ_KSKH;
@@ -565,10 +565,11 @@ public class CarTravelRecord {
     public void setGLY_GHQRSJ(Date GLY_GHQRSJ) {
         this.GLY_GHQRSJ = GLY_GHQRSJ;
     }
-    public String getUnloadArea() {
-        return this.UnloadArea;
+    public String getVIDEOAREAID() {
+        return this.VIDEOAREAID;
     }
-    public void setUnloadArea(String UnloadArea) {
-        this.UnloadArea = UnloadArea;
+    public void setVIDEOAREAID(String VIDEOAREAID) {
+        this.VIDEOAREAID = VIDEOAREAID;
     }
+  
 }

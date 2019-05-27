@@ -57,7 +57,7 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         public final static Property DLGJ_SCXM = new Property(30, String.class, "DLGJ_SCXM", false, "DLGJ__SCXM");
         public final static Property DLGJ_SCJH = new Property(31, String.class, "DLGJ_SCJH", false, "DLGJ__SCJH");
         public final static Property DLGJ_SCBM = new Property(32, String.class, "DLGJ_SCBM", false, "DLGJ__SCBM");
-        public final static Property UnloadArea = new Property(33, String.class, "UnloadArea", false, "UNLOAD_AREA");
+        public final static Property VIDEOAREAID = new Property(33, String.class, "VIDEOAREAID", false, "VIDEOAREAID");
         public final static Property GJPZSJ = new Property(34, java.util.Date.class, "GJPZSJ", false, "GJPZSJ");
         public final static Property GJPZPNG = new Property(35, String.class, "GJPZPNG", false, "GJPZPNG");
         public final static Property DLGJ_KSKH = new Property(36, String.class, "DLGJ_KSKH", false, "DLGJ__KSKH");
@@ -123,7 +123,7 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
                 "\"DLGJ__SCXM\" TEXT," + // 30: DLGJ_SCXM
                 "\"DLGJ__SCJH\" TEXT," + // 31: DLGJ_SCJH
                 "\"DLGJ__SCBM\" TEXT," + // 32: DLGJ_SCBM
-                "\"UNLOAD_AREA\" TEXT," + // 33: UnloadArea
+                "\"VIDEOAREAID\" TEXT," + // 33: VIDEOAREAID
                 "\"GJPZSJ\" INTEGER," + // 34: GJPZSJ
                 "\"GJPZPNG\" TEXT," + // 35: GJPZPNG
                 "\"DLGJ__KSKH\" TEXT," + // 36: DLGJ_KSKH
@@ -306,9 +306,9 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             stmt.bindString(33, DLGJ_SCBM);
         }
  
-        String UnloadArea = entity.getUnloadArea();
-        if (UnloadArea != null) {
-            stmt.bindString(34, UnloadArea);
+        String VIDEOAREAID = entity.getVIDEOAREAID();
+        if (VIDEOAREAID != null) {
+            stmt.bindString(34, VIDEOAREAID);
         }
  
         java.util.Date GJPZSJ = entity.getGJPZSJ();
@@ -550,9 +550,9 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             stmt.bindString(33, DLGJ_SCBM);
         }
  
-        String UnloadArea = entity.getUnloadArea();
-        if (UnloadArea != null) {
-            stmt.bindString(34, UnloadArea);
+        String VIDEOAREAID = entity.getVIDEOAREAID();
+        if (VIDEOAREAID != null) {
+            stmt.bindString(34, VIDEOAREAID);
         }
  
         java.util.Date GJPZSJ = entity.getGJPZSJ();
@@ -678,7 +678,7 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // DLGJ_SCXM
             cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31), // DLGJ_SCJH
             cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32), // DLGJ_SCBM
-            cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33), // UnloadArea
+            cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33), // VIDEOAREAID
             cursor.isNull(offset + 34) ? null : new java.util.Date(cursor.getLong(offset + 34)), // GJPZSJ
             cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35), // GJPZPNG
             cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36), // DLGJ_KSKH
@@ -735,7 +735,7 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         entity.setDLGJ_SCXM(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
         entity.setDLGJ_SCJH(cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31));
         entity.setDLGJ_SCBM(cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32));
-        entity.setUnloadArea(cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33));
+        entity.setVIDEOAREAID(cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33));
         entity.setGJPZSJ(cursor.isNull(offset + 34) ? null : new java.util.Date(cursor.getLong(offset + 34)));
         entity.setGJPZPNG(cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35));
         entity.setDLGJ_KSKH(cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36));
