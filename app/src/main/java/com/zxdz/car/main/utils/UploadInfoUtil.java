@@ -87,10 +87,10 @@ public class UploadInfoUtil {
                     public void resultInfoNotOk(String message) {
                         LogUtils.a("上传数据-resultInfoNotOk", message);
                         LogUtils.a("上传数据-resultInfoNotOk",message);
-                        if (CarTravelHelper.carTravelRecord != null && carTravelRecord != CarTravelHelper.carTravelRecord) {
+                       /* if (CarTravelHelper.carTravelRecord != null && carTravelRecord != CarTravelHelper.carTravelRecord) {
                             CarTravelHelper.deleteCarTravelRecordInDB(carTravelRecord);
                             LogUtils.a("删除之前的流水数据", carTravelRecord.toString());
-                        }
+                        }*/
                     }
 
                     @Override

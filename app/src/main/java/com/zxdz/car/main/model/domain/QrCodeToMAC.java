@@ -70,6 +70,7 @@ public class QrCodeToMAC {
             case "NJZX000072": MAC = "A4:34:F1:86:EF:D6";break;
             case "NJZX000073": MAC = "54:6C:0E:BD:82:CC";break;
             case "NJZX000074": MAC = "A4:34:F1:86:F0:37";break;
+            case "NJZX000075": MAC = "54:6C:0E:BD:83:C6";break;//2019年六月5日新增
 
 
         }
