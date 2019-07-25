@@ -85,7 +85,7 @@ public class OpenCardActivity extends BaseActivity<PersionInfoPresenter> impleme
             if (obj.equals("开锁成功")) {
                 if (msg.what == 2) {
                     if (step == 1) {
-                        App.GravityListener_type = 1;//开启手持机移动报警
+                        App.GravityListener_type = 0;//开启手持机移动报警
                         Intent intent2 = new Intent(OpenCardActivity.this, CarTrailActivity.class);
                         intent2.putExtra("car_trail", 2);
                         startActivity(intent2);

@@ -162,7 +162,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             public void call(Void aVoid) {
                 if (step == 1) {
                     ToastUtils.showLong("认证成功,开始记录轨迹");
-                    App.GravityListener_type = 1;
+                    App.GravityListener_type = 0;
                     Intent intent = new Intent(InstallConfirmActivity.this, CarTrailActivity.class);
                     intent.putExtra("car_trail", 1);//进入时记录路线
                     startActivity(intent);
@@ -221,7 +221,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
             if (step == 1) {
                 saveAdminCard(carNumber);  //存储卡号到本地数据库0
                 //ToastUtils.showLong("认证成功,开始记录轨迹");
-                App.GravityListener_type = 1;//开启手持机移动报警
+                App.GravityListener_type = 0;//开启手持机移动报警
                 LogUtils.a(App.GravityListener_type);
                 Intent intent = new Intent(InstallConfirmActivity.this, CarTrailActivity.class);
                 intent.putExtra("car_trail", 1);//进入时记录路线
@@ -269,6 +269,7 @@ public class InstallConfirmActivity extends BaseActivity<PersionInfoPresenter> i
     public void saveAdminCard(String cardNumber) {
         if (CarTravelHelper.carTravelRecord == null) {
             CarTravelHelper.carTravelRecord = new CarTravelRecord();
+            CarTravelHelper.carTravelRecord.setDEV_NUMBER(App.Lock__num);
             CarTravelHelper.carTravelRecord.setLS_ID(0);
             CarTravelHelper.carTravelRecord.setId(System.currentTimeMillis());
             CarTravelHelper.carTravelRecord.setZDJ_ID(App.ZDJID);

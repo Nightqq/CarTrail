@@ -268,9 +268,9 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
             case CaptureActivity.REQ_CODE:
                 switch (resultCode) {
                     case RESULT_OK:
-                        String stringExtra = data.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT);
-                        LogUtils.a(stringExtra);
-                        mac = QrCodeToMAC.getMAC(stringExtra);
+                        App.Lock__num = data.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT);
+                        LogUtils.a(App.Lock__num);
+                        mac = QrCodeToMAC.getMAC(App.Lock__num);
                         checkOpenLock("连接中");
                         BlueToothHelper.getBlueHelp().closeAll();
                         handler.postDelayed(new Runnable() {
@@ -371,7 +371,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 20:
                                     App.UPLOAD_STEP = 3;
                                     App.SWIPE_STEP = 4;
-                                    App.GravityListener_type = 1;//开启手持机移动报警
+                                    App.GravityListener_type = 0;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 1);
                                     break;
@@ -381,7 +381,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 40:
                                     App.UPLOAD_STEP = 4;
                                     App.SWIPE_STEP = 5;
-                                    App.GravityListener_type = 1;//开启手持机移动报警
+                                    App.GravityListener_type = 0;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, BlueToothActivity.class);
                                     intent.putExtra("blue_step", 1);
                                     break;
@@ -400,7 +400,7 @@ public class MainActivity extends BaseActivity<UploadInfoPresenter> implements U
                                 case 50:
                                     App.UPLOAD_STEP = 5;
                                     App.SWIPE_STEP = 6;
-                                    App.GravityListener_type = 1;//开启手持机移动报警
+                                    App.GravityListener_type = 0;//开启手持机移动报警
                                     intent = new Intent(MainActivity.this, CarTrailActivity.class);
                                     intent.putExtra("car_trail", 2);
                                     break;

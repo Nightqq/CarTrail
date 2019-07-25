@@ -65,6 +65,9 @@ public class CarTravelRecord {
     @JSONField(name = "JSYSQBM")//驾驶员所去部门
     private String JSYSQBM ="";
 
+    @JSONField(name = "DEV_NUMBER")//设备编号
+    private String DEV_NUMBER ="";
+
     //安装
     @JSONField(name = "DLGJ_AZKH")
     private String DLGJ_AZKH = "";
@@ -154,19 +157,20 @@ public class CarTravelRecord {
     public CarTravelRecord() {
 
     }
-    @Generated(hash = 1396828285)
+    @Generated(hash = 1593475983)
     public CarTravelRecord(Long id, int LS_ID, String ZDJ_ID, int QY_ID, Date RIQI,
             int ZT, String GLRY, Date GLRYSJ, String DLGJ_LYKH, Date DLGJ_LYSJ,
             String DLGJ_LYXM, String DLGJ_LYJH, String DLGJ_LYBM, String WLJSYKH,
             Date WLJSYSJ, String CLHP, String CLLX, String JSYXM, String JSYXB,
-            String JRSY, String JSYSFZ, String JSYSQBM, String DLGJ_AZKH,
-            Date DLGJ_AZSJ, String DLGJ_AZXM, String DLGJ_AZJH, String DLGJ_AZBM,
-            String DLGJ_SCKH, Date DLGJ_SCSJ, String SC_ADDRESS, String DLGJ_SCXM,
-            String DLGJ_SCJH, String DLGJ_SCBM, String VIDEOAREAID, Date GJPZSJ,
-            String GJPZPNG, String DLGJ_KSKH, Date DLGJ_KSSJ, String KS_ADDRESS,
-            String DLGJ_KSXM, String DLGJ_KSJH, String DLGJ_KSBM, String DLGJ_JHKH,
-            Date DLGJ_JHSJ, String DLGJ_JHXM, String DLGJ_JHJH, String DLGJ_JHBM,
-            Date GLY_GHQRSJ, int SJJHBZ, String BZ, String imageUrl) {
+            String JRSY, String JSYSFZ, String JSYSQBM, String DEV_NUMBER,
+            String DLGJ_AZKH, Date DLGJ_AZSJ, String DLGJ_AZXM, String DLGJ_AZJH,
+            String DLGJ_AZBM, String DLGJ_SCKH, Date DLGJ_SCSJ, String SC_ADDRESS,
+            String DLGJ_SCXM, String DLGJ_SCJH, String DLGJ_SCBM,
+            String VIDEOAREAID, Date GJPZSJ, String GJPZPNG, String DLGJ_KSKH,
+            Date DLGJ_KSSJ, String KS_ADDRESS, String DLGJ_KSXM, String DLGJ_KSJH,
+            String DLGJ_KSBM, String DLGJ_JHKH, Date DLGJ_JHSJ, String DLGJ_JHXM,
+            String DLGJ_JHJH, String DLGJ_JHBM, Date GLY_GHQRSJ, int SJJHBZ,
+            String BZ, String imageUrl) {
         this.id = id;
         this.LS_ID = LS_ID;
         this.ZDJ_ID = ZDJ_ID;
@@ -189,6 +193,7 @@ public class CarTravelRecord {
         this.JRSY = JRSY;
         this.JSYSFZ = JSYSFZ;
         this.JSYSQBM = JSYSQBM;
+        this.DEV_NUMBER = DEV_NUMBER;
         this.DLGJ_AZKH = DLGJ_AZKH;
         this.DLGJ_AZSJ = DLGJ_AZSJ;
         this.DLGJ_AZXM = DLGJ_AZXM;
@@ -570,6 +575,12 @@ public class CarTravelRecord {
     }
     public void setVIDEOAREAID(String VIDEOAREAID) {
         this.VIDEOAREAID = VIDEOAREAID;
+    }
+    public String getDEV_NUMBER() {
+        return this.DEV_NUMBER;
+    }
+    public void setDEV_NUMBER(String DEV_NUMBER) {
+        this.DEV_NUMBER = DEV_NUMBER;
     }
   
 }

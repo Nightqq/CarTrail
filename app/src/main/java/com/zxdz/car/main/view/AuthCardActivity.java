@@ -169,10 +169,9 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
                             intent.putExtra("confirm_step", 1);
                         } else {
                             intent = new Intent(AuthCardActivity.this, CarTrailActivity.class);
-                            App.GravityListener_type = 1;
                             App.SWIPE_STEP = 4;
                             App.UPLOAD_STEP = 3;
-                            App.GravityListener_type = 1;
+                            App.GravityListener_type = 0;
                             intent.putExtra("car_trail", 1);//进入时记录路线
                         }
                         startActivity(intent);
@@ -347,6 +346,7 @@ public class AuthCardActivity extends BaseActivity<PersionInfoPresenter> impleme
         if (CarTravelHelper.carTravelRecord == null) {
             CarTravelHelper.carTravelRecord = new CarTravelRecord();
             CarTravelHelper.carTravelRecord.setLS_ID(0);
+            CarTravelHelper.carTravelRecord.setDEV_NUMBER(App.Lock__num);
             CarTravelHelper.carTravelRecord.setId(System.currentTimeMillis());
             CarTravelHelper.carTravelRecord.setZDJ_ID(App.ZDJID);
         }

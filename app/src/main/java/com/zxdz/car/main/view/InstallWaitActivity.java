@@ -88,10 +88,10 @@ public class InstallWaitActivity extends BaseActivity {
                     intent.putExtra("confirm_step", 1);
                 } else {
                     intent = new Intent(InstallWaitActivity.this, CarTrailActivity.class);
-                    App.GravityListener_type = 1;
+                    App.GravityListener_type = 0;
                     App.SWIPE_STEP = 4;
                     App.UPLOAD_STEP = 3;
-                    App.GravityListener_type = 1;
+                    App.GravityListener_type = 0;
                     intent.putExtra("car_trail", 1);//进入时记录路线
                 }
                 startActivity(intent);

@@ -78,7 +78,7 @@ public class CarTrailActivity extends BaseActivity {
     public void init() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        App.GravityListener_type = 1;//开启手持机移动报警
+        App.GravityListener_type = 0;//开启手持机移动报警
         intentService = new Intent(this, UploadDataService.class);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("spUtils", MODE_PRIVATE);
         timer = new Timer();

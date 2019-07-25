@@ -480,7 +480,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     //暂无
                     break;
                 case 40://到达目的地刷卡进人锁车页面
-                    App.GravityListener_type = 1;//开启手持机移动报警
+                    App.GravityListener_type = 0;//开启手持机移动报警
                     App.SWIPE_STEP = 4;
                     App.UPLOAD_STEP = 3;
                     intent.putExtra("car_trail", 1);//进入时记录路线
@@ -501,7 +501,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     finish();
                     break;
                 case 50://刷卡开锁后状态值为50
-                    App.GravityListener_type = 1;//开启手持机移动报警
+                    App.GravityListener_type = 0;//开启手持机移动报警
                     App.UPLOAD_STEP = 5;
                     intent = new Intent(this, InstallConfirmActivity.class);
                     intent.putExtra("confirm_step", 2);

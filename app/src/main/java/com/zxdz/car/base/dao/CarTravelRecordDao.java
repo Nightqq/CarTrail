@@ -46,35 +46,36 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         public final static Property JRSY = new Property(19, String.class, "JRSY", false, "JRSY");
         public final static Property JSYSFZ = new Property(20, String.class, "JSYSFZ", false, "JSYSFZ");
         public final static Property JSYSQBM = new Property(21, String.class, "JSYSQBM", false, "JSYSQBM");
-        public final static Property DLGJ_AZKH = new Property(22, String.class, "DLGJ_AZKH", false, "DLGJ__AZKH");
-        public final static Property DLGJ_AZSJ = new Property(23, java.util.Date.class, "DLGJ_AZSJ", false, "DLGJ__AZSJ");
-        public final static Property DLGJ_AZXM = new Property(24, String.class, "DLGJ_AZXM", false, "DLGJ__AZXM");
-        public final static Property DLGJ_AZJH = new Property(25, String.class, "DLGJ_AZJH", false, "DLGJ__AZJH");
-        public final static Property DLGJ_AZBM = new Property(26, String.class, "DLGJ_AZBM", false, "DLGJ__AZBM");
-        public final static Property DLGJ_SCKH = new Property(27, String.class, "DLGJ_SCKH", false, "DLGJ__SCKH");
-        public final static Property DLGJ_SCSJ = new Property(28, java.util.Date.class, "DLGJ_SCSJ", false, "DLGJ__SCSJ");
-        public final static Property SC_ADDRESS = new Property(29, String.class, "SC_ADDRESS", false, "SC__ADDRESS");
-        public final static Property DLGJ_SCXM = new Property(30, String.class, "DLGJ_SCXM", false, "DLGJ__SCXM");
-        public final static Property DLGJ_SCJH = new Property(31, String.class, "DLGJ_SCJH", false, "DLGJ__SCJH");
-        public final static Property DLGJ_SCBM = new Property(32, String.class, "DLGJ_SCBM", false, "DLGJ__SCBM");
-        public final static Property VIDEOAREAID = new Property(33, String.class, "VIDEOAREAID", false, "VIDEOAREAID");
-        public final static Property GJPZSJ = new Property(34, java.util.Date.class, "GJPZSJ", false, "GJPZSJ");
-        public final static Property GJPZPNG = new Property(35, String.class, "GJPZPNG", false, "GJPZPNG");
-        public final static Property DLGJ_KSKH = new Property(36, String.class, "DLGJ_KSKH", false, "DLGJ__KSKH");
-        public final static Property DLGJ_KSSJ = new Property(37, java.util.Date.class, "DLGJ_KSSJ", false, "DLGJ__KSSJ");
-        public final static Property KS_ADDRESS = new Property(38, String.class, "KS_ADDRESS", false, "KS__ADDRESS");
-        public final static Property DLGJ_KSXM = new Property(39, String.class, "DLGJ_KSXM", false, "DLGJ__KSXM");
-        public final static Property DLGJ_KSJH = new Property(40, String.class, "DLGJ_KSJH", false, "DLGJ__KSJH");
-        public final static Property DLGJ_KSBM = new Property(41, String.class, "DLGJ_KSBM", false, "DLGJ__KSBM");
-        public final static Property DLGJ_JHKH = new Property(42, String.class, "DLGJ_JHKH", false, "DLGJ__JHKH");
-        public final static Property DLGJ_JHSJ = new Property(43, java.util.Date.class, "DLGJ_JHSJ", false, "DLGJ__JHSJ");
-        public final static Property DLGJ_JHXM = new Property(44, String.class, "DLGJ_JHXM", false, "DLGJ__JHXM");
-        public final static Property DLGJ_JHJH = new Property(45, String.class, "DLGJ_JHJH", false, "DLGJ__JHJH");
-        public final static Property DLGJ_JHBM = new Property(46, String.class, "DLGJ_JHBM", false, "DLGJ__JHBM");
-        public final static Property GLY_GHQRSJ = new Property(47, java.util.Date.class, "GLY_GHQRSJ", false, "GLY__GHQRSJ");
-        public final static Property SJJHBZ = new Property(48, int.class, "SJJHBZ", false, "SJJHBZ");
-        public final static Property BZ = new Property(49, String.class, "BZ", false, "BZ");
-        public final static Property ImageUrl = new Property(50, String.class, "imageUrl", false, "IMAGE_URL");
+        public final static Property DEV_NUMBER = new Property(22, String.class, "DEV_NUMBER", false, "DEV__NUMBER");
+        public final static Property DLGJ_AZKH = new Property(23, String.class, "DLGJ_AZKH", false, "DLGJ__AZKH");
+        public final static Property DLGJ_AZSJ = new Property(24, java.util.Date.class, "DLGJ_AZSJ", false, "DLGJ__AZSJ");
+        public final static Property DLGJ_AZXM = new Property(25, String.class, "DLGJ_AZXM", false, "DLGJ__AZXM");
+        public final static Property DLGJ_AZJH = new Property(26, String.class, "DLGJ_AZJH", false, "DLGJ__AZJH");
+        public final static Property DLGJ_AZBM = new Property(27, String.class, "DLGJ_AZBM", false, "DLGJ__AZBM");
+        public final static Property DLGJ_SCKH = new Property(28, String.class, "DLGJ_SCKH", false, "DLGJ__SCKH");
+        public final static Property DLGJ_SCSJ = new Property(29, java.util.Date.class, "DLGJ_SCSJ", false, "DLGJ__SCSJ");
+        public final static Property SC_ADDRESS = new Property(30, String.class, "SC_ADDRESS", false, "SC__ADDRESS");
+        public final static Property DLGJ_SCXM = new Property(31, String.class, "DLGJ_SCXM", false, "DLGJ__SCXM");
+        public final static Property DLGJ_SCJH = new Property(32, String.class, "DLGJ_SCJH", false, "DLGJ__SCJH");
+        public final static Property DLGJ_SCBM = new Property(33, String.class, "DLGJ_SCBM", false, "DLGJ__SCBM");
+        public final static Property VIDEOAREAID = new Property(34, String.class, "VIDEOAREAID", false, "VIDEOAREAID");
+        public final static Property GJPZSJ = new Property(35, java.util.Date.class, "GJPZSJ", false, "GJPZSJ");
+        public final static Property GJPZPNG = new Property(36, String.class, "GJPZPNG", false, "GJPZPNG");
+        public final static Property DLGJ_KSKH = new Property(37, String.class, "DLGJ_KSKH", false, "DLGJ__KSKH");
+        public final static Property DLGJ_KSSJ = new Property(38, java.util.Date.class, "DLGJ_KSSJ", false, "DLGJ__KSSJ");
+        public final static Property KS_ADDRESS = new Property(39, String.class, "KS_ADDRESS", false, "KS__ADDRESS");
+        public final static Property DLGJ_KSXM = new Property(40, String.class, "DLGJ_KSXM", false, "DLGJ__KSXM");
+        public final static Property DLGJ_KSJH = new Property(41, String.class, "DLGJ_KSJH", false, "DLGJ__KSJH");
+        public final static Property DLGJ_KSBM = new Property(42, String.class, "DLGJ_KSBM", false, "DLGJ__KSBM");
+        public final static Property DLGJ_JHKH = new Property(43, String.class, "DLGJ_JHKH", false, "DLGJ__JHKH");
+        public final static Property DLGJ_JHSJ = new Property(44, java.util.Date.class, "DLGJ_JHSJ", false, "DLGJ__JHSJ");
+        public final static Property DLGJ_JHXM = new Property(45, String.class, "DLGJ_JHXM", false, "DLGJ__JHXM");
+        public final static Property DLGJ_JHJH = new Property(46, String.class, "DLGJ_JHJH", false, "DLGJ__JHJH");
+        public final static Property DLGJ_JHBM = new Property(47, String.class, "DLGJ_JHBM", false, "DLGJ__JHBM");
+        public final static Property GLY_GHQRSJ = new Property(48, java.util.Date.class, "GLY_GHQRSJ", false, "GLY__GHQRSJ");
+        public final static Property SJJHBZ = new Property(49, int.class, "SJJHBZ", false, "SJJHBZ");
+        public final static Property BZ = new Property(50, String.class, "BZ", false, "BZ");
+        public final static Property ImageUrl = new Property(51, String.class, "imageUrl", false, "IMAGE_URL");
     }
 
 
@@ -112,35 +113,36 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
                 "\"JRSY\" TEXT," + // 19: JRSY
                 "\"JSYSFZ\" TEXT," + // 20: JSYSFZ
                 "\"JSYSQBM\" TEXT," + // 21: JSYSQBM
-                "\"DLGJ__AZKH\" TEXT," + // 22: DLGJ_AZKH
-                "\"DLGJ__AZSJ\" INTEGER," + // 23: DLGJ_AZSJ
-                "\"DLGJ__AZXM\" TEXT," + // 24: DLGJ_AZXM
-                "\"DLGJ__AZJH\" TEXT," + // 25: DLGJ_AZJH
-                "\"DLGJ__AZBM\" TEXT," + // 26: DLGJ_AZBM
-                "\"DLGJ__SCKH\" TEXT," + // 27: DLGJ_SCKH
-                "\"DLGJ__SCSJ\" INTEGER," + // 28: DLGJ_SCSJ
-                "\"SC__ADDRESS\" TEXT," + // 29: SC_ADDRESS
-                "\"DLGJ__SCXM\" TEXT," + // 30: DLGJ_SCXM
-                "\"DLGJ__SCJH\" TEXT," + // 31: DLGJ_SCJH
-                "\"DLGJ__SCBM\" TEXT," + // 32: DLGJ_SCBM
-                "\"VIDEOAREAID\" TEXT," + // 33: VIDEOAREAID
-                "\"GJPZSJ\" INTEGER," + // 34: GJPZSJ
-                "\"GJPZPNG\" TEXT," + // 35: GJPZPNG
-                "\"DLGJ__KSKH\" TEXT," + // 36: DLGJ_KSKH
-                "\"DLGJ__KSSJ\" INTEGER," + // 37: DLGJ_KSSJ
-                "\"KS__ADDRESS\" TEXT," + // 38: KS_ADDRESS
-                "\"DLGJ__KSXM\" TEXT," + // 39: DLGJ_KSXM
-                "\"DLGJ__KSJH\" TEXT," + // 40: DLGJ_KSJH
-                "\"DLGJ__KSBM\" TEXT," + // 41: DLGJ_KSBM
-                "\"DLGJ__JHKH\" TEXT," + // 42: DLGJ_JHKH
-                "\"DLGJ__JHSJ\" INTEGER," + // 43: DLGJ_JHSJ
-                "\"DLGJ__JHXM\" TEXT," + // 44: DLGJ_JHXM
-                "\"DLGJ__JHJH\" TEXT," + // 45: DLGJ_JHJH
-                "\"DLGJ__JHBM\" TEXT," + // 46: DLGJ_JHBM
-                "\"GLY__GHQRSJ\" INTEGER," + // 47: GLY_GHQRSJ
-                "\"SJJHBZ\" INTEGER NOT NULL ," + // 48: SJJHBZ
-                "\"BZ\" TEXT," + // 49: BZ
-                "\"IMAGE_URL\" TEXT);"); // 50: imageUrl
+                "\"DEV__NUMBER\" TEXT," + // 22: DEV_NUMBER
+                "\"DLGJ__AZKH\" TEXT," + // 23: DLGJ_AZKH
+                "\"DLGJ__AZSJ\" INTEGER," + // 24: DLGJ_AZSJ
+                "\"DLGJ__AZXM\" TEXT," + // 25: DLGJ_AZXM
+                "\"DLGJ__AZJH\" TEXT," + // 26: DLGJ_AZJH
+                "\"DLGJ__AZBM\" TEXT," + // 27: DLGJ_AZBM
+                "\"DLGJ__SCKH\" TEXT," + // 28: DLGJ_SCKH
+                "\"DLGJ__SCSJ\" INTEGER," + // 29: DLGJ_SCSJ
+                "\"SC__ADDRESS\" TEXT," + // 30: SC_ADDRESS
+                "\"DLGJ__SCXM\" TEXT," + // 31: DLGJ_SCXM
+                "\"DLGJ__SCJH\" TEXT," + // 32: DLGJ_SCJH
+                "\"DLGJ__SCBM\" TEXT," + // 33: DLGJ_SCBM
+                "\"VIDEOAREAID\" TEXT," + // 34: VIDEOAREAID
+                "\"GJPZSJ\" INTEGER," + // 35: GJPZSJ
+                "\"GJPZPNG\" TEXT," + // 36: GJPZPNG
+                "\"DLGJ__KSKH\" TEXT," + // 37: DLGJ_KSKH
+                "\"DLGJ__KSSJ\" INTEGER," + // 38: DLGJ_KSSJ
+                "\"KS__ADDRESS\" TEXT," + // 39: KS_ADDRESS
+                "\"DLGJ__KSXM\" TEXT," + // 40: DLGJ_KSXM
+                "\"DLGJ__KSJH\" TEXT," + // 41: DLGJ_KSJH
+                "\"DLGJ__KSBM\" TEXT," + // 42: DLGJ_KSBM
+                "\"DLGJ__JHKH\" TEXT," + // 43: DLGJ_JHKH
+                "\"DLGJ__JHSJ\" INTEGER," + // 44: DLGJ_JHSJ
+                "\"DLGJ__JHXM\" TEXT," + // 45: DLGJ_JHXM
+                "\"DLGJ__JHJH\" TEXT," + // 46: DLGJ_JHJH
+                "\"DLGJ__JHBM\" TEXT," + // 47: DLGJ_JHBM
+                "\"GLY__GHQRSJ\" INTEGER," + // 48: GLY_GHQRSJ
+                "\"SJJHBZ\" INTEGER NOT NULL ," + // 49: SJJHBZ
+                "\"BZ\" TEXT," + // 50: BZ
+                "\"IMAGE_URL\" TEXT);"); // 51: imageUrl
     }
 
     /** Drops the underlying database table. */
@@ -251,145 +253,150 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             stmt.bindString(22, JSYSQBM);
         }
  
+        String DEV_NUMBER = entity.getDEV_NUMBER();
+        if (DEV_NUMBER != null) {
+            stmt.bindString(23, DEV_NUMBER);
+        }
+ 
         String DLGJ_AZKH = entity.getDLGJ_AZKH();
         if (DLGJ_AZKH != null) {
-            stmt.bindString(23, DLGJ_AZKH);
+            stmt.bindString(24, DLGJ_AZKH);
         }
  
         java.util.Date DLGJ_AZSJ = entity.getDLGJ_AZSJ();
         if (DLGJ_AZSJ != null) {
-            stmt.bindLong(24, DLGJ_AZSJ.getTime());
+            stmt.bindLong(25, DLGJ_AZSJ.getTime());
         }
  
         String DLGJ_AZXM = entity.getDLGJ_AZXM();
         if (DLGJ_AZXM != null) {
-            stmt.bindString(25, DLGJ_AZXM);
+            stmt.bindString(26, DLGJ_AZXM);
         }
  
         String DLGJ_AZJH = entity.getDLGJ_AZJH();
         if (DLGJ_AZJH != null) {
-            stmt.bindString(26, DLGJ_AZJH);
+            stmt.bindString(27, DLGJ_AZJH);
         }
  
         String DLGJ_AZBM = entity.getDLGJ_AZBM();
         if (DLGJ_AZBM != null) {
-            stmt.bindString(27, DLGJ_AZBM);
+            stmt.bindString(28, DLGJ_AZBM);
         }
  
         String DLGJ_SCKH = entity.getDLGJ_SCKH();
         if (DLGJ_SCKH != null) {
-            stmt.bindString(28, DLGJ_SCKH);
+            stmt.bindString(29, DLGJ_SCKH);
         }
  
         java.util.Date DLGJ_SCSJ = entity.getDLGJ_SCSJ();
         if (DLGJ_SCSJ != null) {
-            stmt.bindLong(29, DLGJ_SCSJ.getTime());
+            stmt.bindLong(30, DLGJ_SCSJ.getTime());
         }
  
         String SC_ADDRESS = entity.getSC_ADDRESS();
         if (SC_ADDRESS != null) {
-            stmt.bindString(30, SC_ADDRESS);
+            stmt.bindString(31, SC_ADDRESS);
         }
  
         String DLGJ_SCXM = entity.getDLGJ_SCXM();
         if (DLGJ_SCXM != null) {
-            stmt.bindString(31, DLGJ_SCXM);
+            stmt.bindString(32, DLGJ_SCXM);
         }
  
         String DLGJ_SCJH = entity.getDLGJ_SCJH();
         if (DLGJ_SCJH != null) {
-            stmt.bindString(32, DLGJ_SCJH);
+            stmt.bindString(33, DLGJ_SCJH);
         }
  
         String DLGJ_SCBM = entity.getDLGJ_SCBM();
         if (DLGJ_SCBM != null) {
-            stmt.bindString(33, DLGJ_SCBM);
+            stmt.bindString(34, DLGJ_SCBM);
         }
  
         String VIDEOAREAID = entity.getVIDEOAREAID();
         if (VIDEOAREAID != null) {
-            stmt.bindString(34, VIDEOAREAID);
+            stmt.bindString(35, VIDEOAREAID);
         }
  
         java.util.Date GJPZSJ = entity.getGJPZSJ();
         if (GJPZSJ != null) {
-            stmt.bindLong(35, GJPZSJ.getTime());
+            stmt.bindLong(36, GJPZSJ.getTime());
         }
  
         String GJPZPNG = entity.getGJPZPNG();
         if (GJPZPNG != null) {
-            stmt.bindString(36, GJPZPNG);
+            stmt.bindString(37, GJPZPNG);
         }
  
         String DLGJ_KSKH = entity.getDLGJ_KSKH();
         if (DLGJ_KSKH != null) {
-            stmt.bindString(37, DLGJ_KSKH);
+            stmt.bindString(38, DLGJ_KSKH);
         }
  
         java.util.Date DLGJ_KSSJ = entity.getDLGJ_KSSJ();
         if (DLGJ_KSSJ != null) {
-            stmt.bindLong(38, DLGJ_KSSJ.getTime());
+            stmt.bindLong(39, DLGJ_KSSJ.getTime());
         }
  
         String KS_ADDRESS = entity.getKS_ADDRESS();
         if (KS_ADDRESS != null) {
-            stmt.bindString(39, KS_ADDRESS);
+            stmt.bindString(40, KS_ADDRESS);
         }
  
         String DLGJ_KSXM = entity.getDLGJ_KSXM();
         if (DLGJ_KSXM != null) {
-            stmt.bindString(40, DLGJ_KSXM);
+            stmt.bindString(41, DLGJ_KSXM);
         }
  
         String DLGJ_KSJH = entity.getDLGJ_KSJH();
         if (DLGJ_KSJH != null) {
-            stmt.bindString(41, DLGJ_KSJH);
+            stmt.bindString(42, DLGJ_KSJH);
         }
  
         String DLGJ_KSBM = entity.getDLGJ_KSBM();
         if (DLGJ_KSBM != null) {
-            stmt.bindString(42, DLGJ_KSBM);
+            stmt.bindString(43, DLGJ_KSBM);
         }
  
         String DLGJ_JHKH = entity.getDLGJ_JHKH();
         if (DLGJ_JHKH != null) {
-            stmt.bindString(43, DLGJ_JHKH);
+            stmt.bindString(44, DLGJ_JHKH);
         }
  
         java.util.Date DLGJ_JHSJ = entity.getDLGJ_JHSJ();
         if (DLGJ_JHSJ != null) {
-            stmt.bindLong(44, DLGJ_JHSJ.getTime());
+            stmt.bindLong(45, DLGJ_JHSJ.getTime());
         }
  
         String DLGJ_JHXM = entity.getDLGJ_JHXM();
         if (DLGJ_JHXM != null) {
-            stmt.bindString(45, DLGJ_JHXM);
+            stmt.bindString(46, DLGJ_JHXM);
         }
  
         String DLGJ_JHJH = entity.getDLGJ_JHJH();
         if (DLGJ_JHJH != null) {
-            stmt.bindString(46, DLGJ_JHJH);
+            stmt.bindString(47, DLGJ_JHJH);
         }
  
         String DLGJ_JHBM = entity.getDLGJ_JHBM();
         if (DLGJ_JHBM != null) {
-            stmt.bindString(47, DLGJ_JHBM);
+            stmt.bindString(48, DLGJ_JHBM);
         }
  
         java.util.Date GLY_GHQRSJ = entity.getGLY_GHQRSJ();
         if (GLY_GHQRSJ != null) {
-            stmt.bindLong(48, GLY_GHQRSJ.getTime());
+            stmt.bindLong(49, GLY_GHQRSJ.getTime());
         }
-        stmt.bindLong(49, entity.getSJJHBZ());
+        stmt.bindLong(50, entity.getSJJHBZ());
  
         String BZ = entity.getBZ();
         if (BZ != null) {
-            stmt.bindString(50, BZ);
+            stmt.bindString(51, BZ);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(51, imageUrl);
+            stmt.bindString(52, imageUrl);
         }
     }
 
@@ -495,145 +502,150 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             stmt.bindString(22, JSYSQBM);
         }
  
+        String DEV_NUMBER = entity.getDEV_NUMBER();
+        if (DEV_NUMBER != null) {
+            stmt.bindString(23, DEV_NUMBER);
+        }
+ 
         String DLGJ_AZKH = entity.getDLGJ_AZKH();
         if (DLGJ_AZKH != null) {
-            stmt.bindString(23, DLGJ_AZKH);
+            stmt.bindString(24, DLGJ_AZKH);
         }
  
         java.util.Date DLGJ_AZSJ = entity.getDLGJ_AZSJ();
         if (DLGJ_AZSJ != null) {
-            stmt.bindLong(24, DLGJ_AZSJ.getTime());
+            stmt.bindLong(25, DLGJ_AZSJ.getTime());
         }
  
         String DLGJ_AZXM = entity.getDLGJ_AZXM();
         if (DLGJ_AZXM != null) {
-            stmt.bindString(25, DLGJ_AZXM);
+            stmt.bindString(26, DLGJ_AZXM);
         }
  
         String DLGJ_AZJH = entity.getDLGJ_AZJH();
         if (DLGJ_AZJH != null) {
-            stmt.bindString(26, DLGJ_AZJH);
+            stmt.bindString(27, DLGJ_AZJH);
         }
  
         String DLGJ_AZBM = entity.getDLGJ_AZBM();
         if (DLGJ_AZBM != null) {
-            stmt.bindString(27, DLGJ_AZBM);
+            stmt.bindString(28, DLGJ_AZBM);
         }
  
         String DLGJ_SCKH = entity.getDLGJ_SCKH();
         if (DLGJ_SCKH != null) {
-            stmt.bindString(28, DLGJ_SCKH);
+            stmt.bindString(29, DLGJ_SCKH);
         }
  
         java.util.Date DLGJ_SCSJ = entity.getDLGJ_SCSJ();
         if (DLGJ_SCSJ != null) {
-            stmt.bindLong(29, DLGJ_SCSJ.getTime());
+            stmt.bindLong(30, DLGJ_SCSJ.getTime());
         }
  
         String SC_ADDRESS = entity.getSC_ADDRESS();
         if (SC_ADDRESS != null) {
-            stmt.bindString(30, SC_ADDRESS);
+            stmt.bindString(31, SC_ADDRESS);
         }
  
         String DLGJ_SCXM = entity.getDLGJ_SCXM();
         if (DLGJ_SCXM != null) {
-            stmt.bindString(31, DLGJ_SCXM);
+            stmt.bindString(32, DLGJ_SCXM);
         }
  
         String DLGJ_SCJH = entity.getDLGJ_SCJH();
         if (DLGJ_SCJH != null) {
-            stmt.bindString(32, DLGJ_SCJH);
+            stmt.bindString(33, DLGJ_SCJH);
         }
  
         String DLGJ_SCBM = entity.getDLGJ_SCBM();
         if (DLGJ_SCBM != null) {
-            stmt.bindString(33, DLGJ_SCBM);
+            stmt.bindString(34, DLGJ_SCBM);
         }
  
         String VIDEOAREAID = entity.getVIDEOAREAID();
         if (VIDEOAREAID != null) {
-            stmt.bindString(34, VIDEOAREAID);
+            stmt.bindString(35, VIDEOAREAID);
         }
  
         java.util.Date GJPZSJ = entity.getGJPZSJ();
         if (GJPZSJ != null) {
-            stmt.bindLong(35, GJPZSJ.getTime());
+            stmt.bindLong(36, GJPZSJ.getTime());
         }
  
         String GJPZPNG = entity.getGJPZPNG();
         if (GJPZPNG != null) {
-            stmt.bindString(36, GJPZPNG);
+            stmt.bindString(37, GJPZPNG);
         }
  
         String DLGJ_KSKH = entity.getDLGJ_KSKH();
         if (DLGJ_KSKH != null) {
-            stmt.bindString(37, DLGJ_KSKH);
+            stmt.bindString(38, DLGJ_KSKH);
         }
  
         java.util.Date DLGJ_KSSJ = entity.getDLGJ_KSSJ();
         if (DLGJ_KSSJ != null) {
-            stmt.bindLong(38, DLGJ_KSSJ.getTime());
+            stmt.bindLong(39, DLGJ_KSSJ.getTime());
         }
  
         String KS_ADDRESS = entity.getKS_ADDRESS();
         if (KS_ADDRESS != null) {
-            stmt.bindString(39, KS_ADDRESS);
+            stmt.bindString(40, KS_ADDRESS);
         }
  
         String DLGJ_KSXM = entity.getDLGJ_KSXM();
         if (DLGJ_KSXM != null) {
-            stmt.bindString(40, DLGJ_KSXM);
+            stmt.bindString(41, DLGJ_KSXM);
         }
  
         String DLGJ_KSJH = entity.getDLGJ_KSJH();
         if (DLGJ_KSJH != null) {
-            stmt.bindString(41, DLGJ_KSJH);
+            stmt.bindString(42, DLGJ_KSJH);
         }
  
         String DLGJ_KSBM = entity.getDLGJ_KSBM();
         if (DLGJ_KSBM != null) {
-            stmt.bindString(42, DLGJ_KSBM);
+            stmt.bindString(43, DLGJ_KSBM);
         }
  
         String DLGJ_JHKH = entity.getDLGJ_JHKH();
         if (DLGJ_JHKH != null) {
-            stmt.bindString(43, DLGJ_JHKH);
+            stmt.bindString(44, DLGJ_JHKH);
         }
  
         java.util.Date DLGJ_JHSJ = entity.getDLGJ_JHSJ();
         if (DLGJ_JHSJ != null) {
-            stmt.bindLong(44, DLGJ_JHSJ.getTime());
+            stmt.bindLong(45, DLGJ_JHSJ.getTime());
         }
  
         String DLGJ_JHXM = entity.getDLGJ_JHXM();
         if (DLGJ_JHXM != null) {
-            stmt.bindString(45, DLGJ_JHXM);
+            stmt.bindString(46, DLGJ_JHXM);
         }
  
         String DLGJ_JHJH = entity.getDLGJ_JHJH();
         if (DLGJ_JHJH != null) {
-            stmt.bindString(46, DLGJ_JHJH);
+            stmt.bindString(47, DLGJ_JHJH);
         }
  
         String DLGJ_JHBM = entity.getDLGJ_JHBM();
         if (DLGJ_JHBM != null) {
-            stmt.bindString(47, DLGJ_JHBM);
+            stmt.bindString(48, DLGJ_JHBM);
         }
  
         java.util.Date GLY_GHQRSJ = entity.getGLY_GHQRSJ();
         if (GLY_GHQRSJ != null) {
-            stmt.bindLong(48, GLY_GHQRSJ.getTime());
+            stmt.bindLong(49, GLY_GHQRSJ.getTime());
         }
-        stmt.bindLong(49, entity.getSJJHBZ());
+        stmt.bindLong(50, entity.getSJJHBZ());
  
         String BZ = entity.getBZ();
         if (BZ != null) {
-            stmt.bindString(50, BZ);
+            stmt.bindString(51, BZ);
         }
  
         String imageUrl = entity.getImageUrl();
         if (imageUrl != null) {
-            stmt.bindString(51, imageUrl);
+            stmt.bindString(52, imageUrl);
         }
     }
 
@@ -667,35 +679,36 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
             cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // JRSY
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // JSYSFZ
             cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // JSYSQBM
-            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // DLGJ_AZKH
-            cursor.isNull(offset + 23) ? null : new java.util.Date(cursor.getLong(offset + 23)), // DLGJ_AZSJ
-            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // DLGJ_AZXM
-            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // DLGJ_AZJH
-            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // DLGJ_AZBM
-            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // DLGJ_SCKH
-            cursor.isNull(offset + 28) ? null : new java.util.Date(cursor.getLong(offset + 28)), // DLGJ_SCSJ
-            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29), // SC_ADDRESS
-            cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // DLGJ_SCXM
-            cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31), // DLGJ_SCJH
-            cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32), // DLGJ_SCBM
-            cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33), // VIDEOAREAID
-            cursor.isNull(offset + 34) ? null : new java.util.Date(cursor.getLong(offset + 34)), // GJPZSJ
-            cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35), // GJPZPNG
-            cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36), // DLGJ_KSKH
-            cursor.isNull(offset + 37) ? null : new java.util.Date(cursor.getLong(offset + 37)), // DLGJ_KSSJ
-            cursor.isNull(offset + 38) ? null : cursor.getString(offset + 38), // KS_ADDRESS
-            cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39), // DLGJ_KSXM
-            cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40), // DLGJ_KSJH
-            cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41), // DLGJ_KSBM
-            cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42), // DLGJ_JHKH
-            cursor.isNull(offset + 43) ? null : new java.util.Date(cursor.getLong(offset + 43)), // DLGJ_JHSJ
-            cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44), // DLGJ_JHXM
-            cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45), // DLGJ_JHJH
-            cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46), // DLGJ_JHBM
-            cursor.isNull(offset + 47) ? null : new java.util.Date(cursor.getLong(offset + 47)), // GLY_GHQRSJ
-            cursor.getInt(offset + 48), // SJJHBZ
-            cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49), // BZ
-            cursor.isNull(offset + 50) ? null : cursor.getString(offset + 50) // imageUrl
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // DEV_NUMBER
+            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // DLGJ_AZKH
+            cursor.isNull(offset + 24) ? null : new java.util.Date(cursor.getLong(offset + 24)), // DLGJ_AZSJ
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // DLGJ_AZXM
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // DLGJ_AZJH
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // DLGJ_AZBM
+            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // DLGJ_SCKH
+            cursor.isNull(offset + 29) ? null : new java.util.Date(cursor.getLong(offset + 29)), // DLGJ_SCSJ
+            cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30), // SC_ADDRESS
+            cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31), // DLGJ_SCXM
+            cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32), // DLGJ_SCJH
+            cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33), // DLGJ_SCBM
+            cursor.isNull(offset + 34) ? null : cursor.getString(offset + 34), // VIDEOAREAID
+            cursor.isNull(offset + 35) ? null : new java.util.Date(cursor.getLong(offset + 35)), // GJPZSJ
+            cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36), // GJPZPNG
+            cursor.isNull(offset + 37) ? null : cursor.getString(offset + 37), // DLGJ_KSKH
+            cursor.isNull(offset + 38) ? null : new java.util.Date(cursor.getLong(offset + 38)), // DLGJ_KSSJ
+            cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39), // KS_ADDRESS
+            cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40), // DLGJ_KSXM
+            cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41), // DLGJ_KSJH
+            cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42), // DLGJ_KSBM
+            cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43), // DLGJ_JHKH
+            cursor.isNull(offset + 44) ? null : new java.util.Date(cursor.getLong(offset + 44)), // DLGJ_JHSJ
+            cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45), // DLGJ_JHXM
+            cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46), // DLGJ_JHJH
+            cursor.isNull(offset + 47) ? null : cursor.getString(offset + 47), // DLGJ_JHBM
+            cursor.isNull(offset + 48) ? null : new java.util.Date(cursor.getLong(offset + 48)), // GLY_GHQRSJ
+            cursor.getInt(offset + 49), // SJJHBZ
+            cursor.isNull(offset + 50) ? null : cursor.getString(offset + 50), // BZ
+            cursor.isNull(offset + 51) ? null : cursor.getString(offset + 51) // imageUrl
         );
         return entity;
     }
@@ -724,35 +737,36 @@ public class CarTravelRecordDao extends AbstractDao<CarTravelRecord, Long> {
         entity.setJRSY(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
         entity.setJSYSFZ(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
         entity.setJSYSQBM(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
-        entity.setDLGJ_AZKH(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
-        entity.setDLGJ_AZSJ(cursor.isNull(offset + 23) ? null : new java.util.Date(cursor.getLong(offset + 23)));
-        entity.setDLGJ_AZXM(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
-        entity.setDLGJ_AZJH(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
-        entity.setDLGJ_AZBM(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
-        entity.setDLGJ_SCKH(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
-        entity.setDLGJ_SCSJ(cursor.isNull(offset + 28) ? null : new java.util.Date(cursor.getLong(offset + 28)));
-        entity.setSC_ADDRESS(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
-        entity.setDLGJ_SCXM(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
-        entity.setDLGJ_SCJH(cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31));
-        entity.setDLGJ_SCBM(cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32));
-        entity.setVIDEOAREAID(cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33));
-        entity.setGJPZSJ(cursor.isNull(offset + 34) ? null : new java.util.Date(cursor.getLong(offset + 34)));
-        entity.setGJPZPNG(cursor.isNull(offset + 35) ? null : cursor.getString(offset + 35));
-        entity.setDLGJ_KSKH(cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36));
-        entity.setDLGJ_KSSJ(cursor.isNull(offset + 37) ? null : new java.util.Date(cursor.getLong(offset + 37)));
-        entity.setKS_ADDRESS(cursor.isNull(offset + 38) ? null : cursor.getString(offset + 38));
-        entity.setDLGJ_KSXM(cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39));
-        entity.setDLGJ_KSJH(cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40));
-        entity.setDLGJ_KSBM(cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41));
-        entity.setDLGJ_JHKH(cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42));
-        entity.setDLGJ_JHSJ(cursor.isNull(offset + 43) ? null : new java.util.Date(cursor.getLong(offset + 43)));
-        entity.setDLGJ_JHXM(cursor.isNull(offset + 44) ? null : cursor.getString(offset + 44));
-        entity.setDLGJ_JHJH(cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45));
-        entity.setDLGJ_JHBM(cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46));
-        entity.setGLY_GHQRSJ(cursor.isNull(offset + 47) ? null : new java.util.Date(cursor.getLong(offset + 47)));
-        entity.setSJJHBZ(cursor.getInt(offset + 48));
-        entity.setBZ(cursor.isNull(offset + 49) ? null : cursor.getString(offset + 49));
-        entity.setImageUrl(cursor.isNull(offset + 50) ? null : cursor.getString(offset + 50));
+        entity.setDEV_NUMBER(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setDLGJ_AZKH(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
+        entity.setDLGJ_AZSJ(cursor.isNull(offset + 24) ? null : new java.util.Date(cursor.getLong(offset + 24)));
+        entity.setDLGJ_AZXM(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setDLGJ_AZJH(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setDLGJ_AZBM(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setDLGJ_SCKH(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
+        entity.setDLGJ_SCSJ(cursor.isNull(offset + 29) ? null : new java.util.Date(cursor.getLong(offset + 29)));
+        entity.setSC_ADDRESS(cursor.isNull(offset + 30) ? null : cursor.getString(offset + 30));
+        entity.setDLGJ_SCXM(cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31));
+        entity.setDLGJ_SCJH(cursor.isNull(offset + 32) ? null : cursor.getString(offset + 32));
+        entity.setDLGJ_SCBM(cursor.isNull(offset + 33) ? null : cursor.getString(offset + 33));
+        entity.setVIDEOAREAID(cursor.isNull(offset + 34) ? null : cursor.getString(offset + 34));
+        entity.setGJPZSJ(cursor.isNull(offset + 35) ? null : new java.util.Date(cursor.getLong(offset + 35)));
+        entity.setGJPZPNG(cursor.isNull(offset + 36) ? null : cursor.getString(offset + 36));
+        entity.setDLGJ_KSKH(cursor.isNull(offset + 37) ? null : cursor.getString(offset + 37));
+        entity.setDLGJ_KSSJ(cursor.isNull(offset + 38) ? null : new java.util.Date(cursor.getLong(offset + 38)));
+        entity.setKS_ADDRESS(cursor.isNull(offset + 39) ? null : cursor.getString(offset + 39));
+        entity.setDLGJ_KSXM(cursor.isNull(offset + 40) ? null : cursor.getString(offset + 40));
+        entity.setDLGJ_KSJH(cursor.isNull(offset + 41) ? null : cursor.getString(offset + 41));
+        entity.setDLGJ_KSBM(cursor.isNull(offset + 42) ? null : cursor.getString(offset + 42));
+        entity.setDLGJ_JHKH(cursor.isNull(offset + 43) ? null : cursor.getString(offset + 43));
+        entity.setDLGJ_JHSJ(cursor.isNull(offset + 44) ? null : new java.util.Date(cursor.getLong(offset + 44)));
+        entity.setDLGJ_JHXM(cursor.isNull(offset + 45) ? null : cursor.getString(offset + 45));
+        entity.setDLGJ_JHJH(cursor.isNull(offset + 46) ? null : cursor.getString(offset + 46));
+        entity.setDLGJ_JHBM(cursor.isNull(offset + 47) ? null : cursor.getString(offset + 47));
+        entity.setGLY_GHQRSJ(cursor.isNull(offset + 48) ? null : new java.util.Date(cursor.getLong(offset + 48)));
+        entity.setSJJHBZ(cursor.getInt(offset + 49));
+        entity.setBZ(cursor.isNull(offset + 50) ? null : cursor.getString(offset + 50));
+        entity.setImageUrl(cursor.isNull(offset + 51) ? null : cursor.getString(offset + 51));
      }
     
     @Override

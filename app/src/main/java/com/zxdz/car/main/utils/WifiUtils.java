@@ -144,7 +144,7 @@ public class WifiUtils {
     }
 
     private void IsOtherWifi(String ssid) {
-        if (ssid.equals("<unknown ssid>")) {
+        if (ssid.equals("<unknown ssid>")||ssid.equals("\"805\"")) {
             return;
         } else {
             Toast.makeText(context, "wifi名称：" + ssid, Toast.LENGTH_SHORT).show();

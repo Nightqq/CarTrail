@@ -46,7 +46,7 @@ public class QrCodeToMAC {
             case "NJZX000036": MAC = "A4:34:F1:86:F0:5A";break;
             case "NJZX000037": MAC = "54:6C:0E:BD:81:EA";break;
 
-            case "NJZX000051": MAC = "54:6C:0E:BD:80:A8";break;
+            case "NJZX000051": MAC = "54:6C:0E:BD:80:A8";break;//IC卡
             case "NJZX000052": MAC = "54:6C:0E:BD:80:EE";break;
             case "NJZX000053": MAC = "54:6C:0E:BD:81:91";break;
             case "NJZX000054": MAC = "54:6C:0E:B8:B3:30";break;

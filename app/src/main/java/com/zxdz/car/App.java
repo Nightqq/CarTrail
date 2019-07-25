@@ -50,6 +50,8 @@ public class App extends Application {
 
     public static int Lock_car_num=1;
 
+    public static String Lock__num="";
+
     public static int ipchange=1;//ip更改标志1为默认，2虚拟ip
 
     /**
