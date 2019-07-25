@@ -125,7 +125,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         // mToneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM, 100);
         init();
         setbright();
-        GravityTOpen();//开启移动报警
+        //GravityTOpen();//开启移动报警
         bjintent = new Intent(this, UploadDataService.class);
         intent = this;
     }
@@ -187,7 +187,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
                                 callPolice(1, "移动报警");
                             }
-                           // AudioPlayUtils.getAudio(BaseActivity.this,0).stop();
+                            // AudioPlayUtils.getAudio(BaseActivity.this,0).stop();
                             AudioPlayUtils.getAudio(BaseActivity.this, R.raw.ydbj).play(true);
                         }
                     } else {
@@ -222,7 +222,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             LogUtils.a("开始储存报警数据");
             WarnInfo warnInfo = new WarnInfo();
             warnInfo.setLsId(App.LSID.intValue());
-            if (CarTravelHelper.carTravelRecord.getId()!=null){
+            if (CarTravelHelper.carTravelRecord.getId() != null) {
                 warnInfo.setId(CarTravelHelper.carTravelRecord.getId());
             }
             warnInfo.setWarnContent(content);
@@ -236,7 +236,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         } else if (i == 2) {//取消报警
             LogUtils.a("开始储存取消报警数据");
 
-            if ( CarTravelHelper.carTravelRecord != null){
+            if (CarTravelHelper.carTravelRecord != null) {
                 warnInfoListByID = UnWarnInfoHelper.getWarnInfoListByID(CarTravelHelper.carTravelRecord.getId(), false);
             }
             if (warnInfoListByID != null) {
@@ -432,7 +432,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override//toolbar右上角Menu
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_back,menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_back, menu);
         return true;
     }
 
@@ -449,11 +449,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         return true;
     }
 
-    private void back(){
-        if ( CarTravelHelper.carTravelRecord != null) {
-            Intent intent=new Intent();
-            LogUtils.a("状态值",CarTravelHelper.carTravelRecord.getZT());
-            switch (CarTravelHelper.carTravelRecord.getZT()){
+    private void back() {
+        if (CarTravelHelper.carTravelRecord != null) {
+            Intent intent = new Intent();
+            LogUtils.a("状态值", CarTravelHelper.carTravelRecord.getZT());
+            switch (CarTravelHelper.carTravelRecord.getZT()) {
                 case 0:
                     App.UPLOAD_STEP = 1;
                     App.SWIPE_STEP = 1;
@@ -488,7 +488,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                     //开锁？
                     break;
                 case 43://锁车成功还没拍照
-                  //开锁重新锁车，远程开锁
+                    //开锁重新锁车，远程开锁
                     intent = new Intent(this, BlueToothActivity.class);
                     intent.putExtra("blue_step", 1);
                     startActivity(intent);

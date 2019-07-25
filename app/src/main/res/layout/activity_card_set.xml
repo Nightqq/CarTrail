@@ -278,10 +278,7 @@
 
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_ddd"></View>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -321,8 +318,40 @@
                 android:text="IC" />
         </RadioGroup>
     </RelativeLayout>
-    <View
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_ddd"></View>
+        android:layout_height="45dp">
+        <TextView
+            android:text="测试模式"
+            android:gravity="center"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/setting_item_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.suke.widget.SwitchButton
+            android:id="@+id/test"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>
